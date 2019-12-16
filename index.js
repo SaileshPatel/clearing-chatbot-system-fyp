@@ -19,7 +19,7 @@ app.listen(port, () =>{
 app.post('/getentryrequirements', (req, res) => {
     const course = req.body.queryResult && req.body.queryResult.parameters && req.body.queryResult.parameters.course ? req.body.result.parameters.course : ''
 
-    const fulfilText = "";
+    var fulfilText = "";
     switch(course) {
         case "Computer Science":
             fulfilText = "You will need a BTEC in IT Practitioners"
