@@ -17,7 +17,7 @@ app.listen(port, () =>{
 })
 
 app.post('/getcourse', (req, res) => {
-    const intent = req.body.intent.displayName;
+    const intent = req.body.queryResult.intent.displayName;
     const course = req.body.queryResult.parameters.Course;
     var fulfilText = "";
 
