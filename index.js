@@ -20,31 +20,46 @@ app.post('/getcourse', (req, res) => {
     const intent = req.body.intent.displayName;
     const course = req.body.queryResult.parameters.Course;
     var fulfilText = "";
-    var intentText = "";
 
     switch(intent) {
         case "Course Spaces":
-            // find the no of course spaces left for this course
+            switch(course) {
+                case "Computer Science":
+                    fulfilText = "There are no spacees left on Computer Science"
+                    break;
+                case "English":
+                    fulfilText = "There are seven spaces left on English"
+                    break;
+                default:
+                    fulfilText = "We could not find the course you queried about.\nPlease make sure you have spelt thee course name correctly."
+            }
             break;
         case "Entry Requirements":
-            // find the entry requirements for this course 
+            switch(course) {
+                case "Computer Science":
+                    fulfilText = "You will need a BTEC in IT Practitioners"
+                    break;
+                case "English":
+                    fulfilText = "The grades are A*A*A"
+                    break;
+                default:
+                    fulfilText = "We could not find the entry requirements for this course.\nPlease make sure that you have spelt the course name correctly."
+            }
             break;
         case "Tuition Fees":
-            // find the tuition fee for this course
+            switch(course) {
+                case "Computer Science":
+                    fulfilText = "It will cost £9,000 per year for an International Student"
+                    break;
+                case "English":
+                    fulfilText = "The grades are A*A*A"
+                    break;
+                default:
+                    fulfilText = "We could not find the tuition for this course.\nPlease make sure that you have spelt the course name correctly."
+            }
             break;
         default:
-            // something about not being clear about what is going on....
-    }
-
-    switch(course) {
-        case "Computer Science":
-            fulfilText = "You will need a BTEC in IT Practitioners"
-            break;
-        case "English":
-            fulfilText = "The grades are A*A*A"
-            break;
-        default:
-            fulfilText = "This course could not be found"
+            fulfilText = "We're not sure what you're asking for unfortunately.\nTry asking about tuition fees or entry requirements for a specific course."
     }
 
     return res.json({
