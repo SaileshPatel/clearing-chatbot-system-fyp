@@ -17,7 +17,7 @@ app.listen(port, () =>{
 })
 
 app.post('/getentryrequirements', (req, res) => {
-    const course = req.body.result.parameters.course;
+    const course = req.body.queryResult.parameters.Course;
 
     var fulfilText = "";
     switch(course) {
@@ -31,7 +31,6 @@ app.post('/getentryrequirements', (req, res) => {
             fulfilText = "This course could not be found"
     }
 
-    
     return res.json({
         fulfillmentText: fulfilText,
         source: 'getentryrequirements'
