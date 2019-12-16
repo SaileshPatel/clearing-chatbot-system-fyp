@@ -16,10 +16,26 @@ app.listen(port, () =>{
     console.log(`Server is running at http://localhost:${port}`)
 })
 
-app.post('/getentryrequirements', (req, res) => {
+app.post('/getcourse', (req, res) => {
+    const intent = req.body.intent.displayName;
     const course = req.body.queryResult.parameters.Course;
-
     var fulfilText = "";
+    var intentText = "";
+
+    switch(intent) {
+        case "Course Spaces":
+            // find the no of course spaces left for this course
+            break;
+        case "Entry Requirements":
+            // find the entry requirements for this course 
+            break;
+        case "Tuition Fees":
+            // find the tuition fee for this course
+            break;
+        default:
+            // something about not being clear about what is going on....
+    }
+
     switch(course) {
         case "Computer Science":
             fulfilText = "You will need a BTEC in IT Practitioners"
@@ -33,6 +49,6 @@ app.post('/getentryrequirements', (req, res) => {
 
     return res.json({
         fulfillmentText: fulfilText,
-        source: 'getentryrequirements'
+        source: 'getcourse'
     })
 })
