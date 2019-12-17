@@ -49,10 +49,10 @@ app.post('/getcourse', (req, res) => {
         case "Tuition Fees":
             switch(course) {
                 case "Computer Science":
-                    fulfilText = "It will cost £9,000 per year for an International Student"
+                    fulfilText = "It will cost £9,000 per year for an International Student to study Computer Science"
                     break;
                 case "English":
-                    fulfilText = "The grades are A*A*A"
+                    fulfilText = "It will cost £9,000 per year for an International Student to study English"
                     break;
                 default:
                     fulfilText = "We could not find the tuition for this course.\nPlease make sure that you have spelt the course name correctly."
