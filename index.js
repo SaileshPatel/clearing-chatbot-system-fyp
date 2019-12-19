@@ -1,9 +1,25 @@
 const express = require("express");
 const http = require("http");
+const { Client } = require('pg');
 require("dotenv").config();
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+// const client = new Client({
+//     connectionString: process.env.DATABASE_URL,
+//     ssl: true
+// });
+
+// client.connect();
+
+// client.query('', (err, res) => {
+//     if(err) throw err;
+//     for(let row of res.row){
+
+//     }
+//     client.end();
+// });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
