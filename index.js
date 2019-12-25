@@ -6,21 +6,6 @@ require("dotenv").config();
 const app = express();
 const port = process.env.PORT || 3000;
 
-// const client = new Client({
-//     connectionString: process.env.DATABASE_URL,
-//     ssl: true
-// });
-
-// client.connect();
-
-// client.query('', (err, res) => {
-//     if(err) throw err;
-//     for(let row of res.row){
-
-//     }
-//     client.end();
-// });
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -33,53 +18,59 @@ app.listen(port, () =>{
 })
 
 app.post('/getcourse', (req, res) => {
+    var result = res; 
+
     const intent = req.body.queryResult.intent.displayName;
     const course = req.body.queryResult.parameters.Course;
     var fulfilText = "";
 
-    switch(intent) {
-        case "Course Spaces":
-            switch(course) {
-                case "Computer Science":
-                    fulfilText = "There are no spacees left on Computer Science"
-                    break;
-                case "English":
-                    fulfilText = "There are seven spaces left on English"
-                    break;
-                default:
-                    fulfilText = "We could not find the course you queried about.\nPlease make sure you have spelt thee course name correctly."
-            }
+
+    const client = new Client({
+        connectionString: process.env.DATABASE_URL
+        //ssl: true
+    });
+    
+    client.connect();
+
+    switch(intent){
+        case 'Course Spaces':
+            client.query('SELECT description FROM Courses WHERE course_name LIKE \'%' + course + '%\';', (err, res) => {
+                if(err) throw err;
+                fulfilText = JSON.stringify(res.rows);
+                client.end();
+                return result.json({
+                    fulfillmentText: fulfilText,
+                    source: 'getcourse'
+                })
+            });
             break;
-        case "Entry Requirements":
-            switch(course) {
-                case "Computer Science":
-                    fulfilText = "You will need a BTEC in IT Practitioners"
-                    break;
-                case "English":
-                    fulfilText = "The grades are A*A*A"
-                    break;
-                default:
-                    fulfilText = "We could not find the entry requirements for this course.\nPlease make sure that you have spelt the course name correctly."
-            }
+        case 'Entry Requirements':
+            client.query('SELECT entry_requirements FROM Courses WHERE course_name LIKE \'%' + course + '%\';', (err, res) => {
+                if(err) throw err;
+                fulfilText = JSON.stringify(res.rows[0]['entry_requirements']);
+                client.end();
+                return result.json({
+                    fulfillmentText: fulfilText,
+                    source: 'getcourse'
+                })
+            });
             break;
-        case "Tuition Fees":
-            switch(course) {
-                case "Computer Science":
-                    fulfilText = "It will cost £9,000 per year for an International Student to study Computer Science"
-                    break;
-                case "English":
-                    fulfilText = "It will cost £9,000 per year for an International Student to study English"
-                    break;
-                default:
-                    fulfilText = "We could not find the tuition for this course.\nPlease make sure that you have spelt the course name correctly."
-            }
+        case 'Tuition Fees':
+            client.query('SELECT website FROM Courses WHERE course_name LIKE \'%' + course + '%\';', (err, res) => {
+                if(err) throw err;
+                fulfilText = JSON.stringify(res.rows[0]);
+                client.end();
+                return result.json({
+                    fulfillmentText: fulfilText,
+                    source: 'getcourse'
+                })
+            });
             break;
         default:
             fulfilText = "We're not sure what you're asking for unfortunately.\nTry asking about tuition fees or entry requirements for a specific course."
+            return result.json({
+                fulfillmentText: fulfilText,
+                source: 'getcourse'
+            })
     }
-
-    return res.json({
-        fulfillmentText: fulfilText,
-        source: 'getcourse'
-    })
 })
