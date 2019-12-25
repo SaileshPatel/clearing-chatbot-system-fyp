@@ -34,9 +34,9 @@ app.post('/getcourse', (req, res) => {
 
     switch(intent){
         case 'Course Spaces':
-            client.query('SELECT description FROM Courses WHERE course_name LIKE \'%' + course + '%\';', (err, res) => {
+            client.query('SELECT course_spaces FROM Courses WHERE course_name LIKE \'%' + course + '%\';', (err, res) => {
                 if(err) throw err;
-                fulfilText = JSON.stringify(res.rows);
+                fulfilText = JSON.stringify(res.rows[0]['course_spaces']);
                 client.end();
                 return result.json({
                     fulfillmentText: fulfilText,
@@ -56,9 +56,9 @@ app.post('/getcourse', (req, res) => {
             });
             break;
         case 'Tuition Fees':
-            client.query('SELECT website FROM Courses WHERE course_name LIKE \'%' + course + '%\';', (err, res) => {
+            client.query('SELECT tuition_fees FROM Courses WHERE course_name LIKE \'%' + course + '%\';', (err, res) => {
                 if(err) throw err;
-                fulfilText = JSON.stringify(res.rows[0]);
+                fulfilText = JSON.stringify(res.rows[0]['tuition_fees']);
                 client.end();
                 return result.json({
                     fulfillmentText: fulfilText,
