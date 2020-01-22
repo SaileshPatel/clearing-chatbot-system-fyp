@@ -35,14 +35,8 @@ app.post('/getcourse', (req, res) => {
     switch(intent){
         case 'Course Spaces':
             client.query('SELECT course_spaces FROM Courses WHERE course_name LIKE \'%' + course + '%\';', (err, res) => {
-                if(err){
-                    console.error(err);
-                    return result.json({
-                        fulfillmentText: "Unfortunately an error has occured.",
-                        source: 'getcourse'
-                    })
-                }
-                fulfilText = JSON.stringify(res.rows[0]['course_spaces']);
+                if(err) console.log(err); 
+                fulfilText = JSON.stringify(res.rows);
                 client.end();
                 return result.json({
                     fulfillmentText: fulfilText,
@@ -52,13 +46,8 @@ app.post('/getcourse', (req, res) => {
             break;
         case 'Entry Requirements':
             client.query('SELECT entry_requirements FROM Courses WHERE course_name LIKE \'%' + course + '%\';', (err, res) => {
-                if(err){
-                    console.error(err);
-                    return result.json({
-                        fulfillmentText: "Unfortunately an error has occured.",
-                        source: 'getcourse'
-                    })
-                }                fulfilText = JSON.stringify(res.rows[0]['entry_requirements']);
+                if(err) console.error(err);
+                fulfilText = JSON.stringify(res.rows);
                 client.end();
                 return result.json({
                     fulfillmentText: fulfilText,
@@ -68,13 +57,8 @@ app.post('/getcourse', (req, res) => {
             break;
         case 'Tuition Fees':
             client.query('SELECT tuition_fees FROM Courses WHERE course_name LIKE \'%' + course + '%\';', (err, res) => {
-                if(err){
-                    console.error(err);
-                    return result.json({
-                        fulfillmentText: "Unfortunately an error has occured.",
-                        source: 'getcourse'
-                    })
-                }                fulfilText = JSON.stringify(res.rows[0]['course_spaces']);
+                if(err) console.error(err);
+                fulfilText = JSON.stringify(res.rows);
                 client.end();
                 return result.json({
                     fulfillmentText: fulfilText,
