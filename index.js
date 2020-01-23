@@ -36,39 +36,48 @@ app.post('/getcourse', (req, res) => {
     switch(intent){
         case 'Course Spaces':
             var queryString = "SELECT course_spaces FROM Courses WHERE course_name LIKE $1;";
-            client.query(queryString, queryParams, (err, res) => {
-                if(err) console.log(err); 
-                fulfilText = JSON.stringify(res.rows);
-                client.end();
-                return result.json({
-                    fulfillmentText: fulfilText,
-                    source: 'getcourse'
+            client.query(queryString, queryParams)
+                .then(res => {
+                    fulfilText = JSON.stringify(res.rows);
+                    client.end();
+                    return result.json({
+                        fulfillmentText: fulfilText,
+                        source: 'getcourse'
+                    })    
                 })
-            });
+                .catch(err => {
+                    console.log(err);
+                })
             break;
         case 'Entry Requirements':
             var queryString = "SELECT entry_requirements FROM Courses WHERE course_name LIKE $1;";
-            client.query(queryString, queryParams, (err, res) => {
-                if(err) console.error(err);
-                fulfilText = JSON.stringify(res.rows);
-                client.end();
-                return result.json({
-                    fulfillmentText: fulfilText,
-                    source: 'getcourse'
+            client.query(queryString, queryParams)
+                .then(res => {
+                    fulfilText = JSON.stringify(res.rows);
+                    client.end();
+                    return result.json({
+                        fulfillmentText: fulfilText,
+                        source: 'getcourse'
+                    })
                 })
-            });
+                .catch(err => {
+                    console.log(err);
+                })
             break;
         case 'Tuition Fees':
             var queryString = "SELECT tuition_fees FROM Courses WHERE course_name LIKE $1;";
-            client.query(queryString, queryParams, (err, res) => {
-                if(err) console.error(err);
-                fulfilText = JSON.stringify(res.rows);
-                client.end();
-                return result.json({
-                    fulfillmentText: fulfilText,
-                    source: 'getcourse'
+            client.query(queryString, queryParams)
+                .then(res => {
+                    fulfilText = JSON.stringify(res.rows);
+                    client.end();
+                    return result.json({
+                        fulfillmentText: fulfilText,
+                        source: 'getcourse'
+                    })
                 })
-            });
+                .catch(err => {
+                    console.log(err);
+                })
             break;
         default:
             fulfilText = "We're not sure what you're asking for unfortunately.\nTry asking about tuition fees or entry requirements for a specific course."
