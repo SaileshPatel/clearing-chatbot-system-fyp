@@ -38,8 +38,14 @@ app.post('/getcourse', (req, res) => {
             var queryString = "SELECT course_spaces FROM Courses WHERE course_name LIKE $1;";
             client.query(queryString, queryParams)
                 .then(res => {
-                    fulfilText = JSON.stringify(res.rows[0]['course_spaces']);
+                    fulfilText = "";
+                    spaces = res.rows[0]['course_spaces'];
                     client.end();
+                    if(spaces > 0){
+                        fulfilText = JSON.stringify("There are " + spaces + " left on " + course + ".");
+                    } else {
+                        fulfilText = JSON.stringify("There are no spaces left on " + course + ".");
+                    }
                     return result.json({
                         fulfillmentText: fulfilText,
                         source: 'getcourse'
