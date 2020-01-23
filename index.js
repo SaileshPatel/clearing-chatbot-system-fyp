@@ -38,7 +38,7 @@ app.post('/getcourse', (req, res) => {
             var queryString = "SELECT course_spaces FROM Courses WHERE course_name LIKE $1;";
             client.query(queryString, queryParams)
                 .then(res => {
-                    fulfilText = JSON.stringify(res.rows);
+                    fulfilText = JSON.stringify(res.rows[0]['course_spaces']);
                     client.end();
                     return result.json({
                         fulfillmentText: fulfilText,
@@ -53,7 +53,7 @@ app.post('/getcourse', (req, res) => {
             var queryString = "SELECT entry_requirements FROM Courses WHERE course_name LIKE $1;";
             client.query(queryString, queryParams)
                 .then(res => {
-                    fulfilText = JSON.stringify(res.rows);
+                    fulfilText = JSON.stringify(res.rows[0]['entry_requirements']);
                     client.end();
                     return result.json({
                         fulfillmentText: fulfilText,
@@ -68,7 +68,7 @@ app.post('/getcourse', (req, res) => {
             var queryString = "SELECT tuition_fees FROM Courses WHERE course_name LIKE $1;";
             client.query(queryString, queryParams)
                 .then(res => {
-                    fulfilText = JSON.stringify(res.rows);
+                    fulfilText = JSON.stringify(res.rows[0]['tuition_fees']);
                     client.end();
                     return result.json({
                         fulfillmentText: fulfilText,
