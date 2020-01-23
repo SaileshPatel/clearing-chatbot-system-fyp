@@ -22,6 +22,7 @@ app.post('/getcourse', (req, res) => {
 
     const intent = req.body.queryResult.intent.displayName;
     const course = req.body.queryResult.parameters.Course;
+    const queryParams = ['%' + course + '%'];
     var fulfilText = "";
 
 
@@ -34,7 +35,8 @@ app.post('/getcourse', (req, res) => {
 
     switch(intent){
         case 'Course Spaces':
-            client.query('SELECT course_spaces FROM Courses WHERE course_name LIKE \'%' + course + '%\';', (err, res) => {
+            var queryString = "SELECT course_spaces FROM Courses WHERE course_name LIKE $1;";
+            client.query(queryString, queryParams, (err, res) => {
                 if(err) console.log(err); 
                 fulfilText = JSON.stringify(res.rows);
                 client.end();
@@ -45,7 +47,8 @@ app.post('/getcourse', (req, res) => {
             });
             break;
         case 'Entry Requirements':
-            client.query('SELECT entry_requirements FROM Courses WHERE course_name LIKE \'%' + course + '%\';', (err, res) => {
+            var queryString = "SELECT entry_requirements FROM Courses WHERE course_name LIKE $1;";
+            client.query(queryString, queryParams, (err, res) => {
                 if(err) console.error(err);
                 fulfilText = JSON.stringify(res.rows);
                 client.end();
@@ -56,7 +59,8 @@ app.post('/getcourse', (req, res) => {
             });
             break;
         case 'Tuition Fees':
-            client.query('SELECT tuition_fees FROM Courses WHERE course_name LIKE \'%' + course + '%\';', (err, res) => {
+            var queryString = "SELECT tuition_fees FROM Courses WHERE course_name LIKE $1;";
+            client.query(queryString, queryParams, (err, res) => {
                 if(err) console.error(err);
                 fulfilText = JSON.stringify(res.rows);
                 client.end();
