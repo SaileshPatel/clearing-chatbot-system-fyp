@@ -1,40 +1,17 @@
 extends templates/layout.pug
 
 block content    
-    div.container
-        div.row 
-            div.col-xl-12
-                h1= title
-        div.row
-            div.col-md-6
-                p Welcome to the website
-            div.col-md-6
-                p On this website, I will 
-        div.row
-            div.col-xl-12
-                h2 Upload a new course
-                form(action="", method="post")
-                    div.form-group
-                        label(for="ucas_code") UCAS Code:
-                        input#ucascode.form-control(type='text', name='ucascode')
-                    div.form-group
-                        label(for="course_name") Course Name:
-                        input#course_name.form-control(type="text", name="course_name")
-                    div.form-group
-                        label(for="description") Description:
-                        input#description.form-control(type="textarea", name="description")
-                    div.form-group
-                        label(for="entry_requirements") Entry Requirements:
-                        input#course_name.form-control(type="textarea", name="entry_requirements")
-                    div.form-group
-                        label(for="tuition_fees") Tuition Fees:
-                        input#tuition_fees.form-control(type="textarea", name="tuition_fees")
-                    div.form-group
-                        label(for="contact_details") Contact Details:
-                        input#contact_details.form-control(type="textarea", name="contact_details")
-                    div.form-group
-                        label(for="website") Website:
-                        input#website.form-control(type="text", name="website")
-        div.row
-            div.col-xl-12
-                h2 Batch Upload
+    div.row 
+        div.col-xl-12
+            h1.text-center= title
+    div.row.justify-content-center
+        div.jumbotron
+            h2.display-4 Introduction
+            p.lead This is the management system for the clearing chatbot system. It will allow you to upload a single course or a batch of courses (in a CSV file) to the clearing chatbot database.
+            p.lead Select either option below to get started.
+
+    div.row.justify-content-center
+        div.col-md-6.text-center
+            a(href="/single-upload", class="btn btn-primary") Add a new degree programme
+        div.col-md-6.text-center
+            a(href="/batch-upload", class="btn btn-primary") Add a batch of degree programmes (CSV upload)

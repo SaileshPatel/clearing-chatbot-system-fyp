@@ -13,7 +13,15 @@ app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'pug')
 
 app.get("/", (req, res) => {
-    res.render('index', {title: "Clearing Chatbot Database"});
+    res.render('index', {title: "Clearing Chatbot Database Management"});
+})
+
+app.get("/single-upload", (req, res) =>{
+    res.render('single-upload', {title: "Single Upload"});
+})
+
+app.get("/batch-upload", (req, res) =>{
+    res.render('batch-upload', {title: "Batch Upload"});
 })
 
 app.listen(port, () =>{
