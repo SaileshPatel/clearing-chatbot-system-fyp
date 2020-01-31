@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'pug')
 
 app.get("/", (req, res) => {
-    res.render('index', {title: "Welcome", message: "Server is working"});
+    res.render('index', {title: "Clearing Chatbot Database"});
 })
 
 app.listen(port, () =>{
