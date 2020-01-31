@@ -1,6 +1,7 @@
 const express = require("express");
 const http = require("http");
 const { Client } = require('pg');
+const pug = require("pug");
 require("dotenv").config();
 
 const app = express();
@@ -9,8 +10,10 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.set('view engine', 'pug')
+
 app.get("/", (req, res) => {
-    res.status(200).send('Server is working');
+    res.render('index', {title: "Welcome", message: "Server is working"});
 })
 
 app.listen(port, () =>{
