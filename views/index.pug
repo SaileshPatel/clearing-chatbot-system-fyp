@@ -1,9 +1,40 @@
 extends templates/layout.pug
 
-block content
-    h1= "Clearing Chatbot Upload"
-    
-    form(action="", method="post")
-        div.form-group
-            label(for="courseID") UCAS Code
-            input#ucascode.form-control(type='text', name='ucascode')
+block content    
+    div.container
+        div.row 
+            div.col-xl-12
+                h1= title
+        div.row
+            div.col-md-6
+                p Welcome to the website
+            div.col-md-6
+                p On this website, I will 
+        div.row
+            div.col-xl-12
+                h2 Upload a new course
+                form(action="", method="post")
+                    div.form-group
+                        label(for="ucas_code") UCAS Code:
+                        input#ucascode.form-control(type='text', name='ucascode')
+                    div.form-group
+                        label(for="course_name") Course Name:
+                        input#course_name.form-control(type="text", name="course_name")
+                    div.form-group
+                        label(for="description") Description:
+                        input#description.form-control(type="textarea", name="description")
+                    div.form-group
+                        label(for="entry_requirements") Entry Requirements:
+                        input#course_name.form-control(type="textarea", name="entry_requirements")
+                    div.form-group
+                        label(for="tuition_fees") Tuition Fees:
+                        input#tuition_fees.form-control(type="textarea", name="tuition_fees")
+                    div.form-group
+                        label(for="contact_details") Contact Details:
+                        input#contact_details.form-control(type="textarea", name="contact_details")
+                    div.form-group
+                        label(for="website") Website:
+                        input#website.form-control(type="text", name="website")
+        div.row
+            div.col-xl-12
+                h2 Batch Upload
