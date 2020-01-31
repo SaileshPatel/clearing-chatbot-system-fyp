@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'pug')
 
 app.get("/", (req, res) => {
-    res.render('index', {title: "Clearing Chatbot Database Management"});
+    res.render('index', {title: "Home"});
 })
 
 app.get("/single-upload", (req, res) =>{
