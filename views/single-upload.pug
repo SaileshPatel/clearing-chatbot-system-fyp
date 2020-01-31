@@ -1,0 +1,31 @@
+extends templates/layout.pug
+
+block content
+    div.row
+        div.col-xl-12
+            h2 Upload a new course
+            p Enter the details for the course you wish to add to the clearing chatbot database.
+    div.row
+        div.col-xl-12
+            form(action="", method="post")
+                div.form-group
+                    label(for="ucas_code") UCAS Code:
+                    input#ucascode.form-control(type='text', name='ucascode')
+                div.form-group
+                    label(for="course_name") Course Name:
+                    input#course_name.form-control(type="text", name="course_name")
+                div.form-group
+                    label(for="description") Description:
+                    input#description.form-control(type="textarea", name="description")
+                div.form-group
+                    label(for="entry_requirements") Entry Requirements:
+                    input#course_name.form-control(type="textarea", name="entry_requirements")
+                div.form-group
+                    label(for="tuition_fees") Tuition Fees:
+                    input#tuition_fees.form-control(type="textarea", name="tuition_fees")
+                div.form-group
+                    label(for="contact_details") Contact Details:
+                    input#contact_details.form-control(type="textarea", name="contact_details")
+                div.form-group
+                    label(for="website") Website:
+                    input#website.form-control(type="text", name="website")
