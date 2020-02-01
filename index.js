@@ -50,10 +50,12 @@ app.post('/upload-one-record', (req, res) => {
         .then(response =>{
             console.log(response);
             client.end();
+            res.render('status/success', {title: 'Success', message: response});
         })
         .catch(err => {
             console.log(err.stack);
             client.end();
+            res.render('status/failure', {title: 'Failure', message: err.stack});
         })
 
     //console.log(req.body);
