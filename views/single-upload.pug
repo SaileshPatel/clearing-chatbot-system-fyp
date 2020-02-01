@@ -16,16 +16,17 @@ block content
                     input#course_name.form-control(type="text", name="course_name")
                 div.form-group
                     label(for="description") Description:
-                    input#description.form-control(type="textarea", name="description")
+                    textarea#description.form-control(name="description" rows="4" cols="50")
                 div.form-group
                     label(for="entry_requirements") Entry Requirements:
-                    input#course_name.form-control(type="textarea", name="entry_requirements")
+                    textarea#course_name.form-control(name="entry_requirements" rows="4" cols="50")
                 div.form-group
                     label(for="tuition_fees") Tuition Fees:
-                    input#tuition_fees.form-control(type="textarea", name="tuition_fees")
+                    textarea#tuition_fees.form-control(name="tuition_fees" rows="4" cols="50")
                 div.form-group
                     label(for="contact_details") Contact Details:
-                    input#contact_details.form-control(type="textarea", name="contact_details")
+                    textarea#contact_details.form-control(name="contact_details" rows="4" cols="50")
                 div.form-group
                     label(for="website") Website:
                     input#website.form-control(type="text", name="website")
+                button.btn.btn-primary(type="submit") Upload Course
