@@ -28,6 +28,38 @@ app.listen(port, () =>{
     console.log(`Server is running at http://localhost:${port}`)
 })
 
+app.post('/upload-one-record', (req, res) => {
+    var data_to_upload = [req['body']['ucas_code'], 
+        req['body']['course_description'], 
+        req['body']['contact_details'], 
+        req['body']['entry_requirements'], 
+        req['body']['course_website'], 
+        req['body']['course_name'], 
+        req['body']['tuition_fees'],
+        0] // course_spaces
+
+    const client = new Client({
+        connectionString: process.env.DATABASE_URL
+    })
+
+    client.connect();
+
+    var queryString = "INSERT INTO Courses(ucas_code, description, contact_details, entry_requirements, website, course_name, tuition_fees, course_spaces) VALUES ($1, $2, $3, $4, $5, $6, $7, $8);";
+
+    client.query(queryString, data_to_upload)
+        .then(response =>{
+            console.log(response);
+            client.end();
+        })
+        .catch(err => {
+            console.log(err.stack);
+            client.end();
+        })
+
+    //console.log(req.body);
+    //res.render('single-upload', {title: 'Single Upload'});
+})
+
 app.post('/getcourse', (req, res) => {
     var result = res; 
 

@@ -6,16 +6,16 @@ block content
             p Enter the details for the course you wish to add to the clearing chatbot database.
     div.row
         div.col-xl-12
-            form(action="", method="post")
+            form(action="/upload-one-record", method="post")
                 div.form-group
                     label(for="ucas_code") UCAS Code:
-                    input#ucascode.form-control(type='text', name='ucascode')
+                    input#ucascode.form-control(type='text', name='ucas_code')
                 div.form-group
                     label(for="course_name") Course Name:
                     input#course_name.form-control(type="text", name="course_name")
                 div.form-group
                     label(for="description") Description:
-                    textarea#description.form-control(name="description" rows="4" cols="50")
+                    textarea#description.form-control(name="course_description" rows="4" cols="50")
                 div.form-group
                     label(for="entry_requirements") Entry Requirements:
                     textarea#course_name.form-control(name="entry_requirements" rows="4" cols="50")
@@ -27,5 +27,5 @@ block content
                     textarea#contact_details.form-control(name="contact_details" rows="4" cols="50")
                 div.form-group
                     label(for="website") Website:
-                    input#website.form-control(type="text", name="website")
+                    input#website.form-control(type="text", name="course_website")
                 button.btn.btn-primary(type="submit") Upload Course
