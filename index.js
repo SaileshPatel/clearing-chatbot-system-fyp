@@ -42,7 +42,10 @@ app.post('/upload-one-record', (req, res) => {
         req['body']['tuition_fees'],
         0] // course_spaces
 
-    client.connect();
+    client.connect()
+        .then(() => console.log("connected"))
+        .catch(err => {console.log('connection error', err.stack)})
+
 
     var queryString = "INSERT INTO Courses(ucas_code, description, contact_details, entry_requirements, website, course_name, tuition_fees, course_spaces) VALUES ($1, $2, $3, $4, $5, $6, $7, $8);";
 
@@ -70,7 +73,9 @@ app.post('/getcourse', (req, res) => {
     const queryParams = ['%' + course + '%'];
     var fulfilText = "";
     
-    client.connect();
+    client.connect()
+        .then(() => console.log("connected"))
+        .catch(err => {console.log('connection error', err.stack)})
 
     switch(intent){
         case 'Course Spaces':
