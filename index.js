@@ -12,6 +12,10 @@ app.use(express.urlencoded({ extended: true }));
 
 app.set('view engine', 'pug')
 
+const client = new Client({
+    connectionString: process.env.DATABASE_URL
+})
+
 app.get("/", (req, res) => {
     res.render('index', {title: "Home"});
 })
@@ -38,10 +42,6 @@ app.post('/upload-one-record', (req, res) => {
         req['body']['tuition_fees'],
         0] // course_spaces
 
-    const client = new Client({
-        connectionString: process.env.DATABASE_URL
-    })
-
     client.connect();
 
     var queryString = "INSERT INTO Courses(ucas_code, description, contact_details, entry_requirements, website, course_name, tuition_fees, course_spaces) VALUES ($1, $2, $3, $4, $5, $6, $7, $8);";
@@ -67,12 +67,6 @@ app.post('/getcourse', (req, res) => {
     const course = req.body.queryResult.parameters.Course;
     const queryParams = ['%' + course + '%'];
     var fulfilText = "";
-
-
-    const client = new Client({
-        connectionString: process.env.DATABASE_URL
-        //ssl: true
-    });
     
     client.connect();
 
