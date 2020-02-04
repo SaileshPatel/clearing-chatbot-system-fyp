@@ -9,7 +9,7 @@ block content
             form(action="/upload-one-record", method="post")
                 div.form-group
                     label(for="ucas_code") UCAS Code:
-                    input#ucascode.form-control(type='text', name='ucas_code' required)
+                    input#ucascode.form-control(type='text', name='ucas_code' pattern='[A-Z][0-9][0-9][0-9]' required)
                 div.form-group
                     label(for="course_name") Course Name:
                     input#course_name.form-control(type="text", name="course_name" required)
