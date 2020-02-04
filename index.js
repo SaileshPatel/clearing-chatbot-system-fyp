@@ -1,6 +1,6 @@
 const express = require("express");
 const http = require("http");
-const { Client } = require('pg');
+const { Pool } = require('pg');
 const pug = require("pug");
 require("dotenv").config();
 
@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.set('view engine', 'pug')
 
-const client = new Client({
+const pool = new Pool({
     connectionString: process.env.DATABASE_URL
 })
 
@@ -42,23 +42,23 @@ app.post('/upload-one-record', (req, res) => {
         req['body']['tuition_fees'],
         0] // course_spaces
 
-    client.connect()
-        .then(() => console.log("connected"))
-        .catch(err => {console.log('connection error', err.stack)})
-
-
     var queryString = "INSERT INTO Courses(ucas_code, description, contact_details, entry_requirements, website, course_name, tuition_fees, course_spaces) VALUES ($1, $2, $3, $4, $5, $6, $7, $8);";
 
-    client.query(queryString, data_to_upload)
-        .then(response =>{
-            console.log(response);
-            client.end();
-            res.render('status/success', {title: 'Success', message: response});
-        })
-        .catch(err => {
-            console.log(err.stack);
-            client.end();
-            res.render('status/failure', {title: 'Failure', message: err.stack});
+    pool.connect()
+        .then(client => {
+            return client
+                .query(queryString, data_to_upload)
+                .then(response => {
+                    client.release();
+                    console.log(response);
+                    res.render('status/success', {title: 'Success', message: response});
+                })
+                .catch(err => {
+                    client.release();
+                    console.error(err.stack);
+                    res.render('status/failure', {title: 'Failure', message: err.stack})
+                })
+
         })
 
     //console.log(req.body);
@@ -72,61 +72,82 @@ app.post('/getcourse', (req, res) => {
     const course = req.body.queryResult.parameters.Course;
     const queryParams = ['%' + course + '%'];
     var fulfilText = "";
-    
-    client.connect()
-        .then(() => console.log("connected"))
-        .catch(err => {console.log('connection error', err.stack)})
 
     switch(intent){
         case 'Course Spaces':
             var queryString = "SELECT course_spaces FROM Courses WHERE course_name LIKE $1;";
-            client.query(queryString, queryParams)
-                .then(res => {
-                    fulfilText = "";
-                    spaces = res.rows[0]['course_spaces'];
-                    client.end();
-                    if(spaces > 0){
-                        fulfilText = JSON.stringify("There are " + spaces + " left on " + course + ".");
-                    } else {
-                        fulfilText = JSON.stringify("There are no spaces left on " + course + ".");
-                    }
-                    return result.json({
-                        fulfillmentText: fulfilText,
-                        source: 'getcourse'
-                    })    
+            pool.connect()
+                .then(client => {
+                    return client
+                        .query(queryString, queryParams)
+                        .then(res => {
+                            fulfilText = "";
+                            spaces = res.rows[0]['course_spaces'];
+                            client.release();
+                            if(spaces > 0){
+                                fulfilText = JSON.stringify("There are " + spaces + " left on " + course + ".");
+                            } else {
+                                fulfilText = JSON.stringify("There are no spaces left on " + course + ".");
+                            }
+                            return result.json({
+                                fulfillmentText: fulfilText,
+                                source: 'getcourse'
+                            })        
+                        })
+                        .catch(err => {
+                            client.release();
+                            console.error(err);
+                        })
                 })
                 .catch(err => {
-                    console.log(err);
+                    console.error(err);
                 })
             break;
         case 'Entry Requirements':
             var queryString = "SELECT entry_requirements FROM Courses WHERE course_name LIKE $1;";
-            client.query(queryString, queryParams)
-                .then(res => {
-                    fulfilText = JSON.stringify(res.rows[0]['entry_requirements']);
-                    client.end();
-                    return result.json({
-                        fulfillmentText: fulfilText,
-                        source: 'getcourse'
-                    })
+            pool.connect()
+                .then(client => {
+                    return client
+                        .query(queryString, queryParams)
+                        .then(res => {
+                            fulfilText = JSON.stringify(res.rows[0]['entry_requirements']);
+                            client.release();
+                            return result.json({
+                                fulfillmentText: fulfilText,
+                                source: 'getcourse'
+                            })
+                        })
+                        .catch(err => {
+                            client.release();
+                            console.error(err);
+                        })
                 })
                 .catch(err => {
-                    console.log(err);
+                    console.error(err);
                 })
             break;
         case 'Tuition Fees':
             var queryString = "SELECT tuition_fees FROM Courses WHERE course_name LIKE $1;";
-            client.query(queryString, queryParams)
-                .then(res => {
-                    fulfilText = JSON.stringify(res.rows[0]['tuition_fees']);
-                    client.end();
-                    return result.json({
-                        fulfillmentText: fulfilText,
-                        source: 'getcourse'
-                    })
+            pool.connect()
+                .then(client => {
+                    return client
+                        .query(queryString, queryParams)
+                        .then(res => {
+                            fulfilText = JSON.stringify(res.rows[0]['tuition_fees']);
+                            client.release();
+                            return result.json({
+                                fulfillmentText: fulfilText,
+                                source: 'getcourse'
+                            })
+                        })
+                        .catch(err => {
+                            client.release();
+                            console.error(err);
+                        })
+
                 })
                 .catch(err => {
-                    console.log(err);
+                    console.error(err);
                 })
             break;
         default:
