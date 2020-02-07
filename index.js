@@ -33,7 +33,7 @@ app.listen(port, () =>{
 })
 
 app.post('/upload-one-record', (req, res) => {
-    var data_to_upload = [req['body']['ucas_code'], 
+    var queryParams = [req['body']['ucas_code'],
         req['body']['course_description'], 
         req['body']['contact_details'], 
         req['body']['entry_requirements'], 
@@ -47,7 +47,7 @@ app.post('/upload-one-record', (req, res) => {
     pool.connect()
         .then(client => {
             return client
-                .query(queryString, data_to_upload)
+                .query(queryString, queryParams)
                 .then(response => {
                     client.release();
                     console.log(response);
@@ -60,9 +60,6 @@ app.post('/upload-one-record', (req, res) => {
                 })
 
         })
-
-    //console.log(req.body);
-    //res.render('single-upload', {title: 'Single Upload'});
 })
 
 app.post('/getcourse', (req, res) => {
