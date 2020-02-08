@@ -9,22 +9,25 @@ block content
             form(action="/upload-one-record", method="post")
                 div.form-group
                     label(for="ucas_code") UCAS Code:
-                    input#ucascode.form-control(type='text', name='ucas_code' pattern='[A-Z][0-9][0-9][0-9]' required)
+                    input#ucas-code.form-control(type='text', name='ucas_code' pattern='[A-Z][0-9][0-9][0-9]' required)
                 div.form-group
                     label(for="course_name") Course Name:
-                    input#course_name.form-control(type="text", name="course_name" required)
+                    input#course-name.form-control(type="text", name="course_name" required)
                 div.form-group
                     label(for="description") Description:
                     textarea#description.form-control(name="course_description" rows="4" cols="50" required)
                 div.form-group
+                    label(for="course_spaces") Number of Spaces
+                    input#course-space.form-control(type="number" name="course_spaces" required)
+                div.form-group
                     label(for="entry_requirements") Entry Requirements:
-                    textarea#course_name.form-control(name="entry_requirements" rows="4" cols="50" required)
+                    textarea#entry-requirements.form-control(name="entry_requirements" rows="4" cols="50" required)
                 div.form-group
                     label(for="tuition_fees") Tuition Fees:
-                    textarea#tuition_fees.form-control(name="tuition_fees" rows="4" cols="50" required)
+                    textarea#tuition-fees.form-control(name="tuition_fees" rows="4" cols="50" required)
                 div.form-group
                     label(for="contact_details") Contact Details:
-                    textarea#contact_details.form-control(name="contact_details" rows="4" cols="50" required)
+                    textarea#contact-details.form-control(name="contact_details" rows="4" cols="50" required)
                 div.form-group
                     label(for="website") Website:
                     input#website.form-control(type="text", name="course_website" required)
