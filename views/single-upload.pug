@@ -34,3 +34,20 @@ block content
                     label(for="contact_details") Contact Details:
                     textarea#contact-details.form-control(name="contact_details" rows="4" cols="50" placeholder="Course Director or School contact details" required)
                 button#upload-course.btn.btn-primary(type="submit") Upload Course
+
+    script.
+        $(function(){
+            var valid_inputs = false;
+
+            $('#ucas-code').change(function(){
+                if($(this).val().match(/[A-Z][0-9][0-9][0-9]/)){
+                    console.log("Aye");
+                } else {
+                    console.log("Nay");
+                }
+                //console.log($(this).val());
+            })
+
+
+            $('#upload-course').attr('disabled', true);
+        })
