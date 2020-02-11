@@ -6,20 +6,24 @@ block content
             p Enter the details for the course you wish to add to the clearing chatbot database.
     div.row
         div.col-xl-12
-            form#single-upload-form(action="/upload-one-record", method="post")
+            form#single-upload-form.needs-validation(action="/upload-one-record", method="post" novalidate)
                 div.form-row
                     div.col
                         label(for="ucas_code") UCAS Code:
                         input#ucas-code.form-control(type='text', name='ucas_code' pattern='[A-Z][0-9][0-9][0-9]' placeholder="G400" required)
+                        div.invalid-feedback Incorrect
                     div.col
                         label(for="course_name") Course Name:
                         input#course-name.form-control(type="text", name="course_name" placeholder="Course Name" required)
+                        div.invalid-feedback Incorrect
                 div.form-group
                     label(for="description") Description:
                     textarea#description.form-control(name="course_description" rows="4" cols="50" placeholder="Course Description" required)
+                    div.invalid-feedback Incorrect
                 div.form-group
                     label(for="entry_requirements") Entry Requirements:
                     textarea#entry-requirements.form-control(name="entry_requirements" rows="4" cols="50" placeholder="Entry Requirements" required)
+                    div.invalid-feedback Incorrect                
                 div.form-group
                     label(for="tuition_fees") Tuition Fees:
                     textarea#tuition-fees.form-control(name="tuition_fees" rows="4" cols="50" placeholder="Tuition Fees" required)
@@ -27,27 +31,36 @@ block content
                     div.col
                         label(for="course_spaces") Number of Spaces:
                         input#course-space.form-control(type="number" name="course_spaces" placeholder="Spaces available on course" required)
+                        div.invalid-feedback Incorrect                    
                     div.col
                         label(for="website") Website:
                         input#website.form-control(type="text", name="course_website"  placeholder="Course Website" required)
+                        div.invalid-feedback Incorrect
                 div.form-group
                     label(for="contact_details") Contact Details:
                     textarea#contact-details.form-control(name="contact_details" rows="4" cols="50" placeholder="Course Director or School contact details" required)
+                    div.invalid-feedback Incorrect                
                 button#upload-course.btn.btn-primary(type="submit") Upload Course
 
     script.
         $(function(){
-            var valid_inputs = false;
+            
+            var form = $('#single-upload-form');
+            form.submit(function(e){
+                if(form[0].checkValidity() === false){
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                form.addClass('was-validated');
+            })
 
             $('#ucas-code').change(function(){
                 if($(this).val().match(/[A-Z][0-9][0-9][0-9]/)){
-                    console.log("Aye");
+                    // valid
                 } else {
-                    console.log("Nay");
+                    // invalid
                 }
-                //console.log($(this).val());
             })
 
 
-            $('#upload-course').attr('disabled', true);
         })
