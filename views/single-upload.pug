@@ -3,7 +3,10 @@ extends templates/layout.pug
 block content
     div.row
         div.col-xl-12
-            p Enter the details for the course you wish to add to the clearing chatbot database.
+            if message
+                p= message
+            else
+                p Enter the details for the course you wish to add to the clearing chatbot database.
     div.row
         div.col-xl-12
             form#single-upload-form.needs-validation(action="/upload-one-record", method="post" novalidate)

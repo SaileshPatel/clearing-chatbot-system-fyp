@@ -51,16 +51,17 @@ app.post('/upload-one-record', (req, res) => {
                 .then(response => {
                     client.release();
                     console.log(response);
-                    res.render('status/success', {title: 'Success', message: response});
+                    console.log(response.rows);
+                    res.render('single-upload', {title: 'Success', message: "Your course was successfully added to the database."});
                 })
                 .catch(err => {
                     client.release();
                     console.error(err.stack);
-                    res.render('status/failure', {title: 'Failure', message: err.stack})
+                    res.render('single-upload', {title: 'Failure', message: "There was an error. Please contact an administrator."})
                 })
 
         }).catch(err => {
-            res.render('status/failure', {title: 'Failure', message: err.stack});
+            res.render('single-upload', {title: 'Failure', message: "There was an error. Please contact an administrator."});
         })
 })
 
