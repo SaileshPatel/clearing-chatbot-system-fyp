@@ -65,7 +65,7 @@ block content
                 // if the text does not match the regex
                 if(!($(this).val().match(/[A-Z][0-9][0-9][0-9]/))){
                     // add '.was-validated' class to show '.invalid-feedback' class divs
-                    form.addClass("was-validated");
+                    $(this).parent().addClass("was-validated");
                 }
             })
         })
