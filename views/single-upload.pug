@@ -11,35 +11,36 @@ block content
                     div.col
                         label(for="ucas_code") UCAS Code:
                         input#ucas-code.form-control(type='text', name='ucas_code' pattern='[A-Z][0-9][0-9][0-9]' placeholder="G400" required)
-                        div.invalid-feedback Incorrect
+                        div.invalid-feedback You have either not entered a value or have entered an invalid UCAS code.
                     div.col
                         label(for="course_name") Course Name:
                         input#course-name.form-control(type="text", name="course_name" placeholder="Course Name" required)
-                        div.invalid-feedback Incorrect
+                        div.invalid-feedback You have not entered a value. Please enter the name of the course.
                 div.form-group
                     label(for="description") Description:
                     textarea#description.form-control(name="course_description" rows="4" cols="50" placeholder="Course Description" required)
-                    div.invalid-feedback Incorrect
+                    div.invalid-feedback You have not entered a value. Please enter a description of the course.
                 div.form-group
                     label(for="entry_requirements") Entry Requirements:
                     textarea#entry-requirements.form-control(name="entry_requirements" rows="4" cols="50" placeholder="Entry Requirements" required)
-                    div.invalid-feedback Incorrect                
+                    div.invalid-feedback You have not entered a value. Please enter the entry requirements of the course.                
                 div.form-group
                     label(for="tuition_fees") Tuition Fees:
                     textarea#tuition-fees.form-control(name="tuition_fees" rows="4" cols="50" placeholder="Tuition Fees" required)
+                    div.invalid-feedback You have not entered a value. Please enter the tuition fees for the course.
                 div.form-row
                     div.col
                         label(for="course_spaces") Number of Spaces:
-                        input#course-space.form-control(type="number" name="course_spaces" placeholder="Spaces available on course" required)
-                        div.invalid-feedback Incorrect                    
+                        input#course-space.form-control(type="number" name="course_spaces" placeholder="1" required)
+                        div.invalid-feedback You have not entered a value. Please enter the number of spaces available.                    
                     div.col
                         label(for="website") Website:
                         input#website.form-control(type="text", name="course_website"  placeholder="Course Website" required)
-                        div.invalid-feedback Incorrect
+                        div.invalid-feedback You have not entered a value. Please enter the course website.
                 div.form-group
                     label(for="contact_details") Contact Details:
                     textarea#contact-details.form-control(name="contact_details" rows="4" cols="50" placeholder="Course Director or School contact details" required)
-                    div.invalid-feedback Incorrect                
+                    div.invalid-feedback You have not entered a value. Please enter contact details for the course director/school of study.                
                 button#upload-course.btn.btn-primary(type="submit") Upload Course
 
     script.
@@ -56,9 +57,9 @@ block content
 
             $('#ucas-code').change(function(){
                 if($(this).val().match(/[A-Z][0-9][0-9][0-9]/)){
-                    // valid
+                    //form.addClass("was-validated");
                 } else {
-                    // invalid
+                    form.addClass("was-validated");
                 }
             })
 
