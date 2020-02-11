@@ -59,6 +59,8 @@ app.post('/upload-one-record', (req, res) => {
                     res.render('status/failure', {title: 'Failure', message: err.stack})
                 })
 
+        }).catch(err => {
+            res.render('status/failure', {title: 'Failure', message: err.stack});
         })
 })
 
