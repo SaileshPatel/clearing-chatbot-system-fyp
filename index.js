@@ -20,12 +20,12 @@ app.get("/", (req, res) => {
     res.render('index', {title: "Home"});
 })
 
-app.get("/single-upload", (req, res) =>{
+app.get("/add-course-programme", (req, res) =>{
     res.render('add-course-programme', {title: "Add Course Programme"});
 })
 
-app.get("/batch-upload", (req, res) =>{
-    res.render('add-course-programes', {title: "Add Multiple Course Programmes"});
+app.get("/add-multiple-course-programmes", (req, res) =>{
+    res.render('add-multiple-course-programmes', {title: "Add Multiple Course Programmes"});
 })
 
 app.listen(port, () =>{
