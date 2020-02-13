@@ -21,11 +21,11 @@ app.get("/", (req, res) => {
 })
 
 app.get("/single-upload", (req, res) =>{
-    res.render('single-upload', {title: "Add Course Programme"});
+    res.render('add-course-programme', {title: "Add Course Programme"});
 })
 
 app.get("/batch-upload", (req, res) =>{
-    res.render('batch-upload', {title: "Add Multiple Course Programmes"});
+    res.render('add-course-programes', {title: "Add Multiple Course Programmes"});
 })
 
 app.listen(port, () =>{
@@ -54,16 +54,17 @@ app.post('/upload-one-record', (req, res) => {
                     client.release();
                     console.log(response);
                     console.log(response.rows);
-                    res.render('single-upload', {title: 'Success', message: "Your course was successfully added to the database."});
+                    res.render('add-course-programme', {title: 'Add Course Programme', message: "Your course was successfully added to the database."});
                 })
                 .catch(err => {
                     client.release();
                     console.error(err.stack);
-                    res.render('single-upload', {title: 'Failure', message: "There was an error. Please contact an administrator."})
+                    res.render('add-course-programme', {title: 'Add Course Programme', message: "There was an error. Please contact an administrator."})
                 })
 
         }).catch(err => {
-            res.render('single-upload', {title: 'Failure', message: "There was an error. Please contact an administrator."});
+            console.error(err.stack);
+            res.render('add-course-programme', {title: 'Add Course Programme', message: "There was an error. Please contact an administrator."});
         })
 })
 
