@@ -21,11 +21,11 @@ app.get("/", (req, res) => {
 })
 
 app.get("/single-upload", (req, res) =>{
-    res.render('single-upload', {title: "Single Upload"});
+    res.render('single-upload', {title: "Add Course Programme"});
 })
 
 app.get("/batch-upload", (req, res) =>{
-    res.render('batch-upload', {title: "Batch Upload"});
+    res.render('batch-upload', {title: "Add Multiple Course Programmes"});
 })
 
 app.listen(port, () =>{
