@@ -15,14 +15,33 @@ block content
                         label(for="ucas_code") UCAS Code:
                         input#ucas-code.form-control(type='text', name='ucas_code' pattern='[A-Z][0-9][0-9][0-9]' placeholder="G400" required)
                         div.invalid-feedback You have either not entered a value or have entered an invalid UCAS code.
-                    div.col-md-2
+                    div.col-md-4
                         label(for="course_type") Course Type:
                         select#course-type.form-control(name='course_type')
                             option(value="Foundation") Foundation
+                            option(value="Degree Apprenticeship") Degree Apprenticeship
+                            // list obtained from https://www.aber.ac.uk/en/undergrad/before-you-apply/ba-bsc-ma-msc-phd/
                             option(value="BSc" selected) BSc
                             option(value="BA") BA
+                            option(value="BEng") BEng
+                            option(value="MBA") MBA
+                            option(value="MBChB") MBChB
+                            option(value="LLB") LLB
+                            option(value="PhD") PhD
+                            option(value="MA") MA
+                            option(value="MSc") MSc
+                            option(value="MPhil") MPhil
+                            option(value="MRes") MRes
+                            option(value="MArts") MArts
+                            option(value="MComp") MComp
+                            option(value="MEng") MEng
+                            option(value="MMath") MMath
+                            option(value="MPhys") MPhys
+                            option(value="MSci") MSci
+                            option(value="LLM") LLM
+
                         div.invalid-feedback You have not selected a degree type
-                    div.col-md-8
+                    div.col-md-6
                         label(for="course_name") Course Name:
                         input#course-name.form-control(type="text", name="course_name" placeholder="Course Name" required)
                         div.invalid-feedback You have not entered a value. Please enter the name of the course.
