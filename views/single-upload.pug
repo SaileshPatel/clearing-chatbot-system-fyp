@@ -11,11 +11,18 @@ block content
         div.col-xl-12
             form#single-upload-form.needs-validation(action="/upload-one-record", method="post" novalidate)
                 div.form-row
-                    div.col
+                    div.col-md-2
                         label(for="ucas_code") UCAS Code:
                         input#ucas-code.form-control(type='text', name='ucas_code' pattern='[A-Z][0-9][0-9][0-9]' placeholder="G400" required)
                         div.invalid-feedback You have either not entered a value or have entered an invalid UCAS code.
-                    div.col
+                    div.col-md-2
+                        label(for="course_type") Course Type:
+                        select#course-type.form-control(name='course_type')
+                            option(value="Foundation") Foundation
+                            option(value="BSc" selected) BSc
+                            option(value="BA") BA
+                        div.invalid-feedback You have not selected a degree type
+                    div.col-md-8
                         label(for="course_name") Course Name:
                         input#course-name.form-control(type="text", name="course_name" placeholder="Course Name" required)
                         div.invalid-feedback You have not entered a value. Please enter the name of the course.
