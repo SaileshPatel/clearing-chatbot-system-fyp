@@ -97,11 +97,11 @@ app.post('/getcourse', (req, res) => {
                         })
                         .catch(err => {
                             client.release();
-                            console.error(err);
+                            console.error(err.stack);
                         })
                 })
                 .catch(err => {
-                    console.error(err);
+                    console.error(err.stack);
                 })
             break;
         case 'Entry Requirements':
@@ -120,11 +120,11 @@ app.post('/getcourse', (req, res) => {
                         })
                         .catch(err => {
                             client.release();
-                            console.error(err);
+                            console.error(err.stack);
                         })
                 })
                 .catch(err => {
-                    console.error(err);
+                    console.error(err.stack);
                 })
             break;
         case 'Tuition Fees':
@@ -143,12 +143,12 @@ app.post('/getcourse', (req, res) => {
                         })
                         .catch(err => {
                             client.release();
-                            console.error(err);
+                            console.error(err.stack);
                         })
 
                 })
                 .catch(err => {
-                    console.error(err);
+                    console.error(err.stack);
                 })
             break;
         default:
