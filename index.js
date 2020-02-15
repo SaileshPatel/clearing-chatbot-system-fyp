@@ -52,8 +52,6 @@ app.post('/upload-one-record', (req, res) => {
                 .query(queryString, queryParams)
                 .then(response => {
                     client.release();
-                    console.log(response);
-                    console.log(response.rows);
                     res.render('add-course-programme', {title: 'Add Course Programme', message: "Your course was successfully added to the database."});
                 })
                 .catch(err => {

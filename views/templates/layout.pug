@@ -14,11 +14,11 @@ html(lang="en")
             div.row.justify-content-center
                 ul.nav.justify-content-center
                     li.nav-item
-                        a(href="/", class="nav-link") Home
+                        a(href="/", class="nav-link" class={disabled: title === 'Home'}) Home
                     li.nav-item
-                        a(href="/add-course-programme", class="nav-link") Add course programme
+                        a(href="/add-course-programme", class="nav-link" class={disabled: title === 'Add Course Programme'}) Add Course Programme
                     li.nav-item
-                        a(href="/add-multiple-course-programmes", class="nav-link") Add multiple course programmes
+                        a(href="/add-multiple-course-programmes", class="nav-link" class={disabled: title === 'Add Multiple Course Programmes'}) Add Multiple Course Programmes
             block content
 
         script(src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js", integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo", crossorigin="anonymous")
