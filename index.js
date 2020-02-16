@@ -43,22 +43,11 @@ app.post('/upload-one-record', (req, res) => {
 
     var queryString = "INSERT INTO Courses(ucas_code, description, contact_details, entry_requirements, website, course_name, tuition_fees, course_spaces, course_type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);";
 
-    pool.connect()
-        .then(client => {
-            return client
-                .query(queryString, queryParams)
-                .then(response => {
-                    client.release();
-                    res.render('add-course-programme', {title: 'Add Course Programme', message: "Your course was successfully added to the database."});
-                })
-                .catch(err => {
-                    client.release();
-                    console.error(err.stack);
-                    res.render('add-course-programme', {title: 'Add Course Programme', message: "There was an error. Please contact an administrator."})
-                })
-
-        }).catch(err => {
-            console.error(err.stack);
+    db.query(queryString, queryParams)
+        .then(response => {
+            res.render('add-course-programme', {title: 'Add Course Programme', message: "Your course was successfully added to the database."});
+        })
+        .catch(err => {
             res.render('add-course-programme', {title: 'Add Course Programme', message: "There was an error. Please contact an administrator."});
         })
 })
