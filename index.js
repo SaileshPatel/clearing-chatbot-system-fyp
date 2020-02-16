@@ -53,8 +53,6 @@ app.post('/upload-one-record', (req, res) => {
 })
 
 app.post('/getcourse', (req, res) => {
-    var result = res; 
-
     const intent = req.body.queryResult.intent.displayName;
     const course = req.body.queryResult.parameters.Course;
     const queryParams = ['%' + course + '%'];
@@ -63,83 +61,64 @@ app.post('/getcourse', (req, res) => {
     switch(intent){
         case 'Course Spaces':
             var queryString = "SELECT course_spaces FROM Courses WHERE course_name LIKE $1;";
-            pool.connect()
-                .then(client => {
-                    return client
-                        .query(queryString, queryParams)
-                        .then(res => {
-                            fulfilText = "";
-                            spaces = res.rows[0]['course_spaces'];
-                            client.release();
-                            if(spaces > 0){
-                                fulfilText = JSON.stringify("There are " + spaces + " left on " + course + ".");
-                            } else {
-                                fulfilText = JSON.stringify("There are no spaces left on " + course + ".");
-                            }
-                            return result.json({
-                                fulfillmentText: fulfilText,
-                                source: 'getcourse'
-                            })        
-                        })
-                        .catch(err => {
-                            client.release();
-                            console.error(err.stack);
-                        })
-                })
-                .catch(err => {
+            db.query(queryString, queryParams)
+                .then(response => {
+                    fulfilText = "";
+                    spaces = response.rows[0]['course_spaces'];
+                    if(spaces > 0){
+                        fulfilText = JSON.stringify("There are " + spaces + " left on " + course + ".");
+                    } else {
+                        fulfilText = JSON.stringify("There are no spaces left on " + course + ".");
+                    }
+                    return res.json({
+                        fulfillmentText: fulfilText,
+                        source: 'getcourse'
+                    })   
+                }).catch(err => {
                     console.error(err.stack);
+                    return res.json({
+                        fulfillmentText: "We are unable to get the information you require.\n Please try again later.",
+                        source: 'getcourse'
+                    })
                 })
             break;
         case 'Entry Requirements':
             var queryString = "SELECT entry_requirements FROM Courses WHERE course_name LIKE $1;";
-            pool.connect()
-                .then(client => {
-                    return client
-                        .query(queryString, queryParams)
-                        .then(res => {
-                            fulfilText = JSON.stringify(res.rows[0]['entry_requirements']);
-                            client.release();
-                            return result.json({
-                                fulfillmentText: fulfilText,
-                                source: 'getcourse'
-                            })
-                        })
-                        .catch(err => {
-                            client.release();
-                            console.error(err.stack);
-                        })
-                })
-                .catch(err => {
+            db.query(queryString, queryParams)
+                .then(response => {
+                    fulfilText = JSON.stringify(response.rows[0]['entry_requirements']);
+                    return res.json({
+                        fulfillmentText: fulfilText,
+                        source: 'getcourse'
+                    })
+                }).catch(err => {
                     console.error(err.stack);
+                    return res.json({
+                        fulfillmentText: "We are unable to get the information you require.\n Please try again later.",
+                        source: 'getcourse'    
+                    })
                 })
             break;
         case 'Tuition Fees':
             var queryString = "SELECT tuition_fees FROM Courses WHERE course_name LIKE $1;";
-            pool.connect()
-                .then(client => {
-                    return client
-                        .query(queryString, queryParams)
-                        .then(res => {
-                            fulfilText = JSON.stringify(res.rows[0]['tuition_fees']);
-                            client.release();
-                            return result.json({
-                                fulfillmentText: fulfilText,
-                                source: 'getcourse'
-                            })
-                        })
-                        .catch(err => {
-                            client.release();
-                            console.error(err.stack);
-                        })
-
-                })
-                .catch(err => {
+            db.query(queryString, queryParams)
+                .then(response => {
+                    fulfilText = JSON.stringify(response.rows[0]['tuition_fees']);
+                    return res.json({
+                        fulfillmentText: fulfilText,
+                        source: 'getcourse'
+                    })
+                }).catch(err => {
                     console.error(err.stack);
+                    return res.json({
+                        fulfillmentText: "We are unable to get the information you require.\n Please try again later.",
+                        source: 'getcourse'
+                    })
                 })
             break;
         default:
             fulfilText = "We're not sure what you're asking for unfortunately.\nTry asking about tuition fees or entry requirements for a specific course."
-            return result.json({
+            return res.json({
                 fulfillmentText: fulfilText,
                 source: 'getcourse'
             })
