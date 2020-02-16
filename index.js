@@ -1,6 +1,4 @@
 const express = require("express");
-const http = require("http");
-const pug = require("pug");
 require("dotenv").config();
 
 const db = require("./db");
