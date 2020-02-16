@@ -1,8 +1,9 @@
 const express = require("express");
 const http = require("http");
-const { Pool } = require('pg');
 const pug = require("pug");
 require("dotenv").config();
+
+const db = require("./db");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -11,10 +12,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.set('view engine', 'pug')
-
-const pool = new Pool({
-    connectionString: process.env.DATABASE_URL
-})
 
 app.get("/", (req, res) => {
     res.render('index', {title: "Home"});
