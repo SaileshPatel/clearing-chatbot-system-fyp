@@ -47,7 +47,13 @@ app.post('/upload-one-record', (req, res) => {
             res.render('add-course-programme', {title: 'Add Course Programme', message: "Your course was successfully added to the database."});
         })
         .catch(err => {
-            res.render('add-course-programme', {title: 'Add Course Programme', message: "There was an error. Please contact an administrator."});
+            var error_message;
+            if(err.code === '23505') {
+                error_message = "This UCAS Code has already been used. Please use a different UCAS code for the course you wish to submit.";
+            } else {
+                error_message = "There was an error. Please contact an administrator."
+            }
+            res.render('add-course-programme', {title: 'Add Course Programme', message: error_message});
         })
 })
 
