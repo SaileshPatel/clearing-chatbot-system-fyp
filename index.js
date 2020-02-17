@@ -48,6 +48,7 @@ app.post('/upload-one-record', (req, res) => {
         })
         .catch(err => {
             var error_message;
+            // error codes for PostgreSQL can be found here: https://www.postgresql.org/docs/current/errcodes-appendix.html
             if(err.code === '23505') {
                 error_message = "This UCAS Code has already been used. Please use a different UCAS code for the course you wish to submit.";
             } else {
