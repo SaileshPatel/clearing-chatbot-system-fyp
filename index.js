@@ -36,10 +36,11 @@ app.post('/upload-one-record', (req, res) => {
         req['body']['course_name'], 
         req['body']['tuition_fees'],
         req['body']['course_spaces'],
-        req['body']['course_type']
-    ] // course_spaces
+        req['body']['course_type'],
+        isUndergrad(req['body']['course_type'])
+    ]
 
-    var queryString = "INSERT INTO Courses(ucas_code, description, contact_details, entry_requirements, website, course_name, tuition_fees, course_spaces, course_type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);";
+    var queryString = "INSERT INTO Courses(ucas_code, description, contact_details, entry_requirements, website, course_name, tuition_fees, course_spaces, course_type, undergraduate_or_postgraduate) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);";
 
     db.query(queryString, queryParams)
         .then(response => {
@@ -49,6 +50,32 @@ app.post('/upload-one-record', (req, res) => {
             res.render('add-course-programme', {title: 'Add Course Programme', message: "There was an error. Please contact an administrator."});
         })
 })
+
+
+function isUndergrad(course_type){
+    switch(course_type) {
+        case 'BA':
+        case 'BSc':
+        case 'BENG':
+        case 'LLB':
+        case 'MARTS':
+        case 'MBIOL':
+        case 'MCOMP':
+        case 'MENG':
+        case 'MMATH':
+        case 'MPHYS':
+        case 'MSCI':
+            return "Undergraduate";
+        case 'MA':
+        case 'MSc':
+        case 'MBA':
+        case 'MPhil':
+        case 'MRes':
+        case 'LLM':
+        case 'PhD':
+            return 'Postgraduate';
+    }
+}
 
 app.post('/getcourse', (req, res) => {
     const intent = req.body.queryResult.intent.displayName;
