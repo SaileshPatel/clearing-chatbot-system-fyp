@@ -107,7 +107,7 @@ app.post('/getcourse', (req, res) => {
                     return res.json({
                         fulfillmentText: fulfilText,
                         output_contexts: [{
-                            "name": "Course",
+                            "name": "projects/clearing-bot-voltbp/agent/sessions/42086d29-ceba-cb2a-e9a3-8a1ecd1d7272/contexts/course",
                             "lifespanCount": 5,
                             "parameters": {
                                 "Course": course,
@@ -132,7 +132,7 @@ app.post('/getcourse', (req, res) => {
                     return res.json({
                         fulfillmentText: fulfilText,
                         output_contexts: [{
-                            "name": "Course",
+                            "name": "projects/clearing-bot-voltbp/agent/sessions/42086d29-ceba-cb2a-e9a3-8a1ecd1d7272/contexts/course",
                             "lifespanCount": 5,
                             "parameters": {
                                 "Course": course,
@@ -157,7 +157,7 @@ app.post('/getcourse', (req, res) => {
                     return res.json({
                         fulfillmentText: fulfilText,
                         output_contexts: [{
-                            "name": "Course",
+                            "name": "projects/clearing-bot-voltbp/agent/sessions/42086d29-ceba-cb2a-e9a3-8a1ecd1d7272/contexts/course",
                             "lifespanCount": 5,
                             "parameters": {
                                 "Course": course,
