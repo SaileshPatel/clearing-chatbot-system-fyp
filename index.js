@@ -106,6 +106,14 @@ app.post('/getcourse', (req, res) => {
                     }
                     return res.json({
                         fulfillmentText: fulfilText,
+                        output_contexts: [{
+                            "name": "projects/clearing-bot-voltbp/agent/sessions/42086d29-ceba-cb2a-e9a3-8a1ecd1d7272/contexts/course",
+                            "lifespanCount": 5,
+                            "parameters": {
+                                "Course": course,
+                                "Course.original": course
+                            }
+                        }],
                         source: 'getcourse'
                     })   
                 }).catch(err => {
@@ -123,6 +131,14 @@ app.post('/getcourse', (req, res) => {
                     fulfilText = JSON.stringify(response.rows[0]['entry_requirements']);
                     return res.json({
                         fulfillmentText: fulfilText,
+                        output_contexts: [{
+                            "name": "projects/clearing-bot-voltbp/agent/sessions/42086d29-ceba-cb2a-e9a3-8a1ecd1d7272/contexts/course",
+                            "lifespanCount": 5,
+                            "parameters": {
+                                "Course": course,
+                                "Course.original": course
+                            }
+                        }],
                         source: 'getcourse'
                     })
                 }).catch(err => {
@@ -140,6 +156,14 @@ app.post('/getcourse', (req, res) => {
                     fulfilText = JSON.stringify(response.rows[0]['tuition_fees']);
                     return res.json({
                         fulfillmentText: fulfilText,
+                        output_contexts: [{
+                            "name": "projects/clearing-bot-voltbp/agent/sessions/42086d29-ceba-cb2a-e9a3-8a1ecd1d7272/contexts/course",
+                            "lifespanCount": 5,
+                            "parameters": {
+                                "Course": course,
+                                "Course.original": course
+                            }
+                        }],
                         source: 'getcourse'
                     })
                 }).catch(err => {
