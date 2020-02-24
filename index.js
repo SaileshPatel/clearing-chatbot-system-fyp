@@ -108,7 +108,7 @@ app.post('/getcourse', (req, res) => {
                         fulfillmentText: fulfilText,
                         output_contexts: [{
                             "name": "projects/clearing-bot-voltbp/agent/sessions/42086d29-ceba-cb2a-e9a3-8a1ecd1d7272/contexts/course",
-                            "lifespanCount": 5,
+                            "lifespanCount": 1,
                             "parameters": {
                                 "Course": course,
                                 "Course.original": course
@@ -133,7 +133,7 @@ app.post('/getcourse', (req, res) => {
                         fulfillmentText: fulfilText,
                         output_contexts: [{
                             "name": "projects/clearing-bot-voltbp/agent/sessions/42086d29-ceba-cb2a-e9a3-8a1ecd1d7272/contexts/course",
-                            "lifespanCount": 5,
+                            "lifespanCount": 1,
                             "parameters": {
                                 "Course": course,
                                 "Course.original": course
@@ -158,7 +158,7 @@ app.post('/getcourse', (req, res) => {
                         fulfillmentText: fulfilText,
                         output_contexts: [{
                             "name": "projects/clearing-bot-voltbp/agent/sessions/42086d29-ceba-cb2a-e9a3-8a1ecd1d7272/contexts/course",
-                            "lifespanCount": 5,
+                            "lifespanCount": 1,
                             "parameters": {
                                 "Course": course,
                                 "Course.original": course
