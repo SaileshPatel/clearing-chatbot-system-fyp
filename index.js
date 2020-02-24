@@ -88,7 +88,7 @@ function isUndergrad(course_type){
 
 app.post('/getcourse', (req, res) => {
     const intent = req.body.queryResult.intent.displayName;
-    const course = req.body.queryResult.parameters.Course;
+    const course = req.body.queryResult.parameters.Course || req.body.queryResult.outputContexts.parameters.Course;
     const queryParams = ['%' + course + '%'];
     var fulfilText = "";
 
