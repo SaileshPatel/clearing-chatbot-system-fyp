@@ -105,7 +105,7 @@ app.post('/getcourse', (req, res) => {
                             "name": session + "/contexts/course",
                             "lifespanCount": 1,
                             "parameters": {
-                                "Course": course,
+                                "name": course,
                             }
                         }],
                         source: 'getcourse'
@@ -136,7 +136,7 @@ app.post('/getcourse', (req, res) => {
                             "name": session + "/contexts/course",
                             "lifespanCount": 1,
                             "parameters": {
-                                "Course": course,
+                                "name": course,
                             }
                         }],
                         source: 'getcourse'
@@ -160,7 +160,7 @@ app.post('/getcourse', (req, res) => {
                             "name": session + "/contexts/course",
                             "lifespanCount": 1,
                             "parameters": {
-                                "Course": course,
+                                "name": course,
                             }
                         }],
                         source: 'getcourse'
@@ -184,7 +184,7 @@ app.post('/getcourse', (req, res) => {
                             "name": session + "/contexts/course",
                             "lifespanCount": 1,
                             "parameters": {
-                                "Course": course,
+                                "name": course,
                             }
                         }],
                         source: 'getcourse'
