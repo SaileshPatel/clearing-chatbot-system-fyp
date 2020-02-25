@@ -93,6 +93,31 @@ app.post('/getcourse', (req, res) => {
     var fulfilText = "";
 
     switch(intent){
+        case 'Course Description':
+            var queryString = "SELECT description FROM Courses WHERE course_name LIKE $1";
+            db.query(queryString, queryParams)
+                .then(response => {
+                    fulfilText = JSON.stringify(response.rows[0]['description']);
+                    return res.json({
+                        fulfillmentText: fulfilText,
+                        outputContexts: [{
+                            "name": "projects/clearing-bot-voltbp/agent/sessions/42086d29-ceba-cb2a-e9a3-8a1ecd1d7272/contexts/course",
+                            "lifespanCount": 1,
+                            "parameters": {
+                                "Course": course,
+                            }
+                        }],
+                        source: 'getcourse'
+                    })
+                })
+                .catch(err => {
+                    console.error(err.stack);
+                    return res.json({
+                        fulfillmentText: "We are unable to get the information you require.\n Please try again later.",
+                        source: 'getcourse'
+                    })
+                })
+            break;
         case 'Course Spaces':
             var queryString = "SELECT course_spaces FROM Courses WHERE course_name LIKE $1;";
             db.query(queryString, queryParams)
