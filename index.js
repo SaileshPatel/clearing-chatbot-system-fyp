@@ -91,6 +91,7 @@ app.post('/getcourse', (req, res) => {
     const course = req.body.queryResult.parameters.Course || req.body.queryResult.outputContexts.parameters.Course;
     const queryParams = ['%' + course + '%'];
     var fulfilText = "";
+    var session = req.body.session;
 
     switch(intent){
         case 'Course Description':
@@ -101,7 +102,7 @@ app.post('/getcourse', (req, res) => {
                     return res.json({
                         fulfillmentText: fulfilText,
                         outputContexts: [{
-                            "name": "projects/clearing-bot-voltbp/agent/sessions/42086d29-ceba-cb2a-e9a3-8a1ecd1d7272/contexts/course",
+                            "name": session + "/contexts/course",
                             "lifespanCount": 1,
                             "parameters": {
                                 "Course": course,
@@ -132,7 +133,7 @@ app.post('/getcourse', (req, res) => {
                     return res.json({
                         fulfillmentText: fulfilText,
                         outputContexts: [{
-                            "name": "projects/clearing-bot-voltbp/agent/sessions/42086d29-ceba-cb2a-e9a3-8a1ecd1d7272/contexts/course",
+                            "name": session + "/contexts/course",
                             "lifespanCount": 1,
                             "parameters": {
                                 "Course": course,
@@ -156,7 +157,7 @@ app.post('/getcourse', (req, res) => {
                     return res.json({
                         fulfillmentText: fulfilText,
                         outputContexts: [{
-                            "name": "projects/clearing-bot-voltbp/agent/sessions/42086d29-ceba-cb2a-e9a3-8a1ecd1d7272/contexts/course",
+                            "name": session + "/contexts/course",
                             "lifespanCount": 1,
                             "parameters": {
                                 "Course": course,
@@ -180,7 +181,7 @@ app.post('/getcourse', (req, res) => {
                     return res.json({
                         fulfillmentText: fulfilText,
                         outputContexts: [{
-                            "name": "projects/clearing-bot-voltbp/agent/sessions/42086d29-ceba-cb2a-e9a3-8a1ecd1d7272/contexts/course",
+                            "name": session + "/contexts/course",
                             "lifespanCount": 1,
                             "parameters": {
                                 "Course": course,
