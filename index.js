@@ -105,13 +105,12 @@ app.post('/getcourse', (req, res) => {
                             "name": session + "/contexts/course",
                             "lifespanCount": 5,
                             "parameters": {
-                                "Course": course,
+                                "name": course,
                             }
                         }],
                         source: 'getcourse'
                     })
-                })
-                .catch(err => {
+                }).catch(err => {
                     console.error(err.stack);
                     return res.json({
                         fulfillmentText: "We are unable to get the information you require.\n Please try again later.",
@@ -136,7 +135,7 @@ app.post('/getcourse', (req, res) => {
                             "name": session + "/contexts/course",
                             "lifespanCount": 5,
                             "parameters": {
-                                "Course": course,
+                                "name": course,
                             }
                         }],
                         source: 'getcourse'
@@ -160,7 +159,7 @@ app.post('/getcourse', (req, res) => {
                             "name": session + "/contexts/course",
                             "lifespanCount": 5,
                             "parameters": {
-                                "Course": course,
+                                "name": course,
                             }
                         }],
                         source: 'getcourse'
@@ -184,7 +183,7 @@ app.post('/getcourse', (req, res) => {
                             "name": session + "/contexts/course",
                             "lifespanCount": 5,
                             "parameters": {
-                                "Course": course,
+                                "name": course,
                             }
                         }],
                         source: 'getcourse'
