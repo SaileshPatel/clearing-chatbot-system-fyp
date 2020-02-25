@@ -103,7 +103,7 @@ app.post('/getcourse', (req, res) => {
                         fulfillmentText: fulfilText,
                         outputContexts: [{
                             "name": session + "/contexts/course",
-                            "lifespanCount": 1,
+                            "lifespanCount": 5,
                             "parameters": {
                                 "name": course,
                             }
@@ -134,7 +134,7 @@ app.post('/getcourse', (req, res) => {
                         fulfillmentText: fulfilText,
                         outputContexts: [{
                             "name": session + "/contexts/course",
-                            "lifespanCount": 1,
+                            "lifespanCount": 5,
                             "parameters": {
                                 "name": course,
                             }
@@ -158,7 +158,7 @@ app.post('/getcourse', (req, res) => {
                         fulfillmentText: fulfilText,
                         outputContexts: [{
                             "name": session + "/contexts/course",
-                            "lifespanCount": 1,
+                            "lifespanCount": 5,
                             "parameters": {
                                 "name": course,
                             }
@@ -182,7 +182,7 @@ app.post('/getcourse', (req, res) => {
                         fulfillmentText: fulfilText,
                         outputContexts: [{
                             "name": session + "/contexts/course",
-                            "lifespanCount": 1,
+                            "lifespanCount": 5,
                             "parameters": {
                                 "name": course,
                             }
