@@ -110,8 +110,7 @@ app.post('/getcourse', (req, res) => {
                         }],
                         source: 'getcourse'
                     })
-                })
-                .catch(err => {
+                }).catch(err => {
                     console.error(err.stack);
                     return res.json({
                         fulfillmentText: "We are unable to get the information you require.\n Please try again later.",
