@@ -27,6 +27,9 @@ app.listen(port, () =>{
     console.log(`Server is running at http://localhost:${port}`)
 })
 
+/**
+ * Upload a single course
+ */
 app.post('/upload-one-record', (req, res) => {
     var queryParams = [req['body']['ucas_code'],
         req['body']['course_description'], 
@@ -86,6 +89,11 @@ function isUndergrad(course_type){
     }
 }
 
+/** 
+ * Dialogflow Endpoint
+ * 
+ * Deal with fulfilment in this endpoint ('/getcourse')
+ */
 app.post('/getcourse', (req, res) => {
     const intent = req.body.queryResult.intent.displayName;
     const course = req.body.queryResult.parameters.Course || req.body.queryResult.outputContexts.parameters.Course;
