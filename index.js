@@ -62,8 +62,17 @@ app.post('/upload-one-record', (req, res) => {
         })
 })
 
-// list obtained from https://www.aber.ac.uk/en/undergrad/before-you-apply/ba-bsc-ma-msc-phd/
-function isUndergrad(course_type){
+
+app.post('/upload-multiple-courses', (req, res) => {
+    console.log(req);
+})
+
+/**
+ * 
+ * @param {*} course_type 
+ * list obtained from https://www.aber.ac.uk/en/undergrad/before-you-apply/ba-bsc-ma-msc-phd/
+ */
+ function isUndergrad(course_type){
     switch(course_type) {
         // Bachelor Degrees
         case 'BA':

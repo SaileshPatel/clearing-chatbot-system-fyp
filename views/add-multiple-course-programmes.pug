@@ -2,17 +2,19 @@ extends templates/layout.pug
 
 block content
     div.row
-        div.col-xl-6
+        div.col-xl-12
             p This tool allows for multiple courses to be uploaded to the course database. 
-        div.col-xl-6
-            p
     div.row
         div.col-xl-12
             h2 CSV Layout
             p Please format your data in the following order:
             code UCAS Code, Course Name, Course Description, Course Type(BA, BSc, PhD), Course Spaces, Entry Requirements, Tuition Fees, Contact Details, Website
     div.row
-        div.col-xl-12
+        div.col-xl-6
             h2 CVS Layout Example
             p The image below shows an example of how your CSV files should be laid out:
-            img(src="images/csv-file-format-example.png")
+            //img(src="images/csv-file-format-example.png")
+        div.col-xl-6
+            h2 Upload CSV File
+            form(action="/upload-multiple-courses")
+                input(type="file", name="file_uploaded")
