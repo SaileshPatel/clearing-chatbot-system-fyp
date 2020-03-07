@@ -62,9 +62,12 @@ app.post('/upload-one-record', (req, res) => {
         })
 })
 
-
+/**
+ * Upload CSV of multiple courses
+ */
 app.post('/upload-multiple-courses', (req, res) => {
-    console.log(req);
+    console.log(req.body);
+    res.render('add-multiple-course-programmes', {title: "Add Multiple Course Programmes"});
 })
 
 /**
