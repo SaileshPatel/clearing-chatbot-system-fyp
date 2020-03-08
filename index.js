@@ -89,112 +89,28 @@ function isUndergrad(course_type){
 app.post('/getcourse', (req, res) => {
     const intent = req.body.queryResult.intent.displayName;
     const course = req.body.queryResult.parameters.Course || req.body.queryResult.outputContexts.parameters.Course;
-    const queryParams = ['%' + course + '%'];
+    var queryString = "";
     var fulfilText = "";
     var session = req.body.session;
+    var columnToQuery = "";
+
 
     switch(intent){
         case 'Course Description':
-            var queryString = "SELECT description FROM Courses WHERE course_name LIKE $1";
-            db.query(queryString, queryParams)
-                .then(response => {
-                    fulfilText = JSON.stringify(response.rows[0]['description']);
-                    return res.json({
-                        fulfillmentText: fulfilText,
-                        outputContexts: [{
-                            "name": session + "/contexts/course",
-                            "lifespanCount": 5,
-                            "parameters": {
-                                "name": course,
-                            }
-                        }],
-                        source: 'getcourse'
-                    })
-                }).catch(err => {
-                    console.error(err.stack);
-                    return res.json({
-                        fulfillmentText: "We are unable to get the information you require.\n Please try again later.",
-                        source: 'getcourse'
-                    })
-                })
+            queryString = "SELECT description FROM Courses WHERE course_name LIKE $1";
+            columnToQuery = "description";
             break;
         case 'Course Spaces':
-            var queryString = "SELECT course_spaces FROM Courses WHERE course_name LIKE $1;";
-            db.query(queryString, queryParams)
-                .then(response => {
-                    fulfilText = "";
-                    spaces = response.rows[0]['course_spaces'];
-                    if(spaces > 0){
-                        fulfilText = JSON.stringify("There are " + spaces + " left on " + course + ".");
-                    } else {
-                        fulfilText = JSON.stringify("There are no spaces left on " + course + ".");
-                    }
-                    return res.json({
-                        fulfillmentText: fulfilText,
-                        outputContexts: [{
-                            "name": session + "/contexts/course",
-                            "lifespanCount": 5,
-                            "parameters": {
-                                "name": course,
-                            }
-                        }],
-                        source: 'getcourse'
-                    })   
-                }).catch(err => {
-                    console.error(err.stack);
-                    return res.json({
-                        fulfillmentText: "We are unable to get the information you require.\n Please try again later.",
-                        source: 'getcourse'
-                    })
-                })
+            queryString = "SELECT course_spaces FROM Courses WHERE course_name LIKE $1;";
+            columnToQuery = "course_spaces";
             break;
         case 'Entry Requirements':
-            var queryString = "SELECT entry_requirements FROM Courses WHERE course_name LIKE $1;";
-            db.query(queryString, queryParams)
-                .then(response => {
-                    fulfilText = JSON.stringify(response.rows[0]['entry_requirements']);
-                    return res.json({
-                        fulfillmentText: fulfilText,
-                        outputContexts: [{
-                            "name": session + "/contexts/course",
-                            "lifespanCount": 5,
-                            "parameters": {
-                                "name": course,
-                            }
-                        }],
-                        source: 'getcourse'
-                    })
-                }).catch(err => {
-                    console.error(err.stack);
-                    return res.json({
-                        fulfillmentText: "We are unable to get the information you require.\n Please try again later.",
-                        source: 'getcourse'    
-                    })
-                })
+            queryString = "SELECT entry_requirements FROM Courses WHERE course_name LIKE $1;";
+            columnToQuery = "entry_requirements"
             break;
         case 'Tuition Fees':
-            var queryString = "SELECT tuition_fees FROM Courses WHERE course_name LIKE $1;";
-            db.query(queryString, queryParams)
-                .then(response => {
-                    fulfilText = JSON.stringify(response.rows[0]['tuition_fees']);
-                    return res.json({
-                        fulfillmentText: fulfilText,
-                        outputContexts: [{
-                            "name": session + "/contexts/course",
-                            "lifespanCount": 5,
-                            "parameters": {
-                                "name": course,
-                            }
-                        }],
-                        source: 'getcourse'
-                    })
-                }).catch(err => {
-                    console.error(err.stack);
-                    return res.json({
-                        fulfillmentText: "We are unable to get the information you require.\n Please try again later.",
-                        source: 'getcourse'
-                    })
-                })
+            queryString = "SELECT tuition_fees FROM Courses WHERE course_name LIKE $1;";
+            columnToQuery = "tuition_fees"
             break;
         default:
             fulfilText = "We're not sure what you're asking for unfortunately.\nTry asking about tuition fees or entry requirements for a specific course."
@@ -203,4 +119,31 @@ app.post('/getcourse', (req, res) => {
                 source: 'getcourse'
             })
     }
+
+    var queryParams = ['%' + course + '%'];
+
+    db.query(queryString, queryParams)
+        .then(response => {
+            fulfilText = JSON.stringify(response.rows[0][columnToQuery]);
+            return res.json({
+                fulfillmentText: fulfilText,
+                outputContexts: [{
+                    "name": session + "/contexts/course",
+                    "lifespanCount": 5,
+                    "parameters": {
+                        "name": course,
+                    }
+                }],
+                source: 'getcourse'
+            })
+        }).catch(err => {
+            console.error(err.stack);
+            return res.json({
+                fulfillmentText: "We are unable to get the information you require.\n Please try again later.",
+                source: 'getcourse'
+            })
+        })
+
+
+
 })
