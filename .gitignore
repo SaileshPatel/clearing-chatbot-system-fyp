@@ -2,3 +2,5 @@
 .env
 /node_modules
 /views/css/css/*.css.min
+.DS_Store
+/public/.DS_Store
