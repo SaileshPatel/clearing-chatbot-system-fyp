@@ -94,7 +94,6 @@ app.post('/getcourse', (req, res) => {
     var session = req.body.session;
     var columnToQuery = "";
 
-
     switch(intent){
         case 'Course Description':
             queryString = "SELECT description FROM Courses WHERE course_name LIKE $1";
@@ -113,18 +112,31 @@ app.post('/getcourse', (req, res) => {
             columnToQuery = "tuition_fees"
             break;
         default:
-            fulfilText = "We're not sure what you're asking for unfortunately.\nTry asking about tuition fees or entry requirements for a specific course."
             return res.json({
-                fulfillmentText: fulfilText,
+                fulfillmentText: "We could not find anything for " + course + " related to " + intent + ". Please try asking about tuition fees, entry requirements, spaces or a description of " + course + ".",
+                outputContexts: [{
+                    "name": session + "/contexts/course",
+                    "lifespanCount": 5,
+                    "parameters": {
+                        "name": course,
+                    }
+                }],
                 source: 'getcourse'
             })
     }
 
-    var queryParams = ['%' + course + '%'];
-
-    db.query(queryString, queryParams)
+    db.query(queryString, ['%' + course + '%'])
         .then(response => {
-            fulfilText = JSON.stringify(response.rows[0][columnToQuery]);
+            if(columnToQuery === "course_spaces"){
+                var courseSpaces = response.rows[0]['course_spaces'];
+                if(courseSpaces > 0){
+                    fulfilText = JSON.stringify("There are " + spaces + " left on " + course + ".");
+                } else {
+                    fulfilText = JSON.stringify("There are no spaces left on " + course + ".");
+                }
+            } else {
+                fulfilText = JSON.stringify(response.rows[0][columnToQuery]);
+            }
             return res.json({
                 fulfillmentText: fulfilText,
                 outputContexts: [{
@@ -139,7 +151,7 @@ app.post('/getcourse', (req, res) => {
         }).catch(err => {
             console.error(err.stack);
             return res.json({
-                fulfillmentText: "We are unable to get the information you require.\n Please try again later.",
+                fulfillmentText: "We are unable to get the information you asked for.\n Please try again later.",
                 source: 'getcourse'
             })
         })
