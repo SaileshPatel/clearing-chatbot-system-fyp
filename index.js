@@ -130,7 +130,7 @@ app.post('/getcourse', (req, res) => {
             if(columnToQuery === "course_spaces"){
                 var courseSpaces = response.rows[0]['course_spaces'];
                 if(courseSpaces > 0){
-                    fulfilText = JSON.stringify("There are " + spaces + " left on " + course + ".");
+                    fulfilText = JSON.stringify("There are " + courseSpaces + " left on " + course + ".");
                 } else {
                     fulfilText = JSON.stringify("There are no spaces left on " + course + ".");
                 }
