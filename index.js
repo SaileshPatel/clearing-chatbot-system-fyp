@@ -24,7 +24,16 @@ app.get("/add-multiple-course-programmes", (req, res) =>{
 })
 
 app.get("/allocate-space", (req, res) =>{
-    res.render('add-space-manually', {title: "Allocate Space"});
+    db.query("SELECT ucas_code, course_name, course_spaces FROM Courses;", [])
+        .then(response => {
+            console.log(response.rows);
+            res.render('add-space-manually', {title: "Allocate Space", courses: response.rows});
+        })
+        .catch(err => {
+            res.render('add-space-manually', {title: "Allocate Space"});
+        })
+
+    //res.render('add-space-manually', {title: "Allocate Space"});
 })
 
 app.listen(port, () =>{
