@@ -1,2 +1,16 @@
 extends templates/layout.pug
 
+block content
+    table
+        tr
+            th UCAS Code
+            th Course Name
+            th Course Spaces
+            th Allocate Space
+        for course in courses
+            tr
+                td= course.ucas_code
+                td= course.course_name
+                td= course.course_spaces
+                td
+                    a(href=`allocate-a-space/${course.ucas_code}`) Allocate
