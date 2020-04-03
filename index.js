@@ -24,7 +24,7 @@ app.get("/add-multiple-course-programmes", (req, res) =>{
 })
 
 app.get("/allocate-space", (req, res) =>{
-    db.query("SELECT ucas_code, course_name, course_spaces FROM Courses;", [])
+    db.query("SELECT ucas_code, course_name, course_spaces FROM Courses ORDER BY course_name ASC;", [])
         .then(response => {
             console.log(response.rows);
             res.render('add-space-manually', {title: "Allocate Space", courses: response.rows});
