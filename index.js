@@ -45,8 +45,6 @@ app.post("/allocate-a-space", (req, res) =>{
             console.log(err);
             res.render("index", {title: "Error"});
         })
-
-    console.log(req['body']['ucas_code']);
 })
 
 app.listen(port, () =>{
