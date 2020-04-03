@@ -13,4 +13,6 @@ block content
                 td= course.course_name
                 td= course.course_spaces
                 td
-                    a(href=`allocate-a-space/${course.ucas_code}`) Allocate
+                    form(action="allocate-a-space", method="POST")
+                        input(type="hidden" name="ucas_code" value=`${course.ucas_code}`)
+                        button(type="submit") Allocate
