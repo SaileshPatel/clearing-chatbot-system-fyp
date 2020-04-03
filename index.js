@@ -34,6 +34,22 @@ app.get("/allocate-space", (req, res) =>{
         })
 })
 
+app.post("/allocate-a-space", (req, res) =>{
+    var course_to_update = req['body']['ucas_code'];
+
+    db.query("UPDATE Courses SET course_spaces = course_spaces - 1 WHERE ucas_code = $1 AND course_spaces > 0;", [course_to_update])
+        .then(response => {
+            console.log(response);
+            res.render("index", {title: "Succeess"});
+        })
+        .catch(err => {
+            console.log(err);
+            res.render("index", {title: "Error"});
+        })
+
+    console.log(req['body']['ucas_code']);
+})
+
 app.listen(port, () =>{
     console.log(`Server is running at http://localhost:${port}`)
 })
