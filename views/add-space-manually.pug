@@ -1,0 +1,22 @@
+extends templates/layout.pug
+
+block content
+    if courses
+        table
+            tr
+                th UCAS Code
+                th Course Name
+                th Course Spaces
+                th Allocate Space
+            for course in courses
+                tr
+                    td= course.ucas_code
+                    td= course.course_name
+                    td= course.course_spaces
+                    td
+                        form(action="allocate-a-space", method="POST")
+                            input(type="hidden" name="ucas_code" value=`${course.ucas_code}`)
+                            //- !course.course_spaces = no spaces left
+                            button(type="submit" disabled=!course.course_spaces) Allocate
+    else
+        p= fail_message

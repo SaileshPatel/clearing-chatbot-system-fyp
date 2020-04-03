@@ -24,6 +24,30 @@ app.get("/add-multiple-course-programmes", (req, res) =>{
     res.render('add-multiple-course-programmes', {title: "Add Multiple Course Programmes"});
 })
 
+app.get("/allocate-space", (req, res) =>{
+    db.query("SELECT ucas_code, course_name, course_spaces FROM Courses ORDER BY course_name ASC;", [])
+        .then(response => {
+            console.log(response.rows);
+            res.render('add-space-manually', {title: "Allocate Space", courses: response.rows});
+        })
+        .catch(err => {
+            res.render('add-space-manually', {title: "Allocate Space", fail_message: "There has been a problem with connecting to our database. Please try again later."});
+        })
+})
+
+app.post("/allocate-a-space", (req, res) =>{
+    var course_to_update = req['body']['ucas_code'];
+    db.query("UPDATE Courses SET course_spaces = course_spaces - 1 WHERE ucas_code = $1 AND course_spaces > 0;", [course_to_update])
+        .then(response => {
+            console.log(response);
+            res.render("index", {title: "Succeess"});
+        })
+        .catch(err => {
+            console.log(err);
+            res.render("index", {title: "Error"});
+        })
+})
+
 app.listen(port, () =>{
     console.log(`Server is running at http://localhost:${port}`)
 })
