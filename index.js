@@ -23,6 +23,10 @@ app.get("/add-multiple-course-programmes", (req, res) =>{
     res.render('add-multiple-course-programmes', {title: "Add Multiple Course Programmes"});
 })
 
+app.get("/allocate-space", (req, res) =>{
+    res.render('add-space-manually', {title: "Allocate Space"});
+})
+
 app.listen(port, () =>{
     console.log(`Server is running at http://localhost:${port}`)
 })
