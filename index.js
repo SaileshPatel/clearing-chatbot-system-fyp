@@ -30,10 +30,8 @@ app.get("/allocate-space", (req, res) =>{
             res.render('add-space-manually', {title: "Allocate Space", courses: response.rows});
         })
         .catch(err => {
-            res.render('add-space-manually', {title: "Allocate Space"});
+            res.render('add-space-manually', {title: "Allocate Space", fail_message: "There has been a problem with connecting to our database. Please try again later."});
         })
-
-    //res.render('add-space-manually', {title: "Allocate Space"});
 })
 
 app.listen(port, () =>{
