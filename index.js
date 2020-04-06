@@ -167,7 +167,7 @@ app.post('/getcourse', (req, res) => {
                     fulfilText = JSON.stringify("There are no spaces left on " + course + ".");
                 }
             } else if (columnToQuery === "module_title") {
-                let module_titles = response.rows.map(module => module.module_title);
+                let module_titles = response.rows.map(module => module.module_title).join(", ");
                 fulfilText = "You will study the following modules: " + module_titles;
             } else {
                 fulfilText = JSON.stringify(response.rows[0][columnToQuery]);
