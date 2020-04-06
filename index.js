@@ -139,6 +139,10 @@ app.post('/getcourse', (req, res) => {
             queryString = "SELECT contact_details FROM Courses WHERE course_name LIKE $1;";
             columnToQuery = "contact_details";
             break;
+        case 'Modules':
+            queryString = "SELECT module_title FROM Modules WHERE ucas_code = (SELECT ucas_code FROM Courses WHERE course_name LIKE $1);";
+            columnToQuery = "module_title";
+            break;
         default:
             return res.json({
                 fulfillmentText: "We could not find anything for " + course + " related to " + intent + ". Please try asking about tuition fees, entry requirements, spaces or a description of " + course + ".",
