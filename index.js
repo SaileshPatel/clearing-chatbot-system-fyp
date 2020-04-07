@@ -165,9 +165,10 @@ app.post('/getcourse', (req, res) => {
                     fulfilText = JSON.stringify("There are no spaces left on " + course + ".");
                 }
             } else if (columnToQuery === "module_title") {
-                if(response.rows.length == 0){
+                console.log(response);
+                if(response.rowCount == 0){
                     fulfilText = "There are no modules associated with " + course + " currently.";
-                } else if (response.rows.length == 1){
+                } else if (response.rowCount == 1){
                     fulfilText = "You still study the following module: '" + response.rows[0]['module_title'] + "'.";
                 } else {
                     let module_titles = response.rows.map(module => "'" + module.module_title + "'");
