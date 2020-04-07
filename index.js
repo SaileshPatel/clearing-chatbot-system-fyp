@@ -38,11 +38,9 @@ app.post("/allocate-a-space", (req, res) =>{
     var course_to_update = req['body']['ucas_code'];
     db.query("UPDATE Courses SET course_spaces = course_spaces - 1 WHERE ucas_code = $1 AND course_spaces > 0;", [course_to_update])
         .then(response => {
-            console.log(response);
-            res.render("index", {title: "Succeess"});
+            res.render("index", {title: "Success"});
         })
         .catch(err => {
-            console.log(err);
             res.render("index", {title: "Error"});
         })
 })
