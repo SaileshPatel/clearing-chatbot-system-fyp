@@ -138,12 +138,12 @@ app.post('/getcourse', (req, res) => {
             columnToQuery = "contact_details";
             break;
         case 'Modules':
-            queryString = "SELECT module_title FROM Modules WHERE ucas_code = (SELECT ucas_code FROM Courses WHERE course_name LIKE $1);";
+            queryString = "SELECT modules.module_title, course_name FROM modules INNER JOIN courses ON modules.ucas_code=courses.ucas_code WHERE courses.course_name LIKE $1;";
             columnToQuery = "module_title";
             break;
         default:
             return res.json({
-                fulfillmentText: "We could not find anything for " + course + " related to " + intent + ". Please try asking about tuition fees, entry requirements, spaces or a description of " + course + ".",
+                fulfillmentText: "We could not find anything for " + course + " related to " + intent + ". Please try asking about tuition fees, entry requirements, spaces or a description of " + course + " or another course.",
                 outputContexts: [{
                     "name": session + "/contexts/course",
                     "lifespanCount": 5,
