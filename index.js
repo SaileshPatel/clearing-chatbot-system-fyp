@@ -197,7 +197,4 @@ app.post('/getcourse', (req, res) => {
                 source: 'getcourse'
             })
         })
-
-
-
 })
