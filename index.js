@@ -192,7 +192,7 @@ app.post('/getcourse', (req, res) => {
         }).catch(err => {
             console.error(err.stack);
             return res.json({
-                fulfillmentText: "We are unable to get the information you asked for.\n Please try again later.",
+                fulfillmentText: "We were unable to find information about " + course +  ". Please querying about a course we have information about like Law, Computer Science, or English.",
                 source: 'getcourse'
             })
         })
