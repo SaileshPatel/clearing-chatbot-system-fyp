@@ -160,7 +160,7 @@ app.post('/getcourse', (req, res) => {
             if(columnToQuery === "course_spaces"){
                 var courseSpaces = response.rows[0]['course_spaces'];
                 if(courseSpaces > 0){
-                    fulfilText = JSON.stringify("There are " + courseSpaces + "spaces left on " + course + ".");
+                    fulfilText = JSON.stringify("There are " + courseSpaces + " spaces left on " + course + ".");
                 } else {
                     fulfilText = JSON.stringify("There are no spaces left on " + course + ".");
                 }
@@ -191,7 +191,7 @@ app.post('/getcourse', (req, res) => {
         }).catch(err => {
             console.error(err.stack);
             return res.json({
-                fulfillmentText: "We are unable to get the information you asked for.\n Please try again later.",
+                fulfillmentText: "We were unable to find information about " + course +  ". Please querying about a course we have information about like Law, Computer Science, or English.",
                 source: 'getcourse'
             })
         })
