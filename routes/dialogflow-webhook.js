@@ -7,12 +7,7 @@ router.post('/', (req, res) => {
     const course = req.body.queryResult.parameters.Course || req.body.queryResult.outputContexts.parameters.Course;
     var session = req.body.session;
 
-    if(!intentClassifier(intent).status){
-        return res.json({
-            fulfillmentText: "Unfortunately, we were unable to find information related to '" + intent + "'. Try querying about spaces, descriptions, entry requirements, tuition fees, contact details and modules for our courses.",
-            source: 'getcourse'
-        }) 
-    } else {
+    if(intentClassifier(intent).status){
         var queryString = intentClassifier(intent)['queryString'];
         var columnToQuery = intentClassifier(intent)['columnToQuery'];
 
@@ -37,6 +32,12 @@ router.post('/', (req, res) => {
                     source: 'getcourse'
                 })
             })
+        
+    } else {
+        return res.json({
+            fulfillmentText: "Unfortunately, we were unable to find information related to '" + intent + "'. Try querying about spaces, descriptions, entry requirements, tuition fees, contact details and modules for our courses.",
+            source: 'getcourse'
+        })
     }
 })
 
@@ -109,6 +110,5 @@ function intentClassifier(intent){
             }
     }
 }
-
 
 module.exports = router;
