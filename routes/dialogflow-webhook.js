@@ -14,10 +14,11 @@ router.post('/', (req, res) => {
 
     if(!intentClassifier(intent).status){
         return res.json({
-            fulfillmentText: "Intent not recognised",
+            fulfillmentText: "Unfortunatly, we were unable to find information related to '" + intent + "'. Try querying about spaces, descriptions, entry requirements, tuition fees, contact details and modules for our courses.",
             source: 'getcourse'
         }) 
     } else {
+
         queryString = intentClassifier(intent)['queryString'];
         columnToQuery = intentClassifier(intent)['columnToQuery'];
 
@@ -62,8 +63,6 @@ router.post('/', (req, res) => {
                 })
             })
     }
-
-
 })
 
 
