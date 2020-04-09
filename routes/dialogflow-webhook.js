@@ -2,13 +2,10 @@ const db = require("./../db");
 var express = require("express");
 var router = express.Router();
 
-
 router.post('/', (req, res) => {
     const intent = req.body.queryResult.intent.displayName;
     const course = req.body.queryResult.parameters.Course || req.body.queryResult.outputContexts.parameters.Course;
     var session = req.body.session;
-    
-    var fulfilText = "";
 
     if(!intentClassifier(intent).status){
         return res.json({
@@ -16,34 +13,14 @@ router.post('/', (req, res) => {
             source: 'getcourse'
         }) 
     } else {
-
         var queryString = intentClassifier(intent)['queryString'];
         var columnToQuery = intentClassifier(intent)['columnToQuery'];
 
         db.query(queryString, ['%' + course + '%'])
             .then(response => {
-                if(columnToQuery === "course_spaces"){
-                    var courseSpaces = response.rows[0]['course_spaces'];
-                    if(courseSpaces > 0){
-                        fulfilText = JSON.stringify("There are " + courseSpaces + " spaces left on " + course + ".");
-                    } else {
-                        fulfilText = JSON.stringify("There are no spaces left on " + course + ".");
-                    }
-                } else if (columnToQuery === "module_title") {
-                    if(response.rows.length == 0){
-                        fulfilText = "There are no modules associated with " + course + " currently.";
-                    } else if (response.rows.length == 1){
-                        fulfilText = "You still study the following module: '" + response.rows[0]['module_title'] + "'.";
-                    } else {
-                        let module_titles = response.rows.map(module => "'" + module.module_title + "'");
-                        let module_list = module_titles.slice(0, module_titles.length - 1).join(", ") + ", and " + module_titles.slice(-1);
-                        fulfilText = "You will study the following modules: " + module_list + ".";
-                    }
-                } else {
-                    fulfilText = JSON.stringify(response.rows[0][columnToQuery]);
-                }
+                var message = fulfillmentText(course, columnToQuery, response); 
                 return res.json({
-                    fulfillmentText: fulfilText,
+                    fulfillmentText: message,
                     outputContexts: [{
                         "name": session + "/contexts/course",
                         "lifespanCount": 5,
@@ -62,6 +39,30 @@ router.post('/', (req, res) => {
             })
     }
 })
+
+function fulfillmentText(course, columnToQuery, response){
+    if(columnToQuery === "course_spaces"){
+        var courseSpaces = response.rows[0]['course_spaces'];
+        if(courseSpaces > 0){
+            return JSON.stringify("There are " + courseSpaces + " spaces left on " + course + ".");
+        } else {
+            return JSON.stringify("There are no spaces left on " + course + ".");
+        }
+    } else if (columnToQuery === "module_title") {
+        if(response.rows.length == 0){
+            return "There are no modules associated with " + course + " currently.";
+        } else if (response.rows.length == 1){
+            return "You still study the following module: '" + response.rows[0]['module_title'] + "'.";
+        } else {
+            let module_titles = response.rows.map(module => "'" + module.module_title + "'");
+            let module_list = module_titles.slice(0, module_titles.length - 1).join(", ") + ", and " + module_titles.slice(-1);
+            return "You will study the following modules: " + module_list + ".";
+        }
+    } else {
+        return JSON.stringify(response.rows[0][columnToQuery]);
+    }
+
+}
 
 
 function intentClassifier(intent){
@@ -104,12 +105,9 @@ function intentClassifier(intent){
                 }
         default:
             return {
-                message: "Intent is not recognised",
                 status: false
             }
-            // return some sort of error -> intent could not be found
     }
-
 }
 
 
