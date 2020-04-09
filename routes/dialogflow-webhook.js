@@ -8,19 +8,17 @@ router.post('/', (req, res) => {
     const course = req.body.queryResult.parameters.Course || req.body.queryResult.outputContexts.parameters.Course;
     var session = req.body.session;
     
-    var queryString = "";
     var fulfilText = "";
-    var columnToQuery = "";
 
     if(!intentClassifier(intent).status){
         return res.json({
-            fulfillmentText: "Unfortunatly, we were unable to find information related to '" + intent + "'. Try querying about spaces, descriptions, entry requirements, tuition fees, contact details and modules for our courses.",
+            fulfillmentText: "Unfortunately, we were unable to find information related to '" + intent + "'. Try querying about spaces, descriptions, entry requirements, tuition fees, contact details and modules for our courses.",
             source: 'getcourse'
         }) 
     } else {
 
-        queryString = intentClassifier(intent)['queryString'];
-        columnToQuery = intentClassifier(intent)['columnToQuery'];
+        var queryString = intentClassifier(intent)['queryString'];
+        var columnToQuery = intentClassifier(intent)['columnToQuery'];
 
         db.query(queryString, ['%' + course + '%'])
             .then(response => {
