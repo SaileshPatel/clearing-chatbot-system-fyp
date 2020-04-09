@@ -1,9 +1,9 @@
 const express = require("express");
 require("dotenv").config();
 
-
 const db = require("./db");
 const dialogflow_webhook = require("./routes/dialogflow-webhook.js");
+const manual_space_allocation = require("./routes/allocate-space-manually.js");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -27,16 +27,6 @@ app.get("/add-course-programme", (req, res) =>{
 
 app.get("/add-multiple-course-programmes", (req, res) =>{
     res.render('add-multiple-course-programmes', {title: "Add Multiple Course Programmes"});
-})
-
-app.get("/allocate-space", (req, res) =>{
-    db.query("SELECT ucas_code, course_name, course_spaces FROM Courses ORDER BY course_name ASC;", [])
-        .then(response => {
-            res.render('add-space-manually', {title: "Allocate Space", courses: response.rows});
-        })
-        .catch(err => {
-            res.render('add-space-manually', {title: "Allocate Space", fail_message: "There has been a problem with connecting to our database. Please try again later."});
-        })
 })
 
 app.post("/allocate-a-space", (req, res) =>{
@@ -115,5 +105,7 @@ function isUndergrad(course_type){
             return 'Postgraduate';
     }
 }
+
+app.use("/allocate-space", manual_space_allocation);
 
 app.use("/getcourse", dialogflow_webhook);
