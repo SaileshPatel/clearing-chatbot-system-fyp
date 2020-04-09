@@ -30,7 +30,7 @@ app.get("/add-multiple-course-programmes", (req, res) =>{
     res.render('add-multiple-course-programmes', {title: "Add Multiple Course Programmes"});
 })
 
-app.use("/upload-single-record", upload_single_course);
+app.use("/add-course-programme", upload_single_course);
 
 app.use("/allocate-space", manual_space_allocation);
 

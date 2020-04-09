@@ -2,6 +2,10 @@ const db = require("./../db");
 var express = require("express");
 var router = express.Router();
 
+router.get("/", (req, res) =>{
+    res.render('add-course-programme', {title: "Add Course Programme"});
+})
+
 router.post('/', (req, res) => {
     var queryParams = [req['body']['ucas_code'],
         req['body']['course_description'], 
