@@ -41,27 +41,27 @@ router.post('/', (req, res) => {
 })
 
 function fulfillmentText(course, columnToQuery, response){
-    if(columnToQuery === "course_spaces"){
-        var courseSpaces = response.rows[0]['course_spaces'];
-        if(courseSpaces > 0){
-            return JSON.stringify("There are " + courseSpaces + " spaces left on " + course + ".");
-        } else {
-            return JSON.stringify("There are no spaces left on " + course + ".");
-        }
-    } else if (columnToQuery === "module_title") {
-        if(response.rows.length == 0){
-            return "There are no modules associated with " + course + " currently.";
-        } else if (response.rows.length == 1){
-            return "You still study the following module: '" + response.rows[0]['module_title'] + "'.";
-        } else {
-            let module_titles = response.rows.map(module => "'" + module.module_title + "'");
-            let module_list = module_titles.slice(0, module_titles.length - 1).join(", ") + ", and " + module_titles.slice(-1);
-            return "You will study the following modules: " + module_list + ".";
-        }
-    } else {
-        return JSON.stringify(response.rows[0][columnToQuery]);
+    switch(columnToQuery){
+        case 'course_spaces':
+            var courseSpaces = response.rows[0]['course_spaces'];
+            if(courseSpaces > 0){
+                return JSON.stringify("There are " + courseSpaces + " spaces left on " + course + ".");
+            } else {
+                return JSON.stringify("There are no spaces left on " + course + ".");
+            }
+        case 'module_title':
+            if(response.rows.length == 0){
+                return "There are no modules associated with " + course + " currently.";
+            } else if (response.rows.length == 1){
+                return "You still study the following module: '" + response.rows[0]['module_title'] + "'.";
+            } else {
+                let module_titles = response.rows.map(module => "'" + module.module_title + "'");
+                let module_list = module_titles.slice(0, module_titles.length - 1).join(", ") + ", and " + module_titles.slice(-1);
+                return "You will study the following modules: " + module_list + ".";
+            }
+        default:
+            return JSON.stringify(response.rows[0][columnToQuery]);
     }
-
 }
 
 
