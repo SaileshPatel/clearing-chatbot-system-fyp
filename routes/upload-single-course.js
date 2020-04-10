@@ -17,25 +17,45 @@ router.post('/', (req, res) => {
         req['body']['course_spaces'],
         req['body']['course_type'],
         isUndergrad(req['body']['course_type'])
-    ]
+    ];
 
-    var queryString = "INSERT INTO Courses(ucas_code, description, contact_details, entry_requirements, website, course_name, tuition_fees, course_spaces, course_type, undergraduate_or_postgraduate) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);";
-
-    db.query(queryString, queryParams)
+    insertRecord(queryParams)
         .then(response => {
-            res.render('add-course-programme', {title: 'Add Course Programme', message: "Your course was successfully added to the database."});
+            res.render('add-course-programme', {title: 'Add Course Programme', message: response['message']});
         })
         .catch(err => {
-            var error_message;
-            // error codes for PostgreSQL can be found here: https://www.postgresql.org/docs/current/errcodes-appendix.html
-            if(err.code === '23505') {
-                error_message = "This UCAS Code has already been used. Please use a different UCAS code for the course you wish to submit.";
-            } else {
-                error_message = "There was an error. Please contact an administrator."
-            }
-            res.render('add-course-programme', {title: 'Add Course Programme', message: error_message});
+            res.render('add-course-programme', {title: 'Add Course Programme', message: err['message']});
         })
 })
+
+
+function insertRecord(record){
+    return new Promise(function(resolve, reject){
+        var queryString = "INSERT INTO Courses(ucas_code, description, contact_details, entry_requirements, website, course_name, tuition_fees, course_spaces, course_type, undergraduate_or_postgraduate) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);";
+        var vm = this;
+        db.query(queryString, record)
+            .then(response => {
+                resolve({
+                       status: true,
+                       message: "Your course was successfully added."
+                   })
+
+            })
+            .catch(err => {
+                if(err.code === '23505') {
+                    error_message = "This UCAS Code has already been used. Please use a different UCAS code for the course you wish to submit.";
+                } else {
+                    error_message = "There was an error. Please contact an administrator."
+                }
+                reject({
+                    status: false,
+                    message: error_message
+                })
+            })
+
+    });
+
+}
 
 
 // list obtained from https://www.aber.ac.uk/en/undergrad/before-you-apply/ba-bsc-ma-msc-phd/
