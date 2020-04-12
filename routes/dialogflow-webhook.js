@@ -7,7 +7,7 @@ router.post('/', (req, res) => {
     const course = req.body.queryResult.parameters.Course || req.body.queryResult.outputContexts.parameters.Course;
     var session = req.body.session;
 
-    if(intentClassifier(intent).status){
+    if(intentClassifier(intent)['status'] && intentClassifier(intent)['type'] === 'query'){
         var queryString = intentClassifier(intent)['queryString'];
         var columnToQuery = intentClassifier(intent)['columnToQuery'];
 
