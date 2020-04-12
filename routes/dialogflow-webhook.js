@@ -72,41 +72,48 @@ function intentClassifier(intent){
             return {
                 queryString: "SELECT description FROM Courses WHERE course_name LIKE $1",
                 columnToQuery: "description",
+                type: 'query',
                 status: true
             }
         case 'Course Spaces':
             return {
                 queryString: "SELECT course_spaces FROM Courses WHERE course_name LIKE $1;",
                 columnToQuery: "course_spaces",
+                type: 'query',
                 status: true
             }
         case 'Entry Requirements':
             return {
                 queryString: "SELECT entry_requirements FROM Courses WHERE course_name LIKE $1;",
                 columnToQuery: "entry_requirements",
+                type: 'query',
                 status: true
             }
         case 'Tuition Fees':
             return {
                 queryString: "SELECT tuition_fees FROM Courses WHERE course_name LIKE $1;",
                 columnToQuery: "tuition_fees",
+                type: 'query',
                 status: true
             }
             case 'Contact Details':
                 return {
                     queryString: "SELECT contact_details FROM Courses WHERE course_name LIKE $1;",
                     columnToQuery: "contact_details",
+                    type: 'query',
                     status: true
                 }
             case 'Modules':
                 return {
                     queryString: "SELECT module_title FROM Modules WHERE ucas_code = (SELECT ucas_code FROM Courses WHERE course_name LIKE $1);",
                     columnToQuery: "module_title",
+                    type: 'query',
                     status: true
                 }
         default:
             return {
-                status: false
+                status: false,
+                type: 'query',
             }
     }
 }
