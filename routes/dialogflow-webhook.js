@@ -38,23 +38,14 @@ router.post('/', (req, res) => {
 
         db.query(queryString, [])
             .then(response => {
-                var fulfillmentText;
-                if(response.rows.length == 0){
-                    fulfillmentText =  "";
-                } else if (response.rows.length == 1){
-                    fulfillmentText =  "We can provide information about the following course: '" + response.rows[0]['module_title'] + "'.";
-                } else {
-                    let course_titles = response.rows.map(course => "'" + course['course_name'] + "'");
-                    let course_list = course_titles.slice(0, course_titles.length - 1).join(", ") + ", and " + course_titles.slice(-1);
-                    fulfillmentText = "We can provide information on the following courses: " + course_list + ".";
-                }
-
+                var message = fulfillmentText(null, columnToQuery, response); 
                 return res.json({
-                    fulfillmentText: "Hello. Welcome to Aston's clearing admissions chatbot. How can we help you today? We can answer questions about course spaces, descriptions, entry requirements, contact details and what modules you'll study on our courses. ".concat(fulfillmentText),
+                    fulfillmentText: message,
                     source: 'getcourse'
                 })
             })
             .catch(err => {
+                console.log(err.stack);
                 return res.json({
                     fulfillmentText: "We were unable to find information. Please querying about a course we have information about like Law, Computer Science, or English.",
                     source: 'getcourse'
@@ -87,6 +78,18 @@ function fulfillmentText(course, columnToQuery, response){
                 let module_list = module_titles.slice(0, module_titles.length - 1).join(", ") + ", and " + module_titles.slice(-1);
                 return "You will study the following modules: " + module_list + ".";
             }
+        case 'course_name':
+            var fulfillmentText;
+            if(response.rows.length == 0){
+                fulfillmentText =  "";
+            } else if (response.rows.length == 1){
+                fulfillmentText =  "We can provide information about the following course: '" + response.rows[0]['module_title'] + "'.";
+            } else {
+                let course_titles = response.rows.map(course => "'" + course['course_name'] + "'");
+                let course_list = course_titles.slice(0, course_titles.length - 1).join(", ") + ", and " + course_titles.slice(-1);
+                fulfillmentText = "We can provide information on the following courses: " + course_list + ".";
+            }
+            return "Hello. Welcome to Aston's clearing admissions chatbot. How can we help you today? We can answer questions about course spaces, descriptions, entry requirements, contact details and what modules you'll study on our courses. ".concat(fulfillmentText);
         default:
             return JSON.stringify(response.rows[0][columnToQuery]);
     }
