@@ -28,11 +28,38 @@ router.post('/', (req, res) => {
             }).catch(err => {
                 console.error(err.stack);
                 return res.json({
-                    fulfillmentText: "We were unable to find information about " + course +  ". Please querying about a course we have information about like Law, Computer Science, or English.",
+                    fulfillmentText: "We were unable to find information about " + course +  ". Please querying about another course.",
                     source: 'getcourse'
                 })
             })
-        
+    } else if (intentClassifier(intent)['status'] && intentClassifier(intent)['type'] === 'generic') {
+        var queryString = intentClassifier(intent)['queryString'];
+        var columnToQuery = intentClassifier(intent)['columnToQuery'];
+
+        db.query(queryString, [])
+            .then(response => {
+                var fulfillmentText;
+                if(response.rows.length == 0){
+                    fulfillmentText =  "You can find out about many modules.";
+                } else if (response.rows.length == 1){
+                    fulfillmentText =  "You can find out about the following course: '" + response.rows[0]['module_title'] + "'.";
+                } else {
+                    let course_titles = response.rows.map(course => "'" + course['course_name'] + "'");
+                    let course_list = course_titles.slice(0, course_titles.length - 1).join(", ") + ", and " + course_titles.slice(-1);
+                    fulfillmentText = "We can provide information on the following courses: " + course_list + ".";
+                }
+
+                return res.json({
+                    fulfillmentText: "Hello. Welcome to Aston's clearing admissions chatbot. How can we help you today? We can answer questions about course spaces, descriptions, entry requirements, contact details and what modules you'll study on our courses. ".concat(fulfillmentText),
+                    source: 'getcourse'
+                })
+            })
+            .catch(err => {
+                return res.json({
+                    fulfillmentText: "We were unable to find information. Please querying about a course we have information about like Law, Computer Science, or English.",
+                    source: 'getcourse'
+                })
+            })
     } else {
         return res.json({
             fulfillmentText: "Unfortunately, we were unable to find information related to '" + intent + "'. Try querying about spaces, descriptions, entry requirements, tuition fees, contact details and modules for our courses.",
@@ -109,6 +136,13 @@ function intentClassifier(intent){
                     columnToQuery: "module_title",
                     status: true,
                     type: 'query'
+                }
+            case 'Default Welcome Intent':
+                return {
+                    queryString: "SELECT course_name FROM Courses;",
+                    columnToQuery: "course_name",
+                    status: true,
+                    type: 'generic'
                 }
         default:
             return {
