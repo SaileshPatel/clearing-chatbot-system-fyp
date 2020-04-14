@@ -4,10 +4,10 @@ var router = express.Router();
 
 router.post('/', (req, res) => {
     const intent = req.body.queryResult.intent.displayName;
-    const course = req.body.queryResult.parameters.Course || req.body.queryResult.outputContexts.parameters.Course;
     var session = req.body.session;
 
     if(intentClassifier(intent)['status'] && intentClassifier(intent)['type'] === 'query'){
+        const course = req.body.queryResult.parameters.Course || req.body.queryResult.outputContexts.parameters.Course;
         var queryString = intentClassifier(intent)['queryString'];
         var columnToQuery = intentClassifier(intent)['columnToQuery'];
 
