@@ -40,7 +40,7 @@ router.post('/', (req, res) => {
             .then(response => {
                 var fulfillmentText;
                 if(response.rows.length == 0){
-                    fulfillmentText =  "You can find out about many modules.";
+                    fulfillmentText =  "";
                 } else if (response.rows.length == 1){
                     fulfillmentText =  "You can find out about the following course: '" + response.rows[0]['module_title'] + "'.";
                 } else {
