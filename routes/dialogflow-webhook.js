@@ -3,15 +3,18 @@ var express = require("express");
 var router = express.Router();
 
 router.post('/', (req, res) => {
+    console.log('Course' in req.body.queryResult.parameters);
+
     const intent = req.body.queryResult.intent.displayName;
     var session = req.body.session;
 
-    if(intentClassifier(intent)['status'] && intentClassifier(intent)['type'] === 'query'){
-        const course = req.body.queryResult.parameters.Course;
+    if(intentClassifier(intent)['status']){
+        const course = 'Course' in req.body.queryResult.parameters ? ['%' + req.body.queryResult.parameters.Course + '%' ] : [];
         var queryString = intentClassifier(intent)['queryString'];
         var columnToQuery = intentClassifier(intent)['columnToQuery'];
 
-        db.query(queryString, ['%' + course + '%'])
+        // use ternary operator to filter between Default Welcome Intent (no param) and other intents (parameters)
+        db.query(queryString, 'Course' in req.body.queryResult.parameters ? ['%' + course + '%' ] : [])
             .then(response => {
                 var message = fulfillmentText(course, columnToQuery, response); 
                 return res.json({
@@ -29,25 +32,6 @@ router.post('/', (req, res) => {
                 console.error(err.stack);
                 return res.json({
                     fulfillmentText: "We were unable to find information about " + course +  ". Please querying about another course.",
-                    source: 'getcourse'
-                })
-            })
-    } else if (intentClassifier(intent)['status'] && intentClassifier(intent)['type'] === 'generic') {
-        var queryString = intentClassifier(intent)['queryString'];
-        var columnToQuery = intentClassifier(intent)['columnToQuery'];
-
-        db.query(queryString, [])
-            .then(response => {
-                var message = fulfillmentText(null, columnToQuery, response); 
-                return res.json({
-                    fulfillmentText: message,
-                    source: 'getcourse'
-                })
-            })
-            .catch(err => {
-                console.log(err.stack);
-                return res.json({
-                    fulfillmentText: "We were unable to find information. Please querying about a course we have information about like Law, Computer Science, or English.",
                     source: 'getcourse'
                 })
             })
@@ -145,7 +129,7 @@ function intentClassifier(intent){
                     queryString: "SELECT course_name FROM Courses;",
                     columnToQuery: "course_name",
                     status: true,
-                    type: 'generic'
+                    type: 'query'
                 }
         default:
             return {
