@@ -42,7 +42,7 @@ router.post('/', (req, res) => {
                 if(response.rows.length == 0){
                     fulfillmentText =  "";
                 } else if (response.rows.length == 1){
-                    fulfillmentText =  "You can find out about the following course: '" + response.rows[0]['module_title'] + "'.";
+                    fulfillmentText =  "We can provide information about the following course: '" + response.rows[0]['module_title'] + "'.";
                 } else {
                     let course_titles = response.rows.map(course => "'" + course['course_name'] + "'");
                     let course_list = course_titles.slice(0, course_titles.length - 1).join(", ") + ", and " + course_titles.slice(-1);
