@@ -7,7 +7,7 @@ router.post('/', (req, res) => {
     const course = req.body.queryResult.parameters.Course || req.body.queryResult.outputContexts.parameters.Course;
     var session = req.body.session;
 
-    if(intentClassifier(intent).status){
+    if(intentClassifier(intent)['status'] && intentClassifier(intent)['type'] === 'query'){
         var queryString = intentClassifier(intent)['queryString'];
         var columnToQuery = intentClassifier(intent)['columnToQuery'];
 
@@ -72,41 +72,48 @@ function intentClassifier(intent){
             return {
                 queryString: "SELECT description FROM Courses WHERE course_name LIKE $1",
                 columnToQuery: "description",
-                status: true
+                status: true,
+                type: 'query'
             }
         case 'Course Spaces':
             return {
                 queryString: "SELECT course_spaces FROM Courses WHERE course_name LIKE $1;",
                 columnToQuery: "course_spaces",
-                status: true
+                status: true,
+                type: 'query'
             }
         case 'Entry Requirements':
             return {
                 queryString: "SELECT entry_requirements FROM Courses WHERE course_name LIKE $1;",
                 columnToQuery: "entry_requirements",
-                status: true
+                status: true,
+                type: 'query'
             }
         case 'Tuition Fees':
             return {
                 queryString: "SELECT tuition_fees FROM Courses WHERE course_name LIKE $1;",
                 columnToQuery: "tuition_fees",
-                status: true
+                status: true,
+                type: 'query'
             }
             case 'Contact Details':
                 return {
                     queryString: "SELECT contact_details FROM Courses WHERE course_name LIKE $1;",
                     columnToQuery: "contact_details",
-                    status: true
+                    status: true,
+                    type: 'query'
                 }
             case 'Modules':
                 return {
                     queryString: "SELECT module_title FROM Modules WHERE ucas_code = (SELECT ucas_code FROM Courses WHERE course_name LIKE $1);",
                     columnToQuery: "module_title",
-                    status: true
+                    status: true,
+                    type: 'query'
                 }
         default:
             return {
-                status: false
+                status: false,
+                type: 'query'
             }
     }
 }
