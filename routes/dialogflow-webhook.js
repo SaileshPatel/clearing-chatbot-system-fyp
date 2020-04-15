@@ -3,17 +3,15 @@ var express = require("express");
 var router = express.Router();
 
 router.post('/', (req, res) => {
-    console.log('Course' in req.body.queryResult.parameters);
-
     const intent = req.body.queryResult.intent.displayName;
     var session = req.body.session;
 
     if(intentClassifier(intent)['status']){
-        const course = 'Course' in req.body.queryResult.parameters ? ['%' + req.body.queryResult.parameters.Course + '%' ] : [];
+        const course = req.body.queryResult.parameters.Course;
         var queryString = intentClassifier(intent)['queryString'];
         var columnToQuery = intentClassifier(intent)['columnToQuery'];
 
-        // use ternary operator to filter between Default Welcome Intent (no param) and other intents (parameters)
+        // use ternary operator to filter between Default Welcome Intent (no param) and other
         db.query(queryString, 'Course' in req.body.queryResult.parameters ? ['%' + course + '%' ] : [])
             .then(response => {
                 var message = fulfillmentText(course, columnToQuery, response); 
