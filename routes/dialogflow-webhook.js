@@ -33,6 +33,8 @@ router.post('/', (req, res) => {
                     source: 'getcourse'
                 })
             })
+    } else if (intentClassifier(intent)['status'] && intentClassifier(intent)['type'] === 'upload') {
+
     } else {
         return res.json({
             fulfillmentText: "Unfortunately, we were unable to find information related to '" + intent + "'. Try querying about spaces, descriptions, entry requirements, tuition fees, contact details and modules for our courses.",
