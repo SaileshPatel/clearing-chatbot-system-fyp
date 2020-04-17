@@ -131,8 +131,7 @@ function intentClassifier(intent){
                 }
         default:
             return {
-                status: false,
-                type: 'query'
+                status: false
             }
     }
 }
