@@ -33,8 +33,20 @@ router.post('/', (req, res) => {
                     source: 'getcourse'
                 })
             })
-    } else if (intentClassifier(intent)['status'] && intentClassifier(intent)['type'] === 'upload') {
+    } else if (intentClassifier(intent)['status'] && intentClassifier(intent)['type'] === 'insert') {
+        var queryString = intentClassifier(intent)['queryString'];
+        var next_question_to_ask = intentClassifier(intent)['nextQuestionContext'];
+        var Course = req.body.queryResult.outputContexts[0].parameters.Course;
+        var first_name = req.body.queryResult.outputContexts[0].parameters['first-name'];
+        var last_name = req.body.queryResult.outputContexts[0].parameters['last-name'];
 
+        db.query("INSERT INTO students (first_name, last_name, ucas_code) VALUES ($1, $2, (SELECT ucas_code FROM courses WHERE course_name LIKE $3)) RETURNING student_id;", [first_name, last_name, '%' + Course + '%'])
+            .then(response => {
+                console.log(response);
+            })
+            .catch(err => {
+                console.log(error);
+            })
     } else {
         return res.json({
             fulfillmentText: "Unfortunately, we were unable to find information related to '" + intent + "'. Try querying about spaces, descriptions, entry requirements, tuition fees, contact details and modules for our courses.",
