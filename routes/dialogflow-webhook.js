@@ -36,28 +36,31 @@ router.post('/', (req, res) => {
     } else if (intentClassifier(intent)['status'] && intentClassifier(intent)['type'] === 'insert') {
         var queryString = intentClassifier(intent)['queryString'];
         var next_question_to_ask = intentClassifier(intent)['nextQuestionContext'];
+        var current_context = req.body.queryResult.outputContexts[0];
         var Course = req.body.queryResult.outputContexts[0].parameters.Course;
         var first_name = req.body.queryResult.outputContexts[0].parameters['first-name'];
         var last_name = req.body.queryResult.outputContexts[0].parameters['last-name'];
 
         db.query(queryString, [first_name, last_name, '%' + Course + '%'])
             .then(response => {
-                console.log(response);
+                var id = response.rows[0]['student_id'];
                 return res.json({
                     fulfillmentText: "You have successfully started your application.",
                     outputContexts: [{
-
+                        "name": session + "/contexts/" + next_question_to_ask,
+                        "lifespanCount": 1,
+                        "parameters": {
+                            "student_id": id,
+                        }
                     }],
                     source: 'getcourse'
                 })
             })
             .catch(err => {
-                console.log(error);
+                console.log(err);
                 return res.json({
                     fulfillmentText: "There was an error and your application has not been started at this time. Please try again.",
-                    outputContexts: [{
-                        
-                    }],
+                    outputContexts: [current_context],
                     source: 'getcourse'
                 })
             })
@@ -69,9 +72,16 @@ router.post('/', (req, res) => {
     }
 })
 
-function applicationStep(){
+function applicationStep(stage){
     switch(stage){
-        
+        case "Application - yes":
+            return {
+                
+            }
+        default:
+            return {
+                
+            }
     }
 }
 
