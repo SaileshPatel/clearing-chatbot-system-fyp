@@ -40,12 +40,26 @@ router.post('/', (req, res) => {
         var first_name = req.body.queryResult.outputContexts[0].parameters['first-name'];
         var last_name = req.body.queryResult.outputContexts[0].parameters['last-name'];
 
-        db.query("INSERT INTO students (first_name, last_name, ucas_code) VALUES ($1, $2, (SELECT ucas_code FROM courses WHERE course_name LIKE $3)) RETURNING student_id;", [first_name, last_name, '%' + Course + '%'])
+        db.query(queryString, [first_name, last_name, '%' + Course + '%'])
             .then(response => {
                 console.log(response);
+                return res.json({
+                    fulfillmentText: "You have successfully started your application.",
+                    outputContexts: [{
+
+                    }],
+                    source: 'getcourse'
+                })
             })
             .catch(err => {
                 console.log(error);
+                return res.json({
+                    fulfillmentText: "There was an error and your application has not been started at this time. Please try again.",
+                    outputContexts: [{
+                        
+                    }],
+                    source: 'getcourse'
+                })
             })
     } else {
         return res.json({
@@ -151,7 +165,7 @@ function intentClassifier(intent){
                 }
             case 'Application - yes':
                 return {
-                    queryString: "INSERT INTO students (first_name, last_name, ucas_code) VALUES ($1, $2, $3) RETURNING student_id",
+                    queryString: "INSERT INTO students (first_name, last_name, ucas_code) VALUES ($1, $2, (SELECT ucas_code FROM courses WHERE course_name LIKE $3)) RETURNING student_id;",
                     nextQuestionContext: "get-date-of-birth",
                     status: true,
                     type: 'insert'
