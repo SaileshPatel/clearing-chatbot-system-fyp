@@ -2,6 +2,8 @@ const db = require("./../db");
 var express = require("express");
 var router = express.Router();
 
+var application = require("./../application");
+
 router.post('/', (req, res) => {
     const intent = req.body.queryResult.intent.displayName;
     var session = req.body.session;
