@@ -36,7 +36,18 @@ router.post('/', (req, res) => {
                 })
             })
     } else if (intentClassifier(intent)['status'] && intentClassifier(intent)['type'] === 'insert') {
-        application.apply(req, intent, intentClassifier(intent));
+        
+        var applicationRes = application(req, intent, intentClassifier(intent));
+
+        applicationRes
+            .then(result => {
+                console.log(result)
+            })
+            .catch(err => {
+                console.log(err);
+            })
+
+        //console.log(applicationRes);
 
         var queryString = intentClassifier(intent)['queryString'];
         var next_question_to_ask = intentClassifier(intent)['nextQuestionContext'];
