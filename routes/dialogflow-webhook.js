@@ -41,43 +41,12 @@ router.post('/', (req, res) => {
 
         applicationRes
             .then(result => {
-                console.log(result)
+                return res.json(result);
+                //console.log(result)
             })
             .catch(err => {
-                console.log(err);
-            })
-
-        //console.log(applicationRes);
-
-        var queryString = intentClassifier(intent)['queryString'];
-        var next_question_to_ask = intentClassifier(intent)['nextQuestionContext'];
-        var current_context = req.body.queryResult.outputContexts[0];
-        var Course = req.body.queryResult.outputContexts[0].parameters.Course;
-        var first_name = req.body.queryResult.outputContexts[0].parameters['first-name'];
-        var last_name = req.body.queryResult.outputContexts[0].parameters['last-name'];
-
-        db.query(queryString, [first_name, last_name, '%' + Course + '%'])
-            .then(response => {
-                var id = response.rows[0]['student_id'];
-                return res.json({
-                    fulfillmentText: "You have successfully started your application.",
-                    outputContexts: [{
-                        "name": session + "/contexts/" + next_question_to_ask,
-                        "lifespanCount": 1,
-                        "parameters": {
-                            "student_id": id,
-                        }
-                    }],
-                    source: 'getcourse'
-                })
-            })
-            .catch(err => {
-                console.log(err);
-                return res.json({
-                    fulfillmentText: "There was an error and your application has not been started at this time. Please try again.",
-                    outputContexts: [current_context],
-                    source: 'getcourse'
-                })
+                return res.json(err);
+                //console.log(err);
             })
     } else {
         return res.json({
