@@ -131,6 +131,13 @@ function intentClassifier(intent){
                     status: true,
                     type: 'query'
                 }
+            case 'Application - yes':
+                return {
+                    queryString: "INSERT INTO students (first_name, last_name, ucas_code) VALUES ($1, $2, $3) RETURNING student_id",
+                    nextQuestionContext: "get-date-of-birth",
+                    status: true,
+                    type: 'insert'
+                }
         default:
             return {
                 status: false
