@@ -23,6 +23,7 @@ function applicationStage(stage, request){
                 }
             }
         case 'Application - DoB - yes':
+            var validAge = 18;
             var dateOfBirth = context.parameters['date-of-birth'];
             var student_id = context.parameters['student-no'];
 
@@ -34,15 +35,13 @@ function applicationStage(stage, request){
                 valid: false
             }
 
-            console.log(today);
-
-            if(today.getFullYear() - birthday.getFullYear() < 18){
+            if(today.getFullYear() - birthday.getFullYear() < validAge){
                 return invalidAgeObj;
             } else {
-                if(today.getFullYear() - birthday.getFullYear() <= 18 && today.getMonth() < birthday.getMonth()){
+                if(today.getFullYear() - birthday.getFullYear() <= validAge && today.getMonth() < birthday.getMonth()){
                     return invalidAgeObj;
                 } else {
-                    if(today.getFullYear() - birthday.getFullYear() <= 18 && today.getMonth() <= birthday.getMonth() && today.getDate() < birthday.getDate()){
+                    if(today.getFullYear() - birthday.getFullYear() <= validAge && today.getMonth() <= birthday.getMonth() && today.getDate() < birthday.getDate()){
                         return invalidAgeObj;
                     }
                 }
