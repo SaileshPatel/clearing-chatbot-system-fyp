@@ -10,7 +10,8 @@ function applicationStage(stage, request){
 
             if(firstName.length <= 0 || lastName.length <= 0){
                 return {
-                    valid: false
+                    errorMessage: '',
+                    valid: false,
                 }
             } else {
 
@@ -38,6 +39,8 @@ var apply = function(request, intent) {
     var currentContext = request.body.queryResult.outputContexts[0];
 
     return new Promise(function(resolve, reject){
+        var genericErrorMessage = "There was an error and your application has not been started at this time. Please try again.";
+
         if(appStageInfo['valid']){
             db.query(queryString, queryParams)
                 .then(result => {
@@ -57,7 +60,7 @@ var apply = function(request, intent) {
                 .catch(err => {
                     console.log(err);
                     reject({
-                        fulfillmentText: "There was an error and your application has not been started at this time. Please try again.",
+                        fulfillmentText: genericErrorMessage,
                         outputContexts: [currentContext],
                         source: 'getcourse'
                     })
