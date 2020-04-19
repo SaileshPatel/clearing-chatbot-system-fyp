@@ -25,7 +25,11 @@ function applicationStage(stage, request){
         case 'Application - DoB - yes':
             var dateOfBirth = context.parameters['date-of-birth'];
             var student_id = context.parameters['student-no'];
-            if(dateOfBirth < 0){
+
+            var birthday = new Date(dateOfBirth);
+            var today = new Date();
+
+            if(dateOfBirth > 0){
                 return {
                     errorMessage: 'You seem to be too young to apply for a place at Aston University',
                     valid: false
