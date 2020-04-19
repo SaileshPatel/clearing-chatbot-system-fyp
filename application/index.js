@@ -10,15 +10,15 @@ function applicationStage(stage, request){
 
             if(firstName.length <= 0 || lastName.length <= 0){
                 return {
-                    errorMessage: '',
+                    errorMessage: 'Your first or last name is blank. Please enter a valid first or last name.',
                     valid: false,
                 }
             } else {
-
                 return {
                     queryString: "INSERT INTO students (first_name, last_name, ucas_code) VALUES ($1, $2, (SELECT ucas_code FROM courses WHERE course_name LIKE $3)) RETURNING student_id;",
-                    queryParams: [context.parameters['first-name'], context.parameters['last-name'], '%' + context.parameters.Course + '%'],
+                    queryParams: [firstName, lastName, '%' + context.parameters.Course + '%'],
                     nextQuestionContext: "get-date-of-birth",
+                    successMessage: "You have successfully started your application.",
                     valid: true
                 }
             }
@@ -46,7 +46,7 @@ var apply = function(request, intent) {
                 .then(result => {
                     var id = result.rows[0]['student_id'];
                     resolve({
-                        fulfillmentText: "You have successfully started your application.",
+                        fulfillmentText: appStageInfo['successMessage'],
                         outputContexts: [{
                             "name": session + "/contexts/" + nextQuestionToAsk,
                             "lifespanCount": 1,
@@ -67,7 +67,7 @@ var apply = function(request, intent) {
                 })
         } else {
             reject({
-                fulfillmentText: "Your first or last name is blank. Please enter a valid first or last name.",
+                fulfillmentText: appStageInfo['errorMessage'],
                 outputContexts: [currentContext],
                 source: 'getcourse'
             })
