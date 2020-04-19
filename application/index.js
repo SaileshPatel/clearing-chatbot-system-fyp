@@ -61,7 +61,7 @@ var apply = function(request, intent) {
         if(appStageInfo['valid']){
             db.query(queryString, queryParams)
                 .then(result => {
-                    var id = result.rows[0]['student_id'];
+                    var id = intent === 'Application - yes' ? result.rows[0]['student_id'] : request.body.queryResult.outputContexts[0].parameters['student-no'];
                     resolve({
                         fulfillmentText: appStageInfo['successMessage'],
                         outputContexts: [{
