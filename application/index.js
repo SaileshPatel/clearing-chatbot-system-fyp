@@ -55,7 +55,14 @@ function applicationStage(stage, request){
                 }
             }
         case 'Application - Gender - yes':
+            var gender = context.parameters['gender'];
+            var student_id = context.parameters['student-no'];
 
+            if(gender === "Male" || gender === "Female" || gender === "Other"){
+
+            } else {
+                
+            }
         default:
             return {
 
