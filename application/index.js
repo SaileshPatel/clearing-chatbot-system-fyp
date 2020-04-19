@@ -34,16 +34,19 @@ function applicationStage(stage, request){
                 valid: false
             }
 
+            console.log(today);
+
             if(today.getFullYear() - birthday.getFullYear() < 18){
                 return invalidAgeObj;
             } else {
-                if(today.getMonth() < birthday.getMonth()){
+                if(today.getFullYear() - birthday.getFullYear() <= 18 && today.getMonth() < birthday.getMonth()){
                     return invalidAgeObj;
                 } else {
-                    if(today.getDate() < birthday.getDate()){
+                    if(today.getFullYear() - birthday.getFullYear() <= 18 && today.getMonth() <= birthday.getMonth() && today.getDate() < birthday.getDate()){
                         return invalidAgeObj;
                     }
                 }
+
                 return {
                     queryString: "UPDATE students SET date_of_birth = $1 WHERE student_id = $2;",
                     queryParams: [dateOfBirth, student_id],
