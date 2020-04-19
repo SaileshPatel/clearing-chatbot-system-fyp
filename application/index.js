@@ -22,7 +22,7 @@ function applicationStage(stage, request){
                     valid: true
                 }
             }
-        case 'Application - DoB - no':
+        case 'Application - DoB - yes':
         default:
             return {
 
