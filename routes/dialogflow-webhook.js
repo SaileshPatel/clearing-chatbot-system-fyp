@@ -37,7 +37,7 @@ router.post('/', (req, res) => {
             })
     } else if (intentClassifier(intent)['status'] && intentClassifier(intent)['type'] === 'insert') {
         
-        var applicationRes = application(req, intent, intentClassifier(intent));
+        var applicationRes = application(req, intent);
 
         applicationRes
             .then(result => {
@@ -55,19 +55,6 @@ router.post('/', (req, res) => {
         })
     }
 })
-
-function applicationStep(stage){
-    switch(stage){
-        case "Application - yes":
-            return {
-                
-            }
-        default:
-            return {
-                
-            }
-    }
-}
 
 function fulfillmentText(course, columnToQuery, response){
     switch(columnToQuery){
@@ -159,8 +146,6 @@ function intentClassifier(intent){
                 }
             case 'Application - yes':
                 return {
-                    queryString: "INSERT INTO students (first_name, last_name, ucas_code) VALUES ($1, $2, (SELECT ucas_code FROM courses WHERE course_name LIKE $3)) RETURNING student_id;",
-                    nextQuestionContext: "get-date-of-birth",
                     status: true,
                     type: 'insert'
                 }

@@ -15,7 +15,7 @@ function applicationStage(stage, request){
     }
 }
 
-var apply = function(request, intent, intentClassification) {
+var apply = function(request, intent) {
     var appStageInfo = applicationStage(intent, request);
     var queryString = appStageInfo['queryString'];
     var queryParams = appStageInfo['queryParams'];
