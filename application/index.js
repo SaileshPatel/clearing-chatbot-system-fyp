@@ -1,11 +1,13 @@
 const db = require("./../db");
 
 function applicationStage(stage, request){
+    var context = request.body.queryResult.outputContexts[0];
+
     switch(stage){
         case 'Application - yes':
             return {
                 queryString: "INSERT INTO students (first_name, last_name, ucas_code) VALUES ($1, $2, (SELECT ucas_code FROM courses WHERE course_name LIKE $3)) RETURNING student_id;",
-                queryParams: [request.body.queryResult.outputContexts[0].parameters['first-name'], request.body.queryResult.outputContexts[0].parameters['last-name'], '%' + request.body.queryResult.outputContexts[0].parameters.Course + '%'],
+                queryParams: [context.parameters['first-name'], context.parameters['last-name'], '%' + context.parameters.Course + '%'],
                 nextQuestionContext: "get-date-of-birth"
             }
         default:
