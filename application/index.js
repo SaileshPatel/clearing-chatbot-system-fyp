@@ -79,7 +79,7 @@ var apply = function(request, intent) {
                         fulfillmentText: appStageInfo['successMessage'],
                         outputContexts: [{
                             "name": session + "/contexts/" + nextQuestionToAsk,
-                            "lifespanCount": 2,
+                            "lifespanCount": 4,
                             "parameters": {
                                 "student_id": id,
                             }
