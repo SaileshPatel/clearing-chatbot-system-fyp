@@ -54,6 +54,8 @@ function applicationStage(stage, request){
                     valid: true
                 }
             }
+        case 'Application - Gender - yes':
+
         default:
             return {
 
