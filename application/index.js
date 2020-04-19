@@ -18,10 +18,11 @@ function applicationStage(stage, request){
                     queryString: "INSERT INTO students (first_name, last_name, ucas_code) VALUES ($1, $2, (SELECT ucas_code FROM courses WHERE course_name LIKE $3)) RETURNING student_id;",
                     queryParams: [firstName, lastName, '%' + context.parameters.Course + '%'],
                     nextQuestionContext: "get-date-of-birth",
-                    successMessage: "You have successfully started your application.",
+                    successMessage: "You have successfully started your application. Next, enter your date of birth.",
                     valid: true
                 }
             }
+        case 'Application - DoB - no':
         default:
             return {
 
