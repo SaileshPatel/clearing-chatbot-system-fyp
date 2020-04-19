@@ -10,7 +10,7 @@ function applicationStage(stage, request){
 
             if(firstName.length <= 0 || lastName.length <= 0){
                 return {
-                    errorMessage: 'Your first or last name is blank. Please enter a valid first or last name.',
+                    errorMessage: 'Your first or last name is blank. Please re-enter your first and last name.',
                     valid: false,
                 }
             } else {
@@ -29,23 +29,19 @@ function applicationStage(stage, request){
             var birthday = new Date(dateOfBirth);
             var today = new Date();
 
+            var invalidAgeObj = {
+                errorMessage: 'Based on your age, you seem to be too young to apply for a place at Aston University. If you have made a mistake on entering your date of birth, please re-enter your date of birth.',
+                valid: false
+            }
+
             if(today.getFullYear() - birthday.getFullYear() < 18){
-                return {
-                    errorMessage: 'You seem to be too young to apply for a place at Aston University',
-                    valid: false
-                }
+                return invalidAgeObj;
             } else {
                 if(today.getMonth() < birthday.getMonth()){
-                    return {
-                        errorMessage: 'You seem to be too young to apply for a place at Aston University',
-                        valid: false
-                    }
+                    return invalidAgeObj;
                 } else {
                     if(today.getDate() < birthday.getDate()){
-                        return {
-                            errorMessage: 'You seem to be too young to apply for a place at Aston University',
-                            valid: false
-                        }
+                        return invalidAgeObj;
                     }
                 }
                 return {
