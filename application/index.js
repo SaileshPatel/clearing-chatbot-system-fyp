@@ -30,7 +30,6 @@ var apply = function(request, intent) {
         db.query(queryString, queryParams)
             .then(result => {
                 var id = result.rows[0]['student_id'];
-                var fulfilText;
                 resolve({
                     fulfillmentText: "You have successfully started your application.",
                     outputContexts: [{
@@ -44,6 +43,7 @@ var apply = function(request, intent) {
                 })
             })
             .catch(err => {
+                console.log(err);
                 reject({
                     fulfillmentText: "There was an error and your application has not been started at this time. Please try again.",
                     outputContexts: [currentContext],
