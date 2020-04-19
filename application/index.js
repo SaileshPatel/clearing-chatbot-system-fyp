@@ -35,6 +35,19 @@ function applicationStage(stage, request){
                     valid: false
                 }
             } else {
+                if(today.getMonth() < birthday.getMonth()){
+                    return {
+                        errorMessage: 'You seem to be too young to apply for a place at Aston University',
+                        valid: false
+                    }
+                } else {
+                    if(today.getDate() < birthday.getDate()){
+                        return {
+                            errorMessage: 'You seem to be too young to apply for a place at Aston University',
+                            valid: false
+                        }
+                    }
+                }
                 return {
                     queryString: "UPDATE students SET date_of_birth = $1 WHERE student_id = $2;",
                     queryParams: [dateOfBirth, student_id],
