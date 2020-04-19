@@ -29,7 +29,7 @@ function applicationStage(stage, request){
             var birthday = new Date(dateOfBirth);
             var today = new Date();
 
-            if(dateOfBirth > 0){
+            if(today.getFullYear() - birthday.getFullYear() < 18){
                 return {
                     errorMessage: 'You seem to be too young to apply for a place at Aston University',
                     valid: false
