@@ -23,6 +23,22 @@ function applicationStage(stage, request){
                 }
             }
         case 'Application - DoB - yes':
+            var dateOfBirth = context.parameters['date-of-birth'];
+            var student_id = context.parameters['student-no'];
+            if(dateOfBirth < 0){
+                return {
+                    errorMessage: 'You seem to be too young to apply for a place at Aston University',
+                    valid: false
+                }
+            } else {
+                return {
+                    queryString: "UPDATE students SET date_of_birth = $1 WHERE student_id = $2;",
+                    queryParams: [dateOfBirth, student_id],
+                    nextQuestionContext: 'get-gender',
+                    successMessage: "You have successfully provided your date of birth. Next, please enter your gender (Male, Female, Other)",
+                    valid: true
+                }
+            }
         default:
             return {
 
