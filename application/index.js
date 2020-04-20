@@ -72,6 +72,8 @@ function applicationStage(stage, request){
                     valid: false
                 }
             }
+        case 'Application - Email - yes':
+            
         default:
             return {
 

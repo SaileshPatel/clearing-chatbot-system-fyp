@@ -159,6 +159,11 @@ function intentClassifier(intent){
                     status: true,
                     type: 'insert'
                 }
+            case 'Application - Email - yes':
+                return {
+                    status: true,
+                    type: 'insert'
+                }
         default:
             return {
                 status: false
