@@ -126,6 +126,8 @@ var apply = function(request, intent) {
     var session = request.body.session;
     var currentContext = request.body.queryResult.outputContexts[0];
 
+    currentContext['lifespanCount'] = 1;
+
     return new Promise(function(resolve, reject){
         var genericErrorMessage = "There was an error and your application has not been started at this time. Please try again.";
 
@@ -137,7 +139,7 @@ var apply = function(request, intent) {
                         fulfillmentText: appStageInfo['successMessage'],
                         outputContexts: [{
                             "name": session + "/contexts/" + nextQuestionToAsk,
-                            "lifespanCount": 4,
+                            "lifespanCount": 2,
                             "parameters": {
                                 "student_id": id,
                             }
