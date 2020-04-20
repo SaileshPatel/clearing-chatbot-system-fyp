@@ -93,7 +93,7 @@ function applicationStage(stage, request){
                 }
             }
         case 'Application - MobileNumber - yes':
-            var mobileNumber = context.parameters['mobile-number'];
+            var mobileNumber = context.parameters['mobile-number.original'];
             var student_id = context.parameters['student-no'];
             if(mobileNumber.length > 0){
                 return {
