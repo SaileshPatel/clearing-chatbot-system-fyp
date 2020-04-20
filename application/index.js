@@ -92,6 +92,8 @@ function applicationStage(stage, request){
                     valid: false
                 }
             }
+        case 'Application - MobileNumber - yes':
+            
         default:
             return {
 
