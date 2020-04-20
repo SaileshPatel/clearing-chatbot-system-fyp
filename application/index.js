@@ -93,7 +93,23 @@ function applicationStage(stage, request){
                 }
             }
         case 'Application - MobileNumber - yes':
-            
+            var mobileNumber = context.parameters['mobile-number'];
+            var student_id = context.parameters['student-no'];
+            if(mobileNumber.length > 0){
+                return {
+                    queryString: "UPDATE students SET mobile_number = $1 WHERE student_id = $2;",
+                    queryParams: [mobileNumber, student_id],
+                    nextQuestionContext: 'get-mobile-number',
+                    successMessage: "You have successfully provided your mobile number.",
+                    valid: true
+                }
+            } else {
+                return {
+                    errorMessage: 'You have not provided a valid mobile number. Please re-enter your mobile number.',
+                    valid: false
+
+                }
+            }
         default:
             return {
 
