@@ -59,9 +59,18 @@ function applicationStage(stage, request){
             var student_id = context.parameters['student-no'];
 
             if(gender === "Male" || gender === "Female" || gender === "Other"){
-
+                return {
+                    queryString: "UPDATE students SET gender = $1 WHERE student_id = $2;",
+                    queryParams: [gender, student_id],
+                    nextQuestionContext: 'get-email',
+                    successMessage: "You have successfully provided your gender. Next, please enter your email address.",
+                    valid: true
+                }
             } else {
-                
+                return {
+                    errorMessage: 'You did not enter a valid gender type (Male, Female or Other). Please re-enter your gender.',
+                    valid: false
+                }
             }
         default:
             return {
