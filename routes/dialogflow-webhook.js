@@ -36,17 +36,14 @@ router.post('/', (req, res) => {
                 })
             })
     } else if (intentClassifier(intent)['status'] && intentClassifier(intent)['type'] === 'insert') {
-        
         var applicationRes = application(req, intent);
 
         applicationRes
             .then(result => {
                 return res.json(result);
-                //console.log(result)
             })
             .catch(err => {
                 return res.json(err);
-                //console.log(err);
             })
     } else {
         return res.json({
