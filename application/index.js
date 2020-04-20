@@ -73,7 +73,25 @@ function applicationStage(stage, request){
                 }
             }
         case 'Application - Email - yes':
-            
+            var email = context.parameters['email'];
+            var student_id = context.parameters['student-no'];
+
+            // regex for email validation from (https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript)
+            var emailRegex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+            if(emailRegex.test(email)){
+                return {
+                    queryString: "UPDATE students SET email_address = $1 WHERE student_id = $2;",
+                    queryParams: [email, student_id],
+                    nextQuestionContext: 'get-mobile-number',
+                    successMessage: "You have successfully provided your email. Next, please enter your mobile phone number.",
+                    valid: true
+                }
+            } else {
+                return {
+                    errorMessage: 'You have not provided a valid email address. Please re-enter your email address.',
+                    valid: false
+                }
+            }
         default:
             return {
 
