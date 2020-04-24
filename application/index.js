@@ -110,9 +110,21 @@ function applicationStage(stage, request){
 
                 }
             }
+        case 'Application - PreviouslyApplied - yes':
+            var student_id = context.parameters['student-no']
+            return {
+                queryString: "UPDATE students SET previously_applied = TRUE WHERE student_id = $1;",
+                queryParams: [student_id],
+                nextQuestionContext: 'get-application-status',
+                successMessage: "What was the outcome of your application?"
+            }
+        case 'Application - PreviouslyApplied - no':
         default:
             return {
-
+                queryString: "UPDATE students SET previously_applied = TRUE WHERE student_id = $1;",
+                queryParams: [student_id],
+                nextQuestionContext: 'get-ucas-status',
+                successMessage: "What was the outcome of your application?"
             }
     }
 }
