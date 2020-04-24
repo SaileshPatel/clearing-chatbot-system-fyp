@@ -99,8 +99,8 @@ function applicationStage(stage, request){
                 return {
                     queryString: "UPDATE students SET mobile_number = $1 WHERE student_id = $2;",
                     queryParams: [mobileNumber, student_id],
-                    nextQuestionContext: 'get-previously-applied',
-                    successMessage: "You have successfully provided your mobile number. Next, have you previously applied to Aston University this year?",
+                    nextQuestionContext: 'get-mobile-number',
+                    successMessage: "You have successfully provided your mobile number.",
                     valid: true
                 }
             } else {
@@ -110,21 +110,9 @@ function applicationStage(stage, request){
 
                 }
             }
-        case 'Application - PreviouslyApplied - yes':
-            var student_id = context.parameters['student-no']
-            return {
-                queryString: "UPDATE students SET previously_applied = TRUE WHERE student_id = $1;",
-                queryParams: [student_id],
-                nextQuestionContext: 'get-application-status',
-                successMessage: "What was the outcome of your application?"
-            }
-        case 'Application - PreviouslyApplied - no':
         default:
             return {
-                queryString: "UPDATE students SET previously_applied = TRUE WHERE student_id = $1;",
-                queryParams: [student_id],
-                nextQuestionContext: 'get-ucas-status',
-                successMessage: "What was the outcome of your application?"
+
             }
     }
 }
