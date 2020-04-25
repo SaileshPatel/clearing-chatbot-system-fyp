@@ -128,7 +128,7 @@ function applicationStage(stage, request){
                 quickResponses: hasPreviouslyApplied ? [{
                     quickReplies: {
                         title: "Thank you for confirming that you have previously applied. What was the outcome of your application?",
-                        quickReplies: ["Declined unconditional offer", "Declined conditional offer", "Rejected", "Accepted conditional as insurance", "Accepted unconditional offer as insurance", "Recieved an offer, but got unsufficient grades"]},
+                        quickReplies: ["Declined unconditional offer", "Declined conditional offer", "Rejected", "Accepted conditional as insurance", "Accepted unconditional as insurance", "Recieved an offer, but got unsufficient grades"]},
                         platform: "FACEBOOK"
                       }] : 
                       [{
