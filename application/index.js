@@ -51,6 +51,12 @@ function applicationStage(stage, request){
                     queryParams: [dateOfBirth, student_id],
                     nextQuestionContext: 'get-gender',
                     successMessage: "You have successfully provided your date of birth. Next, please enter your gender (Male, Female, Other)",
+                    quickResponses: [{
+                        quickReplies: {
+                            title: "You have successfully provided your date of birth. What is your gender",
+                            quickReplies: ["I am a Male", "I am a Female", "I identify as Other"]},
+                            platform: "FACEBOOK"
+                          }],
                     valid: true
                 }
             }
