@@ -110,6 +110,17 @@ function applicationStage(stage, request){
 
                 }
             }
+        case 'Application - PreviouslyApplied - yes':
+            var hasPreviouslyApplied = (context.parameters['previously-applied'] == 'True');
+            console.log(hasPreviouslyApplied);
+            var student_id = context.parameters['student-no'];
+            return {
+                queryString: "UPDATE students SET previously_applied = $1 WHERE student_id = $2;",
+                queryParams: [hasPreviouslyApplied, student_id],
+                nextQuestionContext: hasPreviouslyApplied ? 'get-application-status' : 'get-ucas-status',
+                successMessage: hasPreviouslyApplied ? "Thank you for confirming that you have previously applied. What was the outcome of your application?" : "Thank you for confirming that you have not previously applied. Next, what is your UCAS status?",
+                valid: true
+            }
         default:
             return {
 
