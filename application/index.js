@@ -99,8 +99,8 @@ function applicationStage(stage, request){
                 return {
                     queryString: "UPDATE students SET mobile_number = $1 WHERE student_id = $2;",
                     queryParams: [mobileNumber, student_id],
-                    nextQuestionContext: 'get-mobile-number',
-                    successMessage: "You have successfully provided your mobile number.",
+                    nextQuestionContext: 'get-previously-applied',
+                    successMessage: "You have successfully provided your mobile number. Next, have you ever applied to Aston previously?",
                     valid: true
                 }
             } else {
