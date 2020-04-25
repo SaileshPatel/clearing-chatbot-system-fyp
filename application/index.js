@@ -119,6 +119,19 @@ function applicationStage(stage, request){
                 queryParams: [hasPreviouslyApplied, student_id],
                 nextQuestionContext: hasPreviouslyApplied ? 'get-application-status' : 'get-ucas-status',
                 successMessage: hasPreviouslyApplied ? "Thank you for confirming that you have previously applied. What was the outcome of your application?" : "Thank you for confirming that you have not previously applied. Next, what is your UCAS status?",
+                quickResponses: hasPreviouslyApplied ? [{
+                    quickReplies: {
+                        title: "Thank you for confirming that you have previously applied. What was the outcome of your application?",
+                        quickReplies: ["I declined an unconditional offer", "I declined a conditional offer", "I was rejected", "I accepted a conditional offer as an insurance option", "I accepted a unconditional offer as an insurance option", "I was made an offer, but did not recieve the sufficient grades"]},
+                        platform: "FACEBOOK"
+                      }] : 
+                      [{
+                        quickReplies: {
+                          title: "Thank you for confirming that you have not previously applied. Next, what is your UCAS status?",
+                          quickReplies: ["In clearing","Firm offer elsewhere","Registered for Adjustment", "Not applied to UCAS"]
+                        },
+                        platform: "FACEBOOK"
+                      }] ,
                 valid: true
             }
         default:
@@ -133,10 +146,10 @@ var apply = function(request, intent) {
     var queryString = appStageInfo['queryString'];
     var queryParams = appStageInfo['queryParams'];
     var nextQuestionToAsk = appStageInfo['nextQuestionContext'];
+    var quickResponses = appStageInfo['quickResponses'];
 
     var session = request.body.session;
     var currentContext = request.body.queryResult.outputContexts[0];
-
     currentContext['lifespanCount'] = 1;
 
     return new Promise(function(resolve, reject){
@@ -155,6 +168,7 @@ var apply = function(request, intent) {
                                 "student_id": id,
                             }
                         }],
+                        fulfillmentMessages: quickResponses,
                         source: 'getcourse'                    
                     })
                 })
