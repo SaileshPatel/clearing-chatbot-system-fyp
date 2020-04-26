@@ -131,6 +131,21 @@ function applicationStage(stage, request){
                     queryParams: [mobileNumber, student_id],
                     nextQuestionContext: 'get-previously-applied',
                     successMessage: "You have successfully provided your mobile number. Next, have you ever applied to Aston previously?",
+                    quickResponses: [
+                        {
+                            text: {
+                                text: ["You have successfully provided your mobile number"]
+                            },
+                            platform: "FACEBOOK"
+                        },
+                        {
+                            quickReplies: {
+                                title: "Next, have you ever applied to Aston previously?",
+                                quickReplies: ['Yes, I have', 'No, I have not']
+                            },
+                            platform: "FACEBOOK"
+                        }
+                    ],
                     valid: true
                 }
             } else {
