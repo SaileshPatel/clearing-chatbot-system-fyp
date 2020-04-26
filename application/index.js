@@ -437,7 +437,6 @@ function applicationStage(stage, request){
                 ], 
                 valid: true
             }
-
         case 'Application - GetAgent - yes':
             var agent = context.parameters['agent'];
             var student_id = context.parameters['student-no'];
