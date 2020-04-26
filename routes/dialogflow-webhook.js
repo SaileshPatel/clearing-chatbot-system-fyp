@@ -201,6 +201,11 @@ function intentClassifier(intent){
                     status: true,
                     type: 'insert'
                 }
+            case 'Application - GetAgentHelp - yes':
+                return {
+                    status: true,
+                    type: 'insert'
+                }
         default:
             return {
                 status: false

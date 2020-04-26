@@ -434,7 +434,8 @@ function applicationStage(stage, request){
                         },
                         platform: "FACEBOOK"
                     }
-                ]
+                ], 
+                valid: true
             }
 
         case 'Application - GetAgent - yes':
