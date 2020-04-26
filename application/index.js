@@ -251,7 +251,7 @@ function applicationStage(stage, request){
                         {
                             quickReplies: {
                                 title: "Next, what is your nationality?",
-                                quickReplies: ["UK", "EU", "Not UK or EU"]
+                                quickReplies: ["UK", "EU", "Not UK Or EU"]
                             },
                             platform: "FACEBOOK"
                           },
@@ -304,7 +304,7 @@ function applicationStage(stage, request){
                         {
                             quickReplies: {
                                 title: 'Next, please enter your nationality',
-                                quickReplies: ["UK", "EU", "Not UK or EU"]
+                                quickReplies: ["UK", "EU", "Not UK Or EU"]
                             },
                             platform: "FACEBOOK"
                         }
@@ -318,7 +318,65 @@ function applicationStage(stage, request){
                 }
             }
         case 'Application - Nationality - yes':
-            
+            var nationality = context.parameters['nationality'];
+            var student_id = context.parameters['student-no'];
+
+            var nationalityIsUK = nationality == 'UK';
+            var nationalityIsEU = nationality == 'EU';
+            var nationalityNotUKOrEU = nationality == 'Not UK Or EU';
+
+            if(nationalityIsUK || nationalityIsEU || nationalityNotUKOrEU){
+                return {
+                    queryString: 'UPDATE students SET nationality_type = $1 WHERE student_id = $2;',
+                    queryParams: [nationality, student_id],
+                    nextQuestionContext: nationalityIsUK ? undefined : 'get-agent',
+                    successMessage: nationalityIsUK ? 'You have successfully applied for a place at Aston University.' : 'Thank you for providing your nationality. Has an agency completed this application on your behalf?',
+                    quickResponses: nationalityIsUK ? [
+                        {
+                            text: {
+                                text: ['You have successfully applied for a place at Aston University. Your application will be reviewed at a later date.']
+                            },
+                            platform: "FACEBOOK"
+                        },
+                    ] : [
+                        {
+                            text: {
+                                text: ['Thank you for providing your nationality.']
+                            },
+                            platform: "FACEBOOK"
+                        },
+                        {
+                            quickReplies: {
+                                title: 'Has an agency completed this application on your behalf?',
+                                quickReplies: ['Yes', 'No']
+                            },
+                            platform: "FACEBOOK"
+                        }
+                    ],
+                    valid: true
+                }
+            } else {
+                return {
+                    errorMessage: 'You have not entered a valid nationality. Please select UK, EU or Not UK Or EU',
+                    valid: false,
+                    quickResponses: [
+                        {
+                            text: {
+                                text: ["You have not entered a valid nationality."]
+                            },
+                            platform: "FACEBOOK"
+                        },
+                        {
+                            quickReplies: {
+                                title: "Please select a valid nationality.",
+                                quickReplies: ['UK', 'EU', 'Not UK Or EU']
+                            },
+                            platform: "FACEBOOK"
+                        }
+                    ]
+
+                }
+            }
         default:
             return {
 
@@ -358,7 +416,7 @@ var apply = function(request, intent) {
                     })
                 })
                 .catch(err => {
-                    console.err(err);
+                    console.log(err);
                     reject({
                         fulfillmentText: genericErrorMessage,
                         outputContexts: [currentContext],
