@@ -348,7 +348,7 @@ function applicationStage(stage, request){
                         {
                             quickReplies: {
                                 title: 'Has an agency completed this application on your behalf?',
-                                quickReplies: ['Yes', 'No']
+                                quickReplies: ['Yes, they have', 'No, they have not']
                             },
                             platform: "FACEBOOK"
                         }
