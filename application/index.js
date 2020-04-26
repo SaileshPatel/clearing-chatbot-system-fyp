@@ -170,6 +170,42 @@ function applicationStage(stage, request){
                     }]
                 }
             }
+        case 'Application - UCAS-Status - yes':
+            var ucas_status = context.parameters['ucas-status'];
+            var student_id = context.parameters['student-no'];
+            if(ucas_status == "In clearing" || ucas_status == "Firm offer elsewhere" || ucas_status == "Registered for Adjustment" || ucas_status == "Not applied to UCAS"){
+                return {
+                    queryString: "UPDATE students SET ucas_status = $1 WHERE student_id = $2;",
+                    queryParams: [ucas_status, student_id],
+                    nextQuestionContext: "get-ucas-number",
+                    successMessage: "Thank you for providing your UCAS status. What is your UCAS number?",
+                    valid: true
+                }
+            } else {
+                return {
+                    errorMessage: 'You have not provided a valid outcome. Please provide a valid outcome.',
+                    valid: false,
+                    quickResponses: [{
+                        text: {
+                            text: ["You have not provided a valid outcome. Please provide a valid outcome (In clearing,Firm offer elsewhere,Registered for Adjustment, Not applied to UCAS)"],
+                        },
+                        text: {
+                            text: ["You have not provided a valid outcome"],
+                            platform: "FACEBOOK"
+                        },
+                        quickReplies: {
+                            title: "Please provide a valid outcome.",
+                            quickReplies: [{
+                                quickReplies: {
+                                    title: "You have not provided a valid outcome. Please provide a valid outcome.",
+                                    quickReplies: ["In clearing","Firm offer elsewhere","Registered for Adjustment", "Not applied to UCAS"]},
+                                    platform: "FACEBOOK"                                
+                            }],
+                            platform: "FACEBOOK"
+                        }
+                    }]
+                }
+            }
         default:
             return {
 
