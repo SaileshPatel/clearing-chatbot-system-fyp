@@ -51,12 +51,21 @@ function applicationStage(stage, request){
                     queryParams: [dateOfBirth, student_id],
                     nextQuestionContext: 'get-gender',
                     successMessage: "You have successfully provided your date of birth. Next, please enter your gender (Male, Female, Other)",
-                    quickResponses: [{
-                        quickReplies: {
-                            title: "You have successfully provided your date of birth. What is your gender",
-                            quickReplies: ["I am a Male", "I am a Female", "I identify as Other"]},
+                    quickResponses: [
+                        {
+                            text: {
+                                text: ["You have successfully provided your date of birth"]
+                            },
                             platform: "FACEBOOK"
-                          }],
+                        },
+                        {
+                            quickReplies: {
+                                title: "You have successfully provided your date of birth. What is your gender",
+                                quickReplies: ["I am a Male", "I am a Female", "I identify as Other"]
+                            },
+                            platform: "FACEBOOK"
+                        }
+                    ],
                     valid: true
                 }
             }
@@ -75,6 +84,21 @@ function applicationStage(stage, request){
             } else {
                 return {
                     errorMessage: 'You did not enter a valid gender type (Male, Female or Other). Please re-enter your gender.',
+                    quickResponses: [
+                        {
+                            text: {
+                                text: ["You did not enter a valid gender type."]
+                            },
+                            platform: "FACEBOOK"
+                        },
+                        {
+                            quickReplies: {
+                                title: "What is your gender",
+                                quickReplies: ["I am a Male", "I am a Female", "I identify as Other"]
+                            },
+                            platform: "FACEBOOK"
+                        }
+                    ],
                     valid: false
                 }
             }
@@ -125,19 +149,36 @@ function applicationStage(stage, request){
                 queryParams: [hasPreviouslyApplied, student_id],
                 nextQuestionContext: hasPreviouslyApplied ? 'get-application-status' : 'get-ucas-status',
                 successMessage: hasPreviouslyApplied ? "Thank you for confirming that you have previously applied. What was the outcome of your application?" : "Thank you for confirming that you have not previously applied. Next, what is your UCAS status?",
-                quickResponses: hasPreviouslyApplied ? [{
-                    quickReplies: {
-                        title: "Thank you for confirming that you have previously applied. What was the outcome of your application?",
-                        quickReplies: ["Declined unconditional offer", "Declined conditional offer", "Rejected", "Accepted conditional as insurance", "Accepted unconditional as insurance", "Received an offer, but got insufficient grades"]},
-                        platform: "FACEBOOK"
-                      }] : 
-                      [{
-                        quickReplies: {
-                          title: "Thank you for confirming that you have not previously applied. Next, what is your UCAS status?",
-                          quickReplies: ["In clearing","Firm offer elsewhere","Registered for Adjustment", "Not applied to UCAS"]
+                quickResponses: hasPreviouslyApplied ? [
+                    {
+                        text: {
+                            text: ["Thank you for confirming that you have previously applied."]
                         },
                         platform: "FACEBOOK"
-                      }],
+                    },
+                    {
+                        quickReplies: {
+                            title: "What was the outcome of your application?",
+                            quickReplies: ["Declined unconditional offer", "Declined conditional offer", "Rejected", "Accepted conditional as insurance", "Accepted unconditional as insurance", "Received an offer, but got insufficient grades"]
+                        },
+                        platform: "FACEBOOK"
+                    }
+                    ] : 
+                    [
+                        {
+                            text: {
+                                text: ["Thank you for confirming that you have not previously applied."]
+                            },
+                            platform: "FACEBOOK"
+                        },
+                        {
+                            quickReplies: {
+                                title: "Next, what is your UCAS status?",
+                                quickReplies: ["In clearing","Firm offer elsewhere","Registered for Adjustment", "Not applied to UCAS"]
+                            },
+                            platform: "FACEBOOK"
+                        }
+                    ],
                 valid: true
             }
         case 'Application - PreviousApplicationStatus - yes':
@@ -149,27 +190,44 @@ function applicationStage(stage, request){
                     queryParams: [previousApplicationStatus, student_id],
                     nextQuestionContext: 'get-ucas-status',
                     successMessage: 'Thank you for telling us the status of your previous application. What is your status on UCAS?',
-                    quickResponses: [{
-                        quickReplies: {
-                          title: "Thank you for telling us the status of your previous application. Next, what is your UCAS status?",
-                          quickReplies: ["In clearing","Firm offer elsewhere","Registered for Adjustment", "Not applied to UCAS"]
+                    quickResponses: [
+                        {
+                            text: {
+                                text: ["Thank you for telling us the status of your previous application."]
+                            },
+                            platform: "FACEBOOK"
                         },
-                        platform: "FACEBOOK"
-                    }], 
+                        {
+                            quickReplies: {
+                                title: "Next, what is your UCAS status?",
+                                quickReplies: ["In clearing","Firm offer elsewhere","Registered for Adjustment", "Not applied to UCAS"]
+                            },
+                            platform: "FACEBOOK"
+                        }
+                    ], 
                     valid: true
                 }
             } else {
                 return {
                     errorMessage: 'You have not provided a valid outcome. Please provide a valid outcome.',
                     valid: false,
-                    quickResponses: [{
-                        quickReplies: {
-                            title: "You have not provided a valid outcome. Please provide a valid outcome.",
-                            quickReplies: ["Declined unconditional offer", "Declined conditional offer", "Rejected", "Accepted conditional as insurance", "Accepted unconditional as insurance", "Received an offer, but got insufficient grades"]},
+                    quickResponses: [
+                        {
+                            text: {
+                                text: ["You have not provided a valid outcome."]
+                            },
                             platform: "FACEBOOK"
-                    }]
-                }
+                        },
+                        {
+                            quickReplies: {
+                                title: "Please provide a valid outcome.",
+                                quickReplies: ["Declined unconditional offer", "Declined conditional offer", "Rejected", "Accepted conditional as insurance", "Accepted unconditional as insurance", "Received an offer, but got insufficient grades"]
+                            },
+                            platform: "FACEBOOK"
+                    }
+                ]
             }
+        }
         case 'Application - UCAS-Status - yes':
             var ucas_status = context.parameters['ucas-status'];
             var student_id = context.parameters['student-no'];
@@ -194,11 +252,7 @@ function applicationStage(stage, request){
                         {
                             quickReplies: {
                                 title: "Next, what is your nationality?",
-                                quickReplies: [
-                                "UK",
-                                "EU",
-                                "Not UK or EU"
-                              ]
+                                quickReplies: ["UK", "EU", "Not UK or EU"]
                             },
                             platform: "FACEBOOK"
                           },
@@ -207,27 +261,28 @@ function applicationStage(stage, request){
                 }
             } else {
                 return {
-                    errorMessage: 'You have not provided a valid outcome. Please provide a valid outcome.',
+                    errorMessage: 'You have not provided a valid outcome. Please provide a valid outcome (In clearing,Firm offer elsewhere, Registered for Adjustment, Not applied to UCAS)"',
                     valid: false,
-                    quickResponses: [{
-                        text: {
-                            text: ["You have not provided a valid outcome. Please provide a valid outcome (In clearing,Firm offer elsewhere,Registered for Adjustment, Not applied to UCAS)"],
+                    quickResponses: [
+                        {
+                            text: {
+                                text: ["You have not provided a valid outcome. Please provide a valid outcome (In clearing, Firm offer elsewhere, Registered for Adjustment, Not applied to UCAS)"]
+                            }
                         },
-                        text: {
-                            text: ["You have not provided a valid outcome"],
+                        {
+                            text: {
+                                text: ["You have not provided a valid outcome"]
+                            },
                             platform: "FACEBOOK"
                         },
-                        quickReplies: {
-                            title: "Please provide a valid outcome.",
-                            quickReplies: [{
-                                quickReplies: {
-                                    title: "You have not provided a valid outcome. Please provide a valid outcome.",
-                                    quickReplies: ["In clearing","Firm offer elsewhere","Registered for Adjustment", "Not applied to UCAS"]},
-                                    platform: "FACEBOOK"                                
-                            }],
+                        {
+                            quickReplies: {
+                                title: "What is your UCAS status?",
+                                quickReplies: ["In clearing","Firm offer elsewhere","Registered for Adjustment", "Not applied to UCAS"]
+                            }, 
                             platform: "FACEBOOK"
                         }
-                    }]
+                    ]
                 }
             }
         default:
@@ -279,6 +334,7 @@ var apply = function(request, intent) {
         } else {
             reject({
                 fulfillmentText: appStageInfo['errorMessage'],
+                fulfillmentMessages: quickResponses,
                 outputContexts: [currentContext],
                 source: 'getcourse'
             })
