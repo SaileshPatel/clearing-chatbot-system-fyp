@@ -317,6 +317,8 @@ function applicationStage(stage, request){
                     valid: false,
                 }
             }
+        case 'Application - Nationality - yes':
+            
         default:
             return {
 
