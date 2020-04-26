@@ -142,7 +142,6 @@ function applicationStage(stage, request){
             }
         case 'Application - PreviouslyApplied - yes':
             var hasPreviouslyApplied = (context.parameters['previously-applied'] == 'True');
-            console.log(hasPreviouslyApplied);
             var student_id = context.parameters['student-no'];
             return {
                 queryString: "UPDATE students SET previously_applied = $1 WHERE student_id = $2;",
@@ -324,7 +323,7 @@ var apply = function(request, intent) {
                     })
                 })
                 .catch(err => {
-                    console.log(err);
+                    console.err(err);
                     reject({
                         fulfillmentText: genericErrorMessage,
                         outputContexts: [currentContext],
