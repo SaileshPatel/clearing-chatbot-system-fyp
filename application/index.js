@@ -329,7 +329,7 @@ function applicationStage(stage, request){
                 return {
                     queryString: 'UPDATE students SET nationality_type = $1 WHERE student_id = $2;',
                     queryParams: [nationality, student_id],
-                    nextQuestionContext: nationalityIsUK ? undefined : 'get-agent',
+                    nextQuestionContext: nationalityIsUK ? undefined : 'get-on-behalf-agent',
                     successMessage: nationalityIsUK ? 'You have successfully applied for a place at Aston University.' : 'Thank you for providing your nationality. Has an agency completed this application on your behalf?',
                     quickResponses: nationalityIsUK ? [
                         {
