@@ -173,12 +173,36 @@ function applicationStage(stage, request){
         case 'Application - UCAS-Status - yes':
             var ucas_status = context.parameters['ucas-status'];
             var student_id = context.parameters['student-no'];
-            if(ucas_status == "In clearing" || ucas_status == "Firm offer elsewhere" || ucas_status == "Registered for Adjustment" || ucas_status == "Not applied to UCAS"){
+            var inClearing = ucas_status == "In clearing";
+            var altOffer = ucas_status == "Firm offer elsewhere";
+            var adjustmentReg = ucas_status == "Registered for Adjustment";
+            var notApplied = ucas_status == "Not applied to UCAS";
+
+            if(inClearing || altOffer || adjustmentReg || notApplied){
                 return {
                     queryString: "UPDATE students SET ucas_status = $1 WHERE student_id = $2;",
                     queryParams: [ucas_status, student_id],
-                    nextQuestionContext: "get-ucas-number",
-                    successMessage: "Thank you for providing your UCAS status. What is your UCAS number?",
+                    nextQuestionContext: notApplied ? "get-nationality" : "get-ucas-number",
+                    successMessage: notApplied ? "We are only able to review and advise you on your eligibility however, if you are eligible you will need to submit a clearing application via UCAS. Next, what is your nationality?"  : "Thank you for providing your UCAS status. We will need you to provide your UCAS number, so that we can review your application.",
+                    quickResponses: notApplied ? [
+                        {
+                            text: {
+                                text: ["We are only able to review and advise you on your eligibility however, if you are eligible you will need to submit a clearing application via UCAS."]
+                            },
+                            platform: "FACEBOOK"
+                        }, 
+                        {
+                            quickReplies: {
+                                title: "Next, what is your nationality?",
+                                quickReplies: [
+                                "UK",
+                                "EU",
+                                "Not UK or EU"
+                              ]
+                            },
+                            platform: "FACEBOOK"
+                          },
+                    ]: undefined,
                     valid: true
                 }
             } else {
