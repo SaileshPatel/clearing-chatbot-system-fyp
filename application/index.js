@@ -305,7 +305,8 @@ function applicationStage(stage, request){
                             quickReplies: {
                                 title: 'Next, please enter your nationality',
                                 quickReplies: ["UK", "EU", "Not UK or EU"]
-                            }
+                            },
+                            platform: "FACEBOOK"
                         }
                     ],
                     valid: true
