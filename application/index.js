@@ -410,6 +410,33 @@ function applicationStage(stage, request){
                 ],
                 valid: true
             }
+        case 'Application - GetAgentHelp - yes':
+            var agentHelp = (context.parameters['agent-help'] == 'True');
+            var student_id = context.parameters['student-no'];
+
+            return {
+                queryString: 'UPDATE students SET agent_help = $1 WHERE student_id = $2;',
+                queryParams: [agentHelp, student_id],
+                nextQuestionContext: agentHelp ? 'get-agent': undefined,
+                successMessage: agentHelp ? 'Thank you for informining us about the help you received from an agent/partner centre. Which agent/partner centre helped you with your application' : 'You have successfully applied for a place at Aston University. Your application will be reviewed at a later date.',
+                quickResponses: agentHelp ? [
+                    {
+                        text: {
+                            text: ['Thank you for confirming that an agency/partner centre has completed this application. Please let us know which agency/partner centre completed this application']
+                        },
+                        platform: "FACEBOOK"
+                    }
+                ] : 
+                [
+                    {
+                        text: {
+                            text: ['You have successfully applied for a place at Aston University. Your application will be reviewed at a later date.']
+                        },
+                        platform: "FACEBOOK"
+                    }
+                ]
+            }
+
         case 'Application - GetAgent - yes':
             var agent = context.parameters['agent'];
             var student_id = context.parameters['student-no'];
