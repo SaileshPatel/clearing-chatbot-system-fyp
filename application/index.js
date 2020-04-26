@@ -385,7 +385,7 @@ function applicationStage(stage, request){
                 queryString: 'UPDATE students SET agent_completed = $1 WHERE student_id = $2;',
                 queryParams: [onBehalf, student_id],
                 nextQuestionContext: onBehalf ? 'get-agent' : 'get-help-agent',
-                successMessage: onBehalf ? 'Thank you for confirming that an agency/partner centre has completed this application. Please let us know which agency/partner centre completed this application' : 'Thank you for confirming that an agency/partner centre has completed this application. Has an agency/partner centre helped you complete this application',
+                successMessage: onBehalf ? 'Thank you for confirming that an agency/partner centre has completed this application. Please let us know which agency/partner centre completed this application' : 'Thank you for confirming that an agency/partner centre has not completed this application on your behalf. Has an agency/partner centre helped you complete this application?',
                 quickResponses: onBehalf ? [
                     {
                         text: {
@@ -396,13 +396,13 @@ function applicationStage(stage, request){
                 ] : [
                     {
                         text: {
-                            text: ['Thank you for confirming that an agency/partner centre has completed this application']
+                            text: ['Thank you for confirming that an agency/partner centre has not completed this application on your behalf.']
                         },
                         platform: "FACEBOOK"
                     },
                     {
                         quickReplies: {
-                            title: 'Has an agency/partner centre helped you complete this application',
+                            title: 'Has an agency/partner centre helped you complete this application?',
                             quickReplies: ['Yes, they have', 'No, they have not']
                         },
                         platform: "FACEBOOK"
