@@ -385,11 +385,11 @@ function applicationStage(stage, request){
                 queryString: 'UPDATE students SET agent_completed = $1 WHERE student_id = $2;',
                 queryParams: [onBehalf, student_id],
                 nextQuestionContext: onBehalf ? 'get-agent' : 'get-help-agent',
-                successMessage: onBehalf ? 'Thank you for confirming that an agency/partner centre has completed this application. Please let us know which agency/partner center completed this application' : 'Thank you for confirming that an agency/partner centre has completed this application. Has an agency/partner centre helped you complete this application',
+                successMessage: onBehalf ? 'Thank you for confirming that an agency/partner centre has completed this application. Please let us know which agency/partner centre completed this application' : 'Thank you for confirming that an agency/partner centre has completed this application. Has an agency/partner centre helped you complete this application',
                 quickResponses: onBehalf ? [
                     {
                         text: {
-                            text: ['Thank you for confirming that an agency/partner centre has completed this application. Please let us know which agency/partner center completed this application']
+                            text: ['Thank you for confirming that an agency/partner centre has completed this application. Please let us know which agency/partner centre completed this application']
                         },
                         platform: "FACEBOOK"
                     }
@@ -417,11 +417,11 @@ function applicationStage(stage, request){
                 queryString: 'UPDATE students SET agent = $1 WHERE student_id = $2;',
                 queryParams: [agent, student_id],
                 nextQuestionContext: 'get-agent-email',
-                successMessage: 'Thank you for informing us of the agent/partner center used. Please provide the email of the agent/partner center.',
+                successMessage: 'Thank you for informing us of the agent/partner centre used. Please provide the email of the agent/partner centre.',
                 quickResponses: [
                     {
                         text: {
-                            text: ['Thank you for informing us of the agent/partner center used. Please provide the email of the agent/partner center.']
+                            text: ['Thank you for informing us of the agent/partner centre used. Please provide the email of the agent/partner centre.']
                         },
                         platform: "FACEBOOK"
                     },
