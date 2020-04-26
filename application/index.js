@@ -240,7 +240,7 @@ function applicationStage(stage, request){
                     queryString: "UPDATE students SET ucas_status = $1 WHERE student_id = $2;",
                     queryParams: [ucas_status, student_id],
                     nextQuestionContext: notApplied ? "get-nationality" : "get-ucas-number",
-                    successMessage: notApplied ? "We are only able to review and advise you on your eligibility however, if you are eligible you will need to submit a clearing application via UCAS. Next, what is your nationality?"  : "Thank you for providing your UCAS status. We will need you to provide your UCAS number, so that we can review your application.",
+                    successMessage: notApplied ? "We are only able to review and advise you on your eligibility however, if you are eligible you will need to submit a clearing application via UCAS. Next, what is your nationality?"  : "Thank you for providing your UCAS status. We will need you to provide your UCAS number, so that we can review your application. Please enter your UCAS number without the dashes.",
                     quickResponses: notApplied ? [
                         {
                             text: {
@@ -282,6 +282,38 @@ function applicationStage(stage, request){
                             platform: "FACEBOOK"
                         }
                     ]
+                }
+            }
+        case 'Application - UCAS-Number - yes':
+            var ucas_number = context.parameters['ucas-number'];
+            var student_id = context.parameters['student-no'];
+
+            if(ucas_number.toString().length == 10){
+                return {
+                    queryString: "UPDATE students SET ucas_number = $1 WHERE student_id = $2;",
+                    queryParams: [ucas_number, student_id],
+                    nextQuestionContext: 'get-nationality',
+                    successMessage: 'Thank you for providing your UCAS number.',
+                    quickResponses: [
+                        {
+                            text: {
+                                text: ['Thank you for providing your UCAS number.']
+                            },
+                            platform: "FACEBOOK"
+                        },
+                        {
+                            quickReplies: {
+                                title: 'Next, please enter your nationality',
+                                quickReplies: ["UK", "EU", "Not UK or EU"]
+                            }
+                        }
+                    ],
+                    valid: true
+                }
+            } else {
+                return {
+                    errorMessage: 'You have not provided a valid UCAS number. Valid UCAS numbers are 10 characters long. Please re-enter your UCAS number.',
+                    valid: false,
                 }
             }
         default:
