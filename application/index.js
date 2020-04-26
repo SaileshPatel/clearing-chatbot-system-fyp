@@ -137,8 +137,38 @@ function applicationStage(stage, request){
                           quickReplies: ["In clearing","Firm offer elsewhere","Registered for Adjustment", "Not applied to UCAS"]
                         },
                         platform: "FACEBOOK"
-                      }] ,
+                      }],
                 valid: true
+            }
+        case 'Application - PreviousApplicationStatus - yes':
+            var previousApplicationStatus = context.parameters['status'];
+            var student_id = context.parameters['student-no'];
+            if(previousApplicationStatus == 'Declined unconditional offer' || previousApplicationStatus == 'Declined conditional offer' || previousApplicationStatus == 'Rejected' || previousApplicationStatus == 'Accepted conditional as insurance' || previousApplicationStatus == 'Accepted unconditional as insurance' || previousApplicationStatus == 'Received an offer, but got insufficient grades'){
+                return {
+                    queryString: 'UPDATE students SET application_outcome = $1 WHERE student_id = $2;',
+                    queryParams: [previousApplicationStatus, student_id],
+                    nextQuestionContext: 'get-ucas-status',
+                    successMessage: 'Thank you for telling us the status of your previous application. What is your status on UCAS?',
+                    quickResponses: [{
+                        quickReplies: {
+                          title: "Thank you for telling us the status of your previous application. Next, what is your UCAS status?",
+                          quickReplies: ["In clearing","Firm offer elsewhere","Registered for Adjustment", "Not applied to UCAS"]
+                        },
+                        platform: "FACEBOOK"
+                    }], 
+                    valid: true
+                }
+            } else {
+                return {
+                    errorMessage: 'You have not provided a valid outcome. Please provide a valid outcome.',
+                    valid: false,
+                    quickResponses: [{
+                        quickReplies: {
+                            title: "You have not provided a valid outcome. Please provide a valid outcome.",
+                            quickReplies: ["Declined unconditional offer", "Declined conditional offer", "Rejected", "Accepted conditional as insurance", "Accepted unconditional as insurance", "Received an offer, but got insufficient grades"]},
+                            platform: "FACEBOOK"
+                    }]
+                }
             }
         default:
             return {
@@ -153,7 +183,7 @@ var apply = function(request, intent) {
     var queryParams = appStageInfo['queryParams'];
     var nextQuestionToAsk = appStageInfo['nextQuestionContext'];
     var quickResponses = appStageInfo['quickResponses'];
-
+    
     var session = request.body.session;
     var currentContext = request.body.queryResult.outputContexts[0];
     currentContext['lifespanCount'] = 1;
