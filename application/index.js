@@ -455,6 +455,35 @@ function applicationStage(stage, request){
                 ],
                 valid: true
             }
+        case 'Application - GetAgentEmail - yes':
+            var agentEmail = context.parameters['agent-email'];
+            var student_id = context.parameters['student-no'];
+
+            // regex for email validation from (https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript)
+            var emailRegex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
+            if(emailRegex.test(agentEmail)){
+                return {
+                    queryString: 'UPDATE students SET agent_email = $1 WHERE student_id = $2;',
+                    queryParams: [agentEmail, student_id],
+                    nextQuestionContext: undefined,
+                    successMessage: 'You have successfully applied for a place at Aston University. Your application will be reviewed at a later date',
+                    quickResponses: [
+                        {
+                            text: {
+                                text: ['You have successfully applied for a place at Aston University. Your application will be reviewed at a later date.']
+                            },
+                            platform: "FACEBOOK"
+                        }
+                    ],
+                    valid: true
+                }
+            } else {
+                return {
+                    errorMessage: 'You have not provided a valid email address. Please re-enter your email address for the agency/partner centre.',
+                    valid: false
+                }
+            }
         default:
             return {
 
