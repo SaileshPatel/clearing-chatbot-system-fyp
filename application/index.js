@@ -52,9 +52,6 @@ function applicationStage(stage, request){
                     nextQuestionContext: 'get-gender',
                     successMessage: "You have successfully provided your date of birth. Next, please enter your gender (Male, Female, Other)",
                     quickResponses: [{
-                        text: {
-                            text: "You have successfully provided your date of birth."
-                        },
                         quickReplies: {
                             title: "You have successfully provided your date of birth. What is your gender",
                             quickReplies: ["I am a Male", "I am a Female", "I identify as Other"]},
@@ -129,9 +126,6 @@ function applicationStage(stage, request){
                 nextQuestionContext: hasPreviouslyApplied ? 'get-application-status' : 'get-ucas-status',
                 successMessage: hasPreviouslyApplied ? "Thank you for confirming that you have previously applied. What was the outcome of your application?" : "Thank you for confirming that you have not previously applied. Next, what is your UCAS status?",
                 quickResponses: hasPreviouslyApplied ? [{
-                    text: {
-                        text: "Thank you for confirming that you have previously applied."
-                    },
                     quickReplies: {
                         title: "Thank you for confirming that you have previously applied. What was the outcome of your application?",
                         quickReplies: ["Declined unconditional offer", "Declined conditional offer", "Rejected", "Accepted conditional as insurance", "Accepted unconditional as insurance", "Received an offer, but got insufficient grades"]},
@@ -156,9 +150,6 @@ function applicationStage(stage, request){
                     nextQuestionContext: 'get-ucas-status',
                     successMessage: 'Thank you for telling us the status of your previous application. What is your status on UCAS?',
                     quickResponses: [{
-                        text: {
-                            text: "Thank you for telling us the status of your previous application"
-                        },
                         quickReplies: {
                           title: "Thank you for telling us the status of your previous application. Next, what is your UCAS status?",
                           quickReplies: ["In clearing","Firm offer elsewhere","Registered for Adjustment", "Not applied to UCAS"]
@@ -172,9 +163,6 @@ function applicationStage(stage, request){
                     errorMessage: 'You have not provided a valid outcome. Please provide a valid outcome.',
                     valid: false,
                     quickResponses: [{
-                        text: {
-                            text: "You have not provided a valid outcome"
-                        },
                         quickReplies: {
                             title: "You have not provided a valid outcome. Please provide a valid outcome.",
                             quickReplies: ["Declined unconditional offer", "Declined conditional offer", "Rejected", "Accepted conditional as insurance", "Accepted unconditional as insurance", "Received an offer, but got insufficient grades"]},
