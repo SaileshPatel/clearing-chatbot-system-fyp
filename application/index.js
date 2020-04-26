@@ -377,6 +377,8 @@ function applicationStage(stage, request){
 
                 }
             }
+        case 'Application - OnBehalfAgent - yes':
+
         default:
             return {
 
