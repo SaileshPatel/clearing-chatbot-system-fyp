@@ -330,7 +330,7 @@ function applicationStage(stage, request){
                     queryString: 'UPDATE students SET nationality_type = $1 WHERE student_id = $2;',
                     queryParams: [nationality, student_id],
                     nextQuestionContext: nationalityIsUK ? undefined : 'get-on-behalf-agent',
-                    successMessage: nationalityIsUK ? 'You have successfully applied for a place at Aston University.' : 'Thank you for providing your nationality. Has an agency completed this application on your behalf?',
+                    successMessage: nationalityIsUK ? 'You have successfully applied for a place at Aston University.' : 'Thank you for providing your nationality. Has an agency/partner centre completed this application on your behalf?',
                     quickResponses: nationalityIsUK ? [
                         {
                             text: {
@@ -347,7 +347,7 @@ function applicationStage(stage, request){
                         },
                         {
                             quickReplies: {
-                                title: 'Has an agency completed this application on your behalf?',
+                                title: 'Has an agency/partner centre completed this application on your behalf?',
                                 quickReplies: ['Yes, they have', 'No, they have not']
                             },
                             platform: "FACEBOOK"
@@ -378,7 +378,38 @@ function applicationStage(stage, request){
                 }
             }
         case 'Application - OnBehalfAgent - yes':
+            var onBehalf = (context.parameters['on-behalf'] == 'True');
+            var student_id = context.parameters['student-no'];
 
+            return {
+                queryString: 'UPDATE students SET agent_completed = $1 WHERE student_id = $2;',
+                queryParams: [onBehalf, student_id],
+                nextQuestionContext: onBehalf ? 'get-agent' : 'get-help-agent',
+                successMessage: onBehalf ? 'Thank you for confirming that an agency/partner centre has completed this application. Please let us know which agency/partner center completed this application' : 'Thank you for confirming that an agency/partner centre has completed this application. Has an agency/partner centre helped you complete this application',
+                quickResponses: onBehalf ? [
+                    {
+                        text: {
+                            text: ['Thank you for confirming that an agency/partner centre has completed this application. Please let us know which agency/partner center completed this application']
+                        },
+                        platform: "FACEBOOK"
+                    }
+                ] : [
+                    {
+                        text: {
+                            text: ['Thank you for confirming that an agency/partner centre has completed this application']
+                        },
+                        platform: "FACEBOOK"
+                    },
+                    {
+                        quickReplies: {
+                            title: 'Has an agency/partner centre helped you complete this application',
+                            quickReplies: ['Yes, they have', 'No, they have not']
+                        },
+                        platform: "FACEBOOK"
+                    }
+                ],
+                valid: true
+            }
         default:
             return {
 
