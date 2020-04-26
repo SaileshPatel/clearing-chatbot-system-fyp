@@ -410,6 +410,24 @@ function applicationStage(stage, request){
                 ],
                 valid: true
             }
+        case 'Application - GetAgent - yes':
+            var agent = context.parameters['agent'];
+            var student_id = context.parameters['student-no'];
+            return {
+                queryString: 'UPDATE students SET agent = $1 WHERE student_id = $2;',
+                queryParams: [agent, student_id],
+                nextQuestionContext: 'get-agent-email',
+                successMessage: 'Thank you for informing us of the agent/partner center used. Please provide the email of the agent/partner center.',
+                quickResponses: [
+                    {
+                        text: {
+                            text: ['Thank you for informing us of the agent/partner center used. Please provide the email of the agent/partner center.']
+                        },
+                        platform: "FACEBOOK"
+                    },
+                ],
+                valid: true
+            }
         default:
             return {
 
