@@ -55,7 +55,8 @@ router.post('/', (req, res) => {
 
 
 function fulfillmentMessage(course, columnToQuery, response){
-    
+    // description
+    //
 }
 
 function fulfillmentText(course, columnToQuery, response){
