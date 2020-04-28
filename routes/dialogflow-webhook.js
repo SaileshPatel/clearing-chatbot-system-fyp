@@ -53,6 +53,11 @@ router.post('/', (req, res) => {
     }
 })
 
+
+function fulfillmentMessage(course, columnToQuery, response){
+    
+}
+
 function fulfillmentText(course, columnToQuery, response){
     switch(columnToQuery){
         case 'course_spaces':
