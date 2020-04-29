@@ -58,26 +58,6 @@ function applicationStage(stage, request){
                             }
                         },
                         {
-                            richContent: [
-                                [
-                                    {
-                                        type: "chips",
-                                        options: [
-                                            {
-                                                text: "I am a Male"
-                                            },
-                                            {
-                                                text: "I am a Female"
-                                            },
-                                            {
-                                                text: "I identify as Other"
-                                            }
-                                        ]
-                                    }
-                                ]
-                            ]
-                        },
-                        {
                             text: {
                                 text: ["You have successfully provided your date of birth"]
                             },
@@ -91,6 +71,26 @@ function applicationStage(stage, request){
                             platform: "FACEBOOK"
                         }
                     ],
+                    payload: {           
+                        richContent: [
+                            [
+                                {
+                                    type: "chips",
+                                    options: [
+                                        {
+                                            text: "I am a Male"
+                                        },
+                                        {
+                                            text: "I am a Female"
+                                        },
+                                        {
+                                            text: "I identify as Other"
+                                        }
+                                    ]
+                                }
+                            ]
+                        ]
+                    },
                     valid: true
                 }
             }
@@ -537,6 +537,7 @@ var apply = function(request, intent) {
     var queryParams = appStageInfo['queryParams'];
     var nextQuestionToAsk = appStageInfo['nextQuestionContext'];
     var quickResponses = appStageInfo['quickResponses'];
+    var payload = appStageInfo['payload'];
     
     var session = request.body.session;
     var currentContext = request.body.queryResult.outputContexts[0];
@@ -559,6 +560,7 @@ var apply = function(request, intent) {
                             }
                         }],
                         fulfillmentMessages: quickResponses,
+                        payload: payload,
                         source: 'getcourse'                    
                     })
                 })
@@ -567,6 +569,7 @@ var apply = function(request, intent) {
                     reject({
                         fulfillmentText: genericErrorMessage,
                         outputContexts: [currentContext],
+                        payload: payload,
                         source: 'getcourse'
                     })
                 })
@@ -575,6 +578,7 @@ var apply = function(request, intent) {
                 fulfillmentText: appStageInfo['errorMessage'],
                 fulfillmentMessages: quickResponses,
                 outputContexts: [currentContext],
+                payload: payload,
                 source: 'getcourse'
             })
         }
