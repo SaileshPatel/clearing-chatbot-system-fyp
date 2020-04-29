@@ -327,6 +327,28 @@ function applicationStage(stage, request){
                     quickResponses: [
                         {
                             text: {
+                                text: ["Thank you for telling us the status of your previous application. What is your status on UCAS?"]
+                            }
+                        },
+                        {
+                            payload: {
+                                richContent: [
+                                    [
+                                        {
+                                            type: "chips",
+                                            options: [
+                                                { text: "In clearing"},
+                                                { text: "Firm offer elsewhere"},
+                                                { text: "Registered for Adjustment"},
+                                                { text: "Not applied to UCAS"},
+                                            ]
+                                        }
+                                    ]
+                                ]
+                            }
+                        },
+                        {
+                            text: {
                                 text: ["Thank you for telling us the status of your previous application."]
                             },
                             platform: "FACEBOOK"
@@ -346,6 +368,31 @@ function applicationStage(stage, request){
                     errorMessage: 'You have not provided a valid outcome. Please provide a valid outcome.',
                     valid: false,
                     quickResponses: [
+                        {
+                            text: {
+                                text: ["You have not provided a valid outcome. Please provide a valid outcome."]
+                            }
+                        },
+                        {
+                            payload: {
+                                richContent: [
+                                    [
+                                        {
+                                            type: "chips",
+                                            options: [
+                                                { text: "Declined unconditional offer"},
+                                                { text: "Declined conditional offer"},
+                                                { text: "Rejected"},
+                                                { text: "Accepted conditional as insurance"},
+                                                { text: "Accepted unconditional as insurance"},
+                                                { text: "Received an offer, but got insufficient grades"},
+
+                                            ]
+                                        }
+                                    ]
+                                ]
+                            }
+                        },
                         {
                             text: {
                                 text: ["You have not provided a valid outcome."]
@@ -379,6 +426,27 @@ function applicationStage(stage, request){
                     quickResponses: notApplied ? [
                         {
                             text: {
+                                text: ["We are only able to review and advise you on your eligibility however, if you are eligible you will need to submit a clearing application via UCAS. Next, what is your nationality?"]
+                            }
+                        },
+                        {
+                            payload: {
+                                richContent: [
+                                    [
+                                        {
+                                            type: "chips",
+                                            options: [
+                                                {title: "UK"},
+                                                {title: "EU"},
+                                                {title: "Not UK Or EU"}
+                                            ]
+                                        }
+                                    ]
+                                ]
+                            }
+                        },
+                        {
+                            text: {
                                 text: ["We are only able to review and advise you on your eligibility however, if you are eligible you will need to submit a clearing application via UCAS."]
                             },
                             platform: "FACEBOOK"
@@ -400,7 +468,25 @@ function applicationStage(stage, request){
                     quickResponses: [
                         {
                             text: {
-                                text: ["You have not provided a valid outcome. Please provide a valid outcome (In clearing, Firm offer elsewhere, Registered for Adjustment, Not applied to UCAS)"]
+                                text: ["You have not provided a valid outcome. Please provide a valid outcome."]
+                            }
+                        },
+                        {
+                            payload: {
+                                richContent: [
+                                    [
+                                        {
+                                            type: "chips",
+                                            options: [
+                                                {title: "In clearing"},
+                                                {title: "Firm offer elsewhere"},
+                                                {title: "Registered for Adjustment"},
+                                                {title: "Not applied to UCAS"},
+
+                                            ]
+                                        }
+                                    ]
+                                ]
                             }
                         },
                         {
@@ -430,6 +516,27 @@ function applicationStage(stage, request){
                     nextQuestionContext: 'get-nationality',
                     successMessage: 'Thank you for providing your UCAS number.',
                     quickResponses: [
+                        {
+                            text: {
+                                text: ['Thank you for providing your UCAS number. What is your nationality?']
+                            }
+                        },
+                        {
+                            payload: {
+                                richContent: [
+                                    [
+                                        {
+                                            type: "chips",
+                                            options: [
+                                                {title: "UK"},
+                                                {title: "EU"},
+                                                {title: "Not UK Or EU"}
+                                            ]
+                                        }
+                                    ]
+                                ]
+                            }
+                        },
                         {
                             text: {
                                 text: ['Thank you for providing your UCAS number.']
@@ -470,10 +577,35 @@ function applicationStage(stage, request){
                         {
                             text: {
                                 text: ['You have successfully applied for a place at Aston University. Your application will be reviewed at a later date.']
+                            }
+                        },
+                        {
+                            text: {
+                                text: ['You have successfully applied for a place at Aston University. Your application will be reviewed at a later date.']
                             },
                             platform: "FACEBOOK"
                         },
                     ] : [
+                        {
+                            text: {
+                                text: ["Thank you for providing your nationality. Has a agency/partner centre completed this application on your behalf?"]
+                            }
+                        },
+                        {
+                            payload: {
+                                richContent: [
+                                    [
+                                        {
+                                            type: "chips",
+                                            options: [
+                                                {title: "Yes"},
+                                                {title: "No"}
+                                            ]
+                                        }
+                                    ]
+                                ]
+                            }
+                        },
                         {
                             text: {
                                 text: ['Thank you for providing your nationality.']
@@ -495,6 +627,27 @@ function applicationStage(stage, request){
                     errorMessage: 'You have not entered a valid nationality. Please select UK, EU or Not UK Or EU',
                     valid: false,
                     quickResponses: [
+                        {
+                            text: {
+                                text: ['You have not entered a valid nationality. Please select a valid nationality.']
+                            }
+                        },
+                        {
+                            payload: {
+                                richContent: [
+                                    [
+                                        {
+                                            type: "chips",
+                                            options: [
+                                                {title: "UK"},
+                                                {title: "EU"},
+                                                {title: "Not UK Or EU"}
+                                            ]
+                                        }
+                                    ]
+                                ]
+                            }
+                        },
                         {
                             text: {
                                 text: ["You have not entered a valid nationality."]
@@ -524,11 +677,36 @@ function applicationStage(stage, request){
                 quickResponses: onBehalf ? [
                     {
                         text: {
+                            text: ["Thank you for confirming that an agency/partner centre has completed this application. Please let us know which agency/partner centre completed this application"]
+                        }
+                    },
+                    {
+                        text: {
                             text: ['Thank you for confirming that an agency/partner centre has completed this application. Please let us know which agency/partner centre completed this application']
                         },
                         platform: "FACEBOOK"
                     }
                 ] : [
+                    {
+                        text: {
+                            text: ['Thank you for confirming that an agency/partner centre has not completed this application on your behalf. Has an agency/partner centre helped you complete this application?']
+                        },
+                    },
+                    {
+                        payload: {
+                            richContent: [
+                                [
+                                    {
+                                        type: "chips",
+                                        options: [
+                                            {title: "Yes, they have"},
+                                            {title: "No, they have not"}
+                                        ]
+                                    }
+                                ]
+                            ]
+                        }
+                    },
                     {
                         text: {
                             text: ['Thank you for confirming that an agency/partner centre has not completed this application on your behalf.']
