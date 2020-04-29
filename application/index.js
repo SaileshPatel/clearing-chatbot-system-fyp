@@ -64,15 +64,10 @@ function applicationStage(stage, request){
                                         {
                                             type: "chips",
                                             options: [
-                                                {
-                                                    text: "I am a Male"
-                                                },
-                                                {
-                                                    text: "I am a Female"
-                                                },
-                                                {
-                                                    text: "I identify as Other"
-                                                }
+                                                { text: "I am a Male"},
+                                                { text: "I am a Female"},
+                                                { text: "I identify as Other"},
+
                                             ]
                                         }
                                     ]
@@ -114,9 +109,10 @@ function applicationStage(stage, request){
                     quickResponses: [
                         {
                             text: {
-                                text: ["You did not enter a valid gender type (Male, Female or Other). Please re-enter your gender."]
+                                text: ["You did not enter a valid gender type (Male, Female or Other). What is your gender?"]
                             }
                         },
+
                         {
                             payload: {
                                 richContent: [
@@ -124,15 +120,9 @@ function applicationStage(stage, request){
                                         {
                                             type: "chips",
                                             options: [
-                                                {
-                                                    text: "I am a Male"
-                                                },
-                                                {
-                                                    text: "I am a Female"
-                                                },
-                                                {
-                                                    text: "I identify as Other"
-                                                }
+                                                { text: "I am a Male"},
+                                                { text: "I am a Female"},
+                                                { text: "I identify as Other"},
                                             ]
                                         }
                                     ]
@@ -198,8 +188,8 @@ function applicationStage(stage, request){
                                         {
                                             type: "chips",
                                             options: [
-                                                { text: "Yes I have" },
-                                                { text: "No I have not" }
+                                                { text: "Yes I have"},
+                                                { text: "No I have not"},
                                             ]
                                         }
                                     ]
@@ -240,7 +230,7 @@ function applicationStage(stage, request){
                 quickResponses: hasPreviouslyApplied ? [
                     {
                         text: {
-                            text: ["Thank you for confirming that you have previously applied."]
+                            text: ["Thank you for confirming that you have previously applied. What was the outcome of your application?"]
                         }
                     },
                     {
@@ -279,7 +269,7 @@ function applicationStage(stage, request){
                     [
                         {
                             text: {
-                                text: ["Thank you for confirming that you have not previously applied."]
+                                text: ["Thank you for confirming that you have not previously applied. Next, what is your UCAS status?"]
                             }
                         },
                         {
@@ -598,8 +588,8 @@ function applicationStage(stage, request){
                                         {
                                             type: "chips",
                                             options: [
-                                                {title: "Yes"},
-                                                {title: "No"}
+                                                {title: "Yes, they have"},
+                                                {title: "No, they have not"}
                                             ]
                                         }
                                     ]
@@ -735,12 +725,22 @@ function applicationStage(stage, request){
                 quickResponses: agentHelp ? [
                     {
                         text: {
+                            text: ["Thank you for confirming that an agency/partner centre has completed this application. Please let us know which agency/partner centre completed this application"]
+                        }
+                    },
+                    {
+                        text: {
                             text: ['Thank you for confirming that an agency/partner centre has completed this application. Please let us know which agency/partner centre completed this application']
                         },
                         platform: "FACEBOOK"
                     }
                 ] : 
                 [
+                    {
+                        text: {
+                            text: ["You have successfully applied for a place at Aston University. Your application will be reviewed at a later date."]
+                        }
+                    },
                     {
                         text: {
                             text: ['You have successfully applied for a place at Aston University. Your application will be reviewed at a later date.']
@@ -759,6 +759,11 @@ function applicationStage(stage, request){
                 nextQuestionContext: 'get-agent-email',
                 successMessage: 'Thank you for informing us of the agent/partner centre used. Please provide the email of the agent/partner centre.',
                 quickResponses: [
+                    {
+                        text: {
+                            text: ["Thank you for informing us of the agent/partner centre used. Please provide the email of the agent/partner centre."]
+                        }
+                    },
                     {
                         text: {
                             text: ['Thank you for informing us of the agent/partner centre used. Please provide the email of the agent/partner centre.']
@@ -782,6 +787,11 @@ function applicationStage(stage, request){
                     nextQuestionContext: undefined,
                     successMessage: 'You have successfully applied for a place at Aston University. Your application will be reviewed at a later date',
                     quickResponses: [
+                        {
+                            text: {
+                                text: ["You have successfully applied for a place at Aston University. Your application will be reviewed at a later date."]
+                            }
+                        },
                         {
                             text: {
                                 text: ['You have successfully applied for a place at Aston University. Your application will be reviewed at a later date.']
