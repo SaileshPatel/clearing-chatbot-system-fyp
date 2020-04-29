@@ -5,8 +5,33 @@ var router = express.Router();
 router.get('/', (req, res) => {
     var student_id = req.query.student_id;
     var id_exists = (typeof(student_id) != 'undefined');
-    res.render('upload-qualifications', {title: 'Upload Qualifications', student_id: student_id, id_present: id_exists});
+
+    if(!id_exists){
+        getAllStudentIDs()
+            .then(response => {
+                res.render('upload-qualifications', {title: 'Upload Qualifications', student_ids: response})
+            })
+            .catch(err => {
+                res.render('upload-qualifications', {title: 'Upload Qualifications', error: true})
+            })
+    } else {
+        res.render('upload-qualifications', {title: 'Upload Qualifications', student_id: student_id});
+    }
+
 });
+
+router.post('/', (req, res) => {
+    console.log(req.body);
+
+    getAllStudentIDs()
+        .then(response => {
+            res.render('upload-qualifications', {title: 'Upload Qualifications', student_ids: response})
+        })
+        .catch(err => {
+            res.render('upload-qualifications', {title: 'Upload Qualifications', error: true})
+        })
+
+})
 
 
 function getAllStudentIDs(){
@@ -16,7 +41,7 @@ function getAllStudentIDs(){
                 resolve(response.rows);
             })
             .catch(err => {
-                reject("error: we were unable to retrieve values")
+                reject(err);
             })
     })
 }

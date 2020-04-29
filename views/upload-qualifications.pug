@@ -1,41 +1,48 @@
 extends templates/layout.pug
 
 block content
-    div.row
-        div.col-xl-12
-            h1.text-center Upload Your Qualifications
-    form(action="upload-qualifications", method="POST")
+    if error
+        p Else
+    else
         div.row
-            if !id_present
-                div.col-xl-6
-                    p Student Number:
-                    input(type="text" name="student_id")
-                div.col-xl-6
-                    p Do you have five GCSEs?
-                    div.row
-                        div.col-xl-1
-                            input(type="radio" name="five_gcses" value="yes")
-                            p Yes
-                        div.col-xl-1
-                            input(type="radio" name="five_gcses" value="no") 
-                            p No
-            else
-                div.col-xl-12
-                    p Do you have five GCSEs?
-                    div.row
-                        div.col-xl-1
-                            input(type="radio" name="five_gcses" value="yes")
-                            p Yes
-                        div.col-xl-1
-                            input(type="radio" name="five_gcses" value="no") 
-                            p No
-        div.row
-            div.col-xl-4
-                p Highest Qualification
-                input(type="file" name="m-qualification" id="m-qualification")
-            div.col-xl-4
-                p Highest English (Literature/Language) Qualification
-                input(type="file" name="m-qualification" id="m-qualification")
-            div.col-xl-4
-                p Highest Mathematical Qualification
-                input(type="file" name="m-qualification" id="m-qualification")
+            div.col-xl-12
+                h1.text-center Upload Your Qualifications
+        form(action="upload-qualifications", method="POST")
+            div.row
+                if !student_id
+                    div.col-xl-6
+                        p Student Number:
+                        select(name='student_id')
+                            for id in student_ids
+                                option(value=`${id.student_id}`) #{id.student_id}
+                    div.col-xl-6
+                        p Do you have five GCSEs?
+                        div.row
+                            div.col-xl-1
+                                input(type="radio" name="five_gcses" value="Yes" checked)
+                                p Yes
+                            div.col-xl-1
+                                input(type="radio" name="five_gcses" value="No") 
+                                p No
+                else
+                    div.col-xl-12
+                        p Do you have five GCSEs?
+                        div.row
+                            div.col-xl-1
+                                input(type="radio" name="five_gcses" value="yes" checked)
+                                p Yes
+                            div.col-xl-1
+                                input(type="radio" name="five_gcses" value="no") 
+                                p No
+                                input(type="hidden" name="student_id" value=`${student_id}`)
+            div.row
+                div.col-xl-4
+                    p Highest Qualification
+                    input(type="file" name="highest_qualification" id="highest_qualification")
+                div.col-xl-4
+                    p Highest English (Literature/Language) Qualification
+                    input(type="file" name="english_qualification" id="english_qualification")
+                div.col-xl-4
+                    p Highest Mathematical Qualification
+                    input(type="file" name="mathematical_qualification" id="mathematical_qualification")
+            input(type="submit" value="Submit")
