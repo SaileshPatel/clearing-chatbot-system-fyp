@@ -426,9 +426,9 @@ function applicationStage(stage, request){
                                         {
                                             type: "chips",
                                             options: [
-                                                {title: "UK"},
-                                                {title: "EU"},
-                                                {title: "Not UK Or EU"}
+                                                {text: "UK"},
+                                                {text: "EU"},
+                                                {text: "Not UK Or EU"}
                                             ]
                                         }
                                     ]
@@ -468,10 +468,10 @@ function applicationStage(stage, request){
                                         {
                                             type: "chips",
                                             options: [
-                                                {title: "In clearing"},
-                                                {title: "Firm offer elsewhere"},
-                                                {title: "Registered for Adjustment"},
-                                                {title: "Not applied to UCAS"},
+                                                {text: "In clearing"},
+                                                {text: "Firm offer elsewhere"},
+                                                {text: "Registered for Adjustment"},
+                                                {text: "Not applied to UCAS"},
 
                                             ]
                                         }
@@ -518,9 +518,9 @@ function applicationStage(stage, request){
                                         {
                                             type: "chips",
                                             options: [
-                                                {title: "UK"},
-                                                {title: "EU"},
-                                                {title: "Not UK Or EU"}
+                                                { text: "UK"},
+                                                { text: "EU"},
+                                                { text: "Not UK Or EU"},
                                             ]
                                         }
                                     ]
@@ -588,8 +588,8 @@ function applicationStage(stage, request){
                                         {
                                             type: "chips",
                                             options: [
-                                                {title: "Yes, they have"},
-                                                {title: "No, they have not"}
+                                                {text: "Yes, they have"},
+                                                {text: "No, they have not"}
                                             ]
                                         }
                                     ]
@@ -629,9 +629,9 @@ function applicationStage(stage, request){
                                         {
                                             type: "chips",
                                             options: [
-                                                {title: "UK"},
-                                                {title: "EU"},
-                                                {title: "Not UK Or EU"}
+                                                {text: "UK"},
+                                                {text: "EU"},
+                                                {text: "Not UK Or EU"}
                                             ]
                                         }
                                     ]
@@ -689,8 +689,8 @@ function applicationStage(stage, request){
                                     {
                                         type: "chips",
                                         options: [
-                                            {title: "Yes, they have"},
-                                            {title: "No, they have not"}
+                                            {text: "Yes, they have"},
+                                            {text: "No, they have not"}
                                         ]
                                     }
                                 ]
