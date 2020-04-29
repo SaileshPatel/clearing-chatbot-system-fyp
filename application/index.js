@@ -114,6 +114,33 @@ function applicationStage(stage, request){
                     quickResponses: [
                         {
                             text: {
+                                text: ["You did not enter a valid gender type (Male, Female or Other). Please re-enter your gender."]
+                            }
+                        },
+                        {
+                            payload: {
+                                richContent: [
+                                    [
+                                        {
+                                            type: "chips",
+                                            options: [
+                                                {
+                                                    text: "I am a Male"
+                                                },
+                                                {
+                                                    text: "I am a Female"
+                                                },
+                                                {
+                                                    text: "I identify as Other"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                ]
+                            }
+                        },
+                        {
+                            text: {
                                 text: ["You did not enter a valid gender type."]
                             },
                             platform: "FACEBOOK"
@@ -161,6 +188,26 @@ function applicationStage(stage, request){
                     quickResponses: [
                         {
                             text: {
+                                text: ["You have successfully provided your mobile number. Next, have you ever applied to Aston previously?"]
+                            }
+                        },
+                        {
+                            payload: {
+                                richContent: [
+                                    [
+                                        {
+                                            type: "chips",
+                                            options: [
+                                                { text: "Yes I have" },
+                                                { text: "No I have not" }
+                                            ]
+                                        }
+                                    ]
+                                ]
+                            }
+                        },
+                        {
+                            text: {
                                 text: ["You have successfully provided your mobile number"]
                             },
                             platform: "FACEBOOK"
@@ -194,6 +241,30 @@ function applicationStage(stage, request){
                     {
                         text: {
                             text: ["Thank you for confirming that you have previously applied."]
+                        }
+                    },
+                    {
+                        payload: {
+                            richContent: [
+                                [
+                                    {
+                                        type: "chips",
+                                        options: [
+                                            { text: "Declined unconditional offer"},
+                                            { text: "Declined conditional offer"},
+                                            { text: "Rejected"},
+                                            { text: "Accepted conditional as insurance"},
+                                            { text: "Accepted unconditional as insurance"},
+                                            { text: "Received an offer, but got insufficient grades"}
+                                        ]
+                                    }
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        text: {
+                            text: ["Thank you for confirming that you have previously applied."]
                         },
                         platform: "FACEBOOK"
                     },
@@ -206,6 +277,28 @@ function applicationStage(stage, request){
                     }
                     ] : 
                     [
+                        {
+                            text: {
+                                text: ["Thank you for confirming that you have not previously applied."]
+                            }
+                        },
+                        {
+                            payload: {
+                                richContent: [
+                                    [
+                                        {
+                                            type: "chips",
+                                            options: [
+                                                { text: "In clearing"},
+                                                { text: "Firm offer elsewhere"},
+                                                { text: "Registered for Adjustment"},
+                                                { text: "Not applied to UCAS"},
+                                            ]
+                                        }
+                                    ]
+                                ]
+                            }
+                        },
                         {
                             text: {
                                 text: ["Thank you for confirming that you have not previously applied."]
@@ -539,7 +632,6 @@ var apply = function(request, intent) {
     var queryParams = appStageInfo['queryParams'];
     var nextQuestionToAsk = appStageInfo['nextQuestionContext'];
     var quickResponses = appStageInfo['quickResponses'];
-    var payload = appStageInfo['payload'];
     
     var session = request.body.session;
     var currentContext = request.body.queryResult.outputContexts[0];
@@ -578,7 +670,6 @@ var apply = function(request, intent) {
                 fulfillmentText: appStageInfo['errorMessage'],
                 fulfillmentMessages: quickResponses,
                 outputContexts: [currentContext],
-                payload: payload,
                 source: 'getcourse'
             })
         }
