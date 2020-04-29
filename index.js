@@ -5,6 +5,7 @@ const db = require("./db");
 const dialogflow_webhook = require("./routes/dialogflow-webhook.js");
 const manual_space_allocation = require("./routes/allocate-space-manually.js");
 const upload_single_course = require("./routes/upload-single-course.js");
+const upload_qualification = require("./routes/upload-qualifications.js");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -29,6 +30,8 @@ app.get("/add-course-programme", (req, res) =>{
 app.get("/add-multiple-course-programmes", (req, res) =>{
     res.render('add-multiple-course-programmes', {title: "Add Multiple Course Programmes"});
 })
+
+app.use("/upload-qualification", upload_qualification);
 
 app.use("/add-course-programme", upload_single_course);
 
