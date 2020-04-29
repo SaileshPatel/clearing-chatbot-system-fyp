@@ -1,3 +1,41 @@
 extends templates/layout.pug
 
 block content
+    div.row
+        div.col-xl-12
+            h1.text-center Upload Your Qualifications
+    form(action="upload-qualifications", method="POST")
+        div.row
+            if !id_present
+                div.col-xl-6
+                    p Student Number:
+                    input(type="text" name="student_id")
+                div.col-xl-6
+                    p Do you have five GCSEs?
+                    div.row
+                        div.col-xl-1
+                            input(type="radio" name="five_gcses" value="yes")
+                            p Yes
+                        div.col-xl-1
+                            input(type="radio" name="five_gcses" value="no") 
+                            p No
+            else
+                div.col-xl-12
+                    p Do you have five GCSEs?
+                    div.row
+                        div.col-xl-1
+                            input(type="radio" name="five_gcses" value="yes")
+                            p Yes
+                        div.col-xl-1
+                            input(type="radio" name="five_gcses" value="no") 
+                            p No
+        div.row
+            div.col-xl-4
+                p Highest Qualification
+                input(type="file" name="m-qualification" id="m-qualification")
+            div.col-xl-4
+                p Highest English (Literature/Language) Qualification
+                input(type="file" name="m-qualification" id="m-qualification")
+            div.col-xl-4
+                p Highest Mathematical Qualification
+                input(type="file" name="m-qualification" id="m-qualification")

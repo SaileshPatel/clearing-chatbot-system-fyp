@@ -31,7 +31,7 @@ app.get("/add-multiple-course-programmes", (req, res) =>{
     res.render('add-multiple-course-programmes', {title: "Add Multiple Course Programmes"});
 })
 
-app.use("/upload-qualification", upload_qualification);
+app.use("/upload-qualifications", upload_qualification);
 
 app.use("/add-course-programme", upload_single_course);
 
