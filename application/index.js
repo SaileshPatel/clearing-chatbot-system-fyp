@@ -54,7 +54,29 @@ function applicationStage(stage, request){
                     quickResponses: [
                         {
                             text: {
-                                text: ["You have successfully provided your date of birth"]
+                                text: ["You have successfully provided your date of birth. Please select your gender."]
+                            }
+                        },
+                        {
+                            payload: {
+                                richContent: [
+                                    [
+                                        {
+                                            type: "chips",
+                                            options: [
+                                                {
+                                                    text: "I am a Male"
+                                                },
+                                                {
+                                                    text: "I am a Female"
+                                                },
+                                                {
+                                                    text: "I identify as Other"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                ]
                             }
                         },
                         {
