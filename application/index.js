@@ -562,7 +562,6 @@ var apply = function(request, intent) {
                             }
                         }],
                         fulfillmentMessages: quickResponses,
-                        payload: payload,
                         source: 'getcourse'                    
                     })
                 })
@@ -571,7 +570,6 @@ var apply = function(request, intent) {
                     reject({
                         fulfillmentText: genericErrorMessage,
                         outputContexts: [currentContext],
-                        payload: payload,
                         source: 'getcourse'
                     })
                 })
