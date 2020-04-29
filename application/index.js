@@ -93,26 +93,6 @@ function applicationStage(stage, request){
                             platform: "FACEBOOK"
                         }
                     ],
-                    payload: {           
-                        richContent: [
-                            [
-                                {
-                                    type: "chips",
-                                    options: [
-                                        {
-                                            text: "I am a Male"
-                                        },
-                                        {
-                                            text: "I am a Female"
-                                        },
-                                        {
-                                            text: "I identify as Other"
-                                        }
-                                    ]
-                                }
-                            ]
-                        ]
-                    },
                     valid: true
                 }
             }
