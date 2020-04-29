@@ -55,6 +55,31 @@ function applicationStage(stage, request){
                         {
                             text: {
                                 text: ["You have successfully provided your date of birth"]
+                            }
+                        },
+                        {
+                            richContent: [
+                                [
+                                    {
+                                        type: "chips",
+                                        options: [
+                                            {
+                                                text: "I am a Male"
+                                            },
+                                            {
+                                                text: "I am a Female"
+                                            },
+                                            {
+                                                text: "I identify as Other"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            ]
+                        },
+                        {
+                            text: {
+                                text: ["You have successfully provided your date of birth"]
                             },
                             platform: "FACEBOOK"
                         },
