@@ -875,9 +875,8 @@ function applicationStage(stage, request){
         case 'Application - FiveGCSES - yes':
             var haveFive = (context.parameters['have-five'] == 'True');
             var student_id = context.parameters['student-no'];
-
             return {
-                queryString: "UPDATE students SET five_gcses_or_not = $1 WHERE student_id = $2;",
+                queryString: 'UPDATE students SET five_gcses_or_not = $1 WHERE student_id = $2;',
                 queryParams: [haveFive, student_id],
                 nextQuestionContext: undefined,
                 successMessage: endMessage,
@@ -894,9 +893,8 @@ function applicationStage(stage, request){
                         platform: "FACEBOOK"
                     }
                 ],
+                valid: true
             }
-
-
         default:
             return {
 
