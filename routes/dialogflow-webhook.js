@@ -47,7 +47,7 @@ router.post('/', (req, res) => {
                     var spaces = response.rows[0]['course_spaces'];
                     if(spaces <= 0){
                         return res.json({
-                            fulfillmentText: "We're sorry, but the course " + course + "does not have any spaces. Type 'Hello' to go back to the start of this conversation.",
+                            fulfillmentText: "We're sorry, but the course " + course + " does not have any spaces. Type 'Hello' to go back to the start of this conversation.",
                             outputContexts: [{
                                 "name": session + "/contexts/course",
                                 "lifespanCount": 5,
