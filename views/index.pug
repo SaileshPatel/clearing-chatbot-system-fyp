@@ -4,14 +4,11 @@ block content
     div.row.justify-content-center
         div.jumbotron
             h2 Introduction
-            p This is the management system for the clearing chatbot system. It will allow you to upload a single course or a batch of courses (in a CSV file) to the clearing chatbot database.
-            p Select either option below to get started.
+            p This is the management system for the clearing chatbot. It will allow you to upload course information so the clearing chatbot can use it. 
 
     div.row.justify-content-center
         div.col-md-6.text-center
             a(href="/add-course-programme", class="btn btn-primary") Add a new degree programme
-        div.col-md-6.text-center
-            a(href="/add-multiple-course-programmes", class="btn btn-primary") Add multiple degree programmes (CSV upload)
 
     <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
     <df-messenger intent="WELCOME" chat-title="Clearing-Bot" agent-id="3246b9f6-7370-45fc-90f3-05fcf7895761" language-code="en"></df-messenger>
