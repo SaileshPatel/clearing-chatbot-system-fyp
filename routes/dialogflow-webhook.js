@@ -18,7 +18,7 @@ router.post('/', (req, res) => {
             .then(response => {
                 var message = fulfillmentText(course, columnToQuery, response); 
                 return res.json({
-                    fulfillmentText: message,
+                    fulfillmentText: message.replace(/\n|\r/g, ' '),
                     outputContexts: [{
                         "name": session + "/contexts/course",
                         "lifespanCount": 5,
@@ -91,7 +91,7 @@ function fulfillmentText(course, columnToQuery, response){
             }
             return "Hello. Welcome to Aston's clearing admissions chatbot. How can we help you today? We can answer questions about course spaces, descriptions, entry requirements, contact details and what modules you'll study on our courses. ".concat(fulfillmentText);
         default:
-            return JSON.stringify(response.rows[0][columnToQuery]);
+            return response.rows[0][columnToQuery];
     }
 }
 
