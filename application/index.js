@@ -828,19 +828,40 @@ function applicationStage(stage, request){
                 return {
                     queryString: 'UPDATE students SET agent_email = $1 WHERE student_id = $2;',
                     queryParams: [agentEmail, student_id],
-                    nextQuestionContext: undefined,
-                    successMessage: 'You have successfully applied for a place at Aston University. Your application will be reviewed at a later date',
+                    nextQuestionContext: 'get-gcses',
+                    successMessage: 'Thank you for providing your email address. Do you have five GCSES? Enter Yes, I do or No, I do not',
                     quickResponses: [
                         {
                             text: {
-                                text: [endMessage]
+                                text: ['Thank you for providing your email address. Do you have five GCSES? Enter Yes, I do or No, I do not']
+                            }
+                        },
+                        {
+                            payload: {
+                                richContent: [
+                                    [
+                                        {
+                                            type: "chips",
+                                            options: [
+                                                {text: "Yes, I do"},
+                                                {text: "No, I do not"}
+                                            ]
+                                        }
+                                    ]
+                                ]
                             }
                         },
                         {
                             text: {
-                                text: [endMessage]
+                                text: ['Thank you for providing your email address.']
                             },
                             platform: "FACEBOOK"
+                        },
+                        {
+                            quickReplies: {
+                                title: 'Do you have five GCSES?',
+                                quickReplies: ['Yes, I do', 'No, I do not']
+                            }
                         }
                     ],
                     valid: true
