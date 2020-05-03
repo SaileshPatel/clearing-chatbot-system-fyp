@@ -563,11 +563,11 @@ function applicationStage(stage, request){
                     queryString: 'UPDATE students SET nationality_type = $1 WHERE student_id = $2;',
                     queryParams: [nationality, student_id],
                     nextQuestionContext: nationalityIsUK ? 'get-gcses' : 'get-on-behalf-agent',
-                    successMessage: nationalityIsUK ? 'Thank you for providing your nationality. Do you have five GCSES? Enter Yes, I do or No, I do not' : 'Thank you for providing your nationality. Has an agency/partner centre completed this application on your behalf?',
+                    successMessage: nationalityIsUK ? 'Thank you for providing your nationality. Do you have five GCSES?' : 'Thank you for providing your nationality. Has an agency/partner centre completed this application on your behalf?',
                     quickResponses: nationalityIsUK ? [
                         {
                             text: {
-                                text: ['Thank you for providing your nationality. Do you have five GCSES? Enter Yes, I do or No, I do not']
+                                text: ['Thank you for providing your nationality. Do you have five GCSES?']
                             }
                         },
                         {
@@ -743,7 +743,7 @@ function applicationStage(stage, request){
                 queryString: 'UPDATE students SET agent_help = $1 WHERE student_id = $2;',
                 queryParams: [agentHelp, student_id],
                 nextQuestionContext: agentHelp ? 'get-agent': 'get-gcses',
-                successMessage: agentHelp ? 'Thank you for informing us about the help you received from an agent/partner centre. Which agent/partner centre helped you with your application' : 'Thank you for informing us that you did not receive help from an agent/partner centre. Do you have five GCSEs? Enter Yes, I do or No, I do not',
+                successMessage: agentHelp ? 'Thank you for informing us about the help you received from an agent/partner centre. Which agent/partner centre helped you with your application' : 'Thank you for informing us that you did not receive help from an agent/partner centre. Do you have five GCSEs?',
                 quickResponses: agentHelp ? [
                     {
                         text: {
@@ -760,7 +760,7 @@ function applicationStage(stage, request){
                 [
                     {
                         text: {
-                            text: ['Thank you for informing us that you did not receive help from an agent/partner centre. Do you have five GCSEs? Enter Yes, I do or No, I do not']
+                            text: ['Thank you for informing us that you did not receive help from an agent/partner centre. Do you have five GCSEs?']
                         }
                     },
                     {
@@ -829,11 +829,11 @@ function applicationStage(stage, request){
                     queryString: 'UPDATE students SET agent_email = $1 WHERE student_id = $2;',
                     queryParams: [agentEmail, student_id],
                     nextQuestionContext: 'get-gcses',
-                    successMessage: 'Thank you for providing your email address. Do you have five GCSES? Enter Yes, I do or No, I do not',
+                    successMessage: 'Thank you for providing your email address. Do you have five GCSES?',
                     quickResponses: [
                         {
                             text: {
-                                text: ['Thank you for providing your email address. Do you have five GCSES? Enter Yes, I do or No, I do not']
+                                text: ['Thank you for providing your email address. Do you have five GCSES?']
                             }
                         },
                         {
