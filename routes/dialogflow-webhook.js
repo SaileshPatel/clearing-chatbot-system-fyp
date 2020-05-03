@@ -64,9 +64,9 @@ function fulfillmentText(course, columnToQuery, response){
         case 'course_spaces':
             var courseSpaces = response.rows[0]['course_spaces'];
             if(courseSpaces > 0){
-                return JSON.stringify("There are " + courseSpaces + " spaces left on " + course + ".");
+                return "There are " + courseSpaces + " spaces left on " + course + ".";
             } else {
-                return JSON.stringify("There are no spaces left on " + course + ".");
+                return "There are no spaces left on " + course + ".";
             }
         case 'module_title':
             if(response.rows.length == 0){
