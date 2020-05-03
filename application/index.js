@@ -2,6 +2,7 @@ const db = require("./../db");
 
 function applicationStage(stage, request){
     var context = request.body.queryResult.outputContexts[0];
+    var endMessage = "You have successfully applied for a place at Aston University. Your application will be reviewed at a later date.";
 
     switch(stage){
         case 'Application - yes':
@@ -562,16 +563,16 @@ function applicationStage(stage, request){
                     queryString: 'UPDATE students SET nationality_type = $1 WHERE student_id = $2;',
                     queryParams: [nationality, student_id],
                     nextQuestionContext: nationalityIsUK ? undefined : 'get-on-behalf-agent',
-                    successMessage: nationalityIsUK ? 'You have successfully applied for a place at Aston University.' : 'Thank you for providing your nationality. Has an agency/partner centre completed this application on your behalf?',
+                    successMessage: nationalityIsUK ? endMessage : 'Thank you for providing your nationality. Has an agency/partner centre completed this application on your behalf?',
                     quickResponses: nationalityIsUK ? [
                         {
                             text: {
-                                text: ['You have successfully applied for a place at Aston University. Your application will be reviewed at a later date.']
+                                text: [endMessage]
                             }
                         },
                         {
                             text: {
-                                text: ['You have successfully applied for a place at Aston University. Your application will be reviewed at a later date.']
+                                text: [endMessage]
                             },
                             platform: "FACEBOOK"
                         },
@@ -721,7 +722,7 @@ function applicationStage(stage, request){
                 queryString: 'UPDATE students SET agent_help = $1 WHERE student_id = $2;',
                 queryParams: [agentHelp, student_id],
                 nextQuestionContext: agentHelp ? 'get-agent': undefined,
-                successMessage: agentHelp ? 'Thank you for informining us about the help you received from an agent/partner centre. Which agent/partner centre helped you with your application' : 'You have successfully applied for a place at Aston University. Your application will be reviewed at a later date.',
+                successMessage: agentHelp ? 'Thank you for informining us about the help you received from an agent/partner centre. Which agent/partner centre helped you with your application' : endMessage,
                 quickResponses: agentHelp ? [
                     {
                         text: {
@@ -738,12 +739,12 @@ function applicationStage(stage, request){
                 [
                     {
                         text: {
-                            text: ["You have successfully applied for a place at Aston University. Your application will be reviewed at a later date."]
+                            text: [endMessage]
                         }
                     },
                     {
                         text: {
-                            text: ['You have successfully applied for a place at Aston University. Your application will be reviewed at a later date.']
+                            text: [endMessage]
                         },
                         platform: "FACEBOOK"
                     }
@@ -789,12 +790,12 @@ function applicationStage(stage, request){
                     quickResponses: [
                         {
                             text: {
-                                text: ["You have successfully applied for a place at Aston University. Your application will be reviewed at a later date."]
+                                text: [endMessage]
                             }
                         },
                         {
                             text: {
-                                text: ['You have successfully applied for a place at Aston University. Your application will be reviewed at a later date.']
+                                text: [endMessage]
                             },
                             platform: "FACEBOOK"
                         }
