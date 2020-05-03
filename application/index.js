@@ -808,6 +808,31 @@ function applicationStage(stage, request){
                     valid: false
                 }
             }
+        case 'Application - FiveGCSES - yes':
+            var haveFive = (context.parameters['have-five'] == 'True');
+            var student_id = context.parameters['student-no'];
+
+            return {
+                queryString: "UPDATE students SET five_gcses_or_not = $1 WHERE student_id = $2;",
+                queryParams: [haveFive, student_id],
+                nextQuestionContext: undefined,
+                successMessage: endMessage,
+                quickResponses: [
+                    {
+                        text: {
+                            text: [endMessage]
+                        }
+                    },
+                    {
+                        text: {
+                            text: [endMessage]
+                        },
+                        platform: "FACEBOOK"
+                    }
+                ],
+            }
+
+
         default:
             return {
 
