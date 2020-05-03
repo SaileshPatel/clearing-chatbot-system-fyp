@@ -38,13 +38,60 @@ router.post('/', (req, res) => {
     } else if (intentClassifier(intent)['status'] && intentClassifier(intent)['type'] === 'insert') {
         var applicationRes = application(req, intent);
 
-        applicationRes
-            .then(result => {
-                return res.json(result);
-            })
-            .catch(err => {
-                return res.json(err);
-            })
+
+        if(intent == "Application - yes"){
+            var course = req.body.queryResult.outputContexts[0].parameters.Course;
+        
+            db.query("SELECT course_spaces FROM Courses WHERE course_name LIKE $1", [course])
+                .then(response => {
+                    var spaces = response.rows[0]['course_spaces'];
+                    if(spaces <= 0){
+                        return res.json({
+                            fulfillmentText: "We're sorry, but the course " + course + "does not have any spaces. Type 'Hello' to go back to the start of this conversation.",
+                            outputContexts: [{
+                                "name": session + "/contexts/course",
+                                "lifespanCount": 5,
+                                "parameters": {
+                                    "name": course,
+                                }
+                            }],
+                            source: 'getcourse'
+                        })
+                    } else {
+                        applicationRes
+                            .then(result => {
+                                return res.json(result);
+                            })
+                            .catch(err => {
+                                return res.json(err);
+                            })
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                    return res.json({
+                        fulfillmentText: "There has been an error with your application. Please try again later",
+                        source: 'getcourse'
+                    })
+                })
+        } else {
+            applicationRes
+                .then(result => {
+                    return res.json(result);
+                })
+                .catch(err => {
+                    return res.json(err);
+                })  
+        }
+
+        // applicationRes
+        //     .then(result => {
+        //         return res.json(result);
+        //     })
+        //     .catch(err => {
+        //         return res.json(err);
+        //     })
+    
     } else {
         return res.json({
             fulfillmentText: "Unfortunately, we were unable to find information related to '" + intent + "'. Try querying about spaces, descriptions, entry requirements, tuition fees, contact details and modules for our courses.",
