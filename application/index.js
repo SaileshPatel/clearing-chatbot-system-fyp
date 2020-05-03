@@ -562,20 +562,41 @@ function applicationStage(stage, request){
                 return {
                     queryString: 'UPDATE students SET nationality_type = $1 WHERE student_id = $2;',
                     queryParams: [nationality, student_id],
-                    nextQuestionContext: nationalityIsUK ? undefined : 'get-on-behalf-agent',
-                    successMessage: nationalityIsUK ? endMessage : 'Thank you for providing your nationality. Has an agency/partner centre completed this application on your behalf?',
+                    nextQuestionContext: nationalityIsUK ? 'get-gcses' : 'get-on-behalf-agent',
+                    successMessage: nationalityIsUK ? 'Thank you for providing your nationality. Do you have five GCSES? Enter Yes, I do or No, I do not' : 'Thank you for providing your nationality. Has an agency/partner centre completed this application on your behalf?',
                     quickResponses: nationalityIsUK ? [
                         {
                             text: {
-                                text: [endMessage]
+                                text: ['Thank you for providing your nationality. Do you have five GCSES? Enter Yes, I do or No, I do not']
+                            }
+                        },
+                        {
+                            payload: {
+                                richContent: [
+                                    [
+                                        {
+                                            type: "chips",
+                                            options: [
+                                                {text: "Yes, I do"},
+                                                {text: "No, I do not"}
+                                            ]
+                                        }
+                                    ]
+                                ]
                             }
                         },
                         {
                             text: {
-                                text: [endMessage]
+                                text: ['Thank you for providing your nationality']
                             },
                             platform: "FACEBOOK"
                         },
+                        {
+                            quickReplies: {
+                                title: 'Do you have five GCSEs?',
+                                quickReplies: ['Yes, I do', 'No, I do not']
+                            }
+                        }
                     ] : [
                         {
                             text: {
@@ -721,8 +742,8 @@ function applicationStage(stage, request){
             return {
                 queryString: 'UPDATE students SET agent_help = $1 WHERE student_id = $2;',
                 queryParams: [agentHelp, student_id],
-                nextQuestionContext: agentHelp ? 'get-agent': undefined,
-                successMessage: agentHelp ? 'Thank you for informining us about the help you received from an agent/partner centre. Which agent/partner centre helped you with your application' : endMessage,
+                nextQuestionContext: agentHelp ? 'get-agent': 'get-gcses',
+                successMessage: agentHelp ? 'Thank you for informing us about the help you received from an agent/partner centre. Which agent/partner centre helped you with your application' : 'Thank you for informing us that you did not receive help from an agent/partner centre. Do you have five GCSEs? Enter Yes, I do or No, I do not',
                 quickResponses: agentHelp ? [
                     {
                         text: {
@@ -739,12 +760,34 @@ function applicationStage(stage, request){
                 [
                     {
                         text: {
-                            text: [endMessage]
+                            text: ['Thank you for informing us that you did not receive help from an agent/partner centre. Do you have five GCSEs? Enter Yes, I do or No, I do not']
+                        }
+                    },
+                    {
+                        payload: {
+                            richContent: [
+                                [
+                                    {
+                                        type: "chips",
+                                        options: [
+                                            {text: "Yes, I do"},
+                                            {text: "No, I do not"}
+                                        ]
+                                    }
+                                ]
+                            ]
                         }
                     },
                     {
                         text: {
-                            text: [endMessage]
+                            text: ['Thank you for informing us that you did not receive help from an agent/partner centre.']
+                        },
+                        platform: "FACEBOOK"
+                    },
+                    {
+                        quickReplies: {
+                            title: ['Do you have five GCSEs?'],
+                            quickReplies: ['Yes, I do', 'No, I do not']
                         },
                         platform: "FACEBOOK"
                     }
