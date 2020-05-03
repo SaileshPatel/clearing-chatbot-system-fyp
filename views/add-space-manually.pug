@@ -32,6 +32,6 @@ block content
                         input(type="hidden" name="ucas_code" value=`${course.ucas_code}`)
                         input(type="hidden" name="delete" value=true)
                         //- !course.course_spaces = no spaces left
-                        button(type="submit" disabled=!course.course_spaces) Delete
+                        button(type="submit") Delete
     else
         p= fail_message
