@@ -2,21 +2,36 @@ extends templates/layout.pug
 
 block content
     if courses
-        table
-            tr
-                th UCAS Code
-                th Course Name
-                th Course Spaces
-                th Allocate Space
-            for course in courses
-                tr
-                    td= course.ucas_code
-                    td= course.course_name
-                    td= course.course_spaces
-                    td
-                        form(action="allocate-space", method="POST")
-                            input(type="hidden" name="ucas_code" value=`${course.ucas_code}`)
-                            //- !course.course_spaces = no spaces left
-                            button(type="submit" disabled=!course.course_spaces) Allocate
+        div.row.font-weight-bold
+            div.col-xl-2
+                p UCAS Code
+            div.col-xl-2
+                p Course Name
+            div.col-xl-2
+                p Course Spaces
+            div.col-xl-2
+                p Allocate Space
+            div.col-xl-2
+                p Delete Course
+        for course in courses
+            div.row
+                div.col-xl-2
+                    p= course.ucas_code
+                div.col-xl-2
+                    p= course.course_name
+                div.col-xl-2
+                    p= course.course_spaces
+                div.col-xl-2
+                    form(action="allocate-space", method="POST")
+                        input(type="hidden" name="ucas_code" value=`${course.ucas_code}`)
+                        input(type="hidden" name="allocate" value=true)
+                        //- !course.course_spaces = no spaces left
+                        button(type="submit" disabled=!course.course_spaces) Allocate
+                div.col-xl-2
+                    form(action="allocate-space", method="POST")
+                        input(type="hidden" name="ucas_code" value=`${course.ucas_code}`)
+                        input(type="hidden" name="delete" value=true)
+                        //- !course.course_spaces = no spaces left
+                        button(type="submit" disabled=!course.course_spaces) Delete
     else
         p= fail_message
