@@ -19,7 +19,7 @@ function applicationStage(stage, request){
                     queryString: "INSERT INTO students (first_name, last_name, ucas_code) VALUES ($1, $2, (SELECT ucas_code FROM courses WHERE course_name LIKE $3)) RETURNING student_id;",
                     queryParams: [firstName, lastName, '%' + context.parameters.Course + '%'],
                     nextQuestionContext: "get-date-of-birth",
-                    successMessage: "You have successfully started your application. Next, enter your date of birth.",
+                    successMessage: "You have successfully started your application. Next, enter your date of birth. Please enter your birthday in this format: 1 January 2000",
                     valid: true
                 }
             }
@@ -158,7 +158,7 @@ function applicationStage(stage, request){
                     queryString: "UPDATE students SET email_address = $1 WHERE student_id = $2;",
                     queryParams: [email, student_id],
                     nextQuestionContext: 'get-mobile-number',
-                    successMessage: "You have successfully provided your email. Next, please enter your mobile phone number.",
+                    successMessage: "You have successfully provided your email. Next, please enter your mobile phone number, with the country code i.e. +44 or +1",
                     valid: true
                 }
             } else {
