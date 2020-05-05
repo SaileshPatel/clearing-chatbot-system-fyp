@@ -7,16 +7,16 @@ const manual_space_allocation = require("./routes/allocate-space-manually.js");
 const upload_single_course = require("./routes/upload-single-course.js");
 
 const app = express();
-const port = process.env.PORT || 3000;
+//const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.set('view engine', 'pug')
 
-app.listen(port, () =>{
-    console.log(`Server is running at http://localhost:${port}`)
-})
+// app.listen(port, () =>{
+//     console.log(`Server is running at http://localhost:${port}`)
+// })
 
 app.get("/", (req, res) => {
     res.render('index', {title: "Home"});
@@ -35,3 +35,5 @@ app.use("/add-course-programme", upload_single_course);
 app.use("/allocate-space", manual_space_allocation);
 
 app.use("/getcourse", dialogflow_webhook);
+
+module.exports = app;
