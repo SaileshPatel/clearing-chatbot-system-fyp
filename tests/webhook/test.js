@@ -166,6 +166,34 @@ it('check that the correct entry requirements are given for Law', async done => 
     done();
 })
 
+it('check that the correct tuition fees are given for Law', async done => {
+    const response = await request
+        .post('/getcourse')
+        .send({
+            "queryResult": {
+                "parameters": {
+                    "Course": "Law"
+                },
+                "intent": {
+                    "name": "projects/clearing-bot-voltbp/agent/intents/e7f0c658-6b1c-47ce-b427-f817a781cb38",
+                    "displayName": "Tuition Fees"
+                },
+                "intentDetectionConfidence": 1,
+                "languageCode": "en"
+            },
+            "session": "projects/clearing-bot-voltbp/agent/sessions/b7e18c2f-8172-f5ba-b65b-afdca867eaaf",
+        })
+
+
+    expect(response.status).toBe(200);
+    expect(response.body.fulfillmentText).toBe("£9,250 (£1,250 during placement year) for UK/EU students.   £15,600* for International students (£2,500 during placement year) (2020/21)")
+    done()
+})
+
+it('check that the correct contact details are given for Computer Science', async done => {
+    
+    done()
+})
 
 afterAll(() => {
     db.close();
