@@ -9,8 +9,9 @@ This project concerns the development of a chatbot to aid the University clearin
 
 ## How to install/run
 1. Clone the repository into your local machine
-2. Follow the instructions provided by [Heroku](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup) to install PostgreSQL on your machine
-3. After PostgreSQL has been installed, run the following command to create the relevant tables in your PostgreSQL database
+2. Using the command line (or terminal), navigate to the location where you have cloned the repository and run the command `npm install` to install all the dependencies the project uses
+3. Follow the instructions provided by [Heroku](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup) to install PostgreSQL on your machine
+4. After PostgreSQL has been installed, run the following command to create the relevant tables in your PostgreSQL database
 
 
 The instructions related to PostgreSQL can be found in more detail at [https://devcenter.heroku.com/articles/heroku-postgresql#local-setup](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup)
