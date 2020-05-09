@@ -191,7 +191,25 @@ it('check that the correct tuition fees are given for Law', async done => {
 })
 
 it('check that the correct contact details are given for Computer Science', async done => {
-    
+    const response = await request
+        .post('/getcourse')
+        .send({
+            "queryResult": {
+                "parameters": {
+                    "Course": "Computer Science"
+                },
+                "intent": {
+                    "name": "projects/clearing-bot-voltbp/agent/intents/e7f0c658-6b1c-47ce-b427-f817a781cb38",
+                    "displayName": "Contact Details"
+                },
+                "intentDetectionConfidence": 1,
+                "languageCode": "en"
+            },
+            "session": "projects/clearing-bot-voltbp/agent/sessions/b7e18c2f-8172-f5ba-b65b-afdca867eaaf",
+        })
+
+    expect(response.status).toBe(200);
+    expect(response.body.fulfillmentText).toBe("EAS Undergraduate Admissions Office  +44 (0)121 204 3400  ugadmissions@aston.ac.uk");
     done()
 })
 
