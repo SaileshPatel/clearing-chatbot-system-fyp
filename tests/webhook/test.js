@@ -143,6 +143,30 @@ it('there are no modules in Networking', async done => {
 })
 
 
+it('check that the correct entry requirements are given for Law', async done => {
+    const response = await request
+        .post('/getcourse')
+        .send({
+            "queryResult": {
+                "parameters": {
+                    "Course": "Law"
+                },
+                "intent": {
+                    "name": "projects/clearing-bot-voltbp/agent/intents/e7f0c658-6b1c-47ce-b427-f817a781cb38",
+                    "displayName": "Entry Requirements"
+                },
+                "intentDetectionConfidence": 1,
+                "languageCode": "en"
+            },
+            "session": "projects/clearing-bot-voltbp/agent/sessions/b7e18c2f-8172-f5ba-b65b-afdca867eaaf",
+        })
+    
+    expect(response.status).toBe(200);
+    expect(response.body.fulfillmentText).toBe("5 GCSEs grades A*- C to include:  GCSE Maths – grade C/4  GCSE English Language OR English Literature– grade C/4    A Levels: BBB (standard offer), BBC (with EPQ or Core maths minimum grade B), BCC (Contextual offer)  IB: 31 points overall in the IB diploma with 5,5,5 at HL.   BTEC, Access & other: BTEC Extended Diploma DDD – standard offer  BTEC Extended Diploma DDM – Contextual offer  We accept the QAA-recognised Access Diploma which must consist of 45 credits at Level 3.   You must obtain a minimum of 30 distinction and the rest must be at merit or distinction. Please note that we do not accept the English and Maths components within the Access qualification and you must meet the GCSE entry requirement.");
+    done();
+})
+
+
 afterAll(() => {
     db.close();
 })
