@@ -3,7 +3,7 @@ const supertest = require('supertest');
 const request = supertest(app);
 const db = require('./../../db');
 
-it('get course spaces', async done => {
+it('course description matches Computer Science', async done => {
     const response = await request
         .post('/getcourse')
         .send({
@@ -27,7 +27,7 @@ it('get course spaces', async done => {
     done()
 })
 
-it('get course spaces', async done => {
+it('there are no course spaces on Computer Science', async done => {
     const response = await request
         .post('/getcourse')
         .send({
@@ -47,11 +47,33 @@ it('get course spaces', async done => {
 
     expect(response.status).toBe(200);
     expect(response.body.fulfillmentText).toBe("There are no spaces left on Computer Science.")
-    
     done();
 })
 
-it('get modules', async done => {
+it('there are 100 course spaces on Law', async done => {
+    const response = await request
+        .post('/getcourse')
+        .send({
+            "queryResult": {
+                "parameters": {
+                    "Course": "Law"
+                },
+                "intent": {
+                    "name": "projects/clearing-bot-voltbp/agent/intents/e7f0c658-6b1c-47ce-b427-f817a781cb38",
+                    "displayName": "Course Spaces"
+                },
+                "intentDetectionConfidence": 1,
+                "languageCode": "en"
+            },
+            "session": "projects/clearing-bot-voltbp/agent/sessions/b7e18c2f-8172-f5ba-b65b-afdca867eaaf",
+        })
+
+    expect(response.status).toBe(200);
+    expect(response.body.fulfillmentText).toBe("There are 198 spaces left on Law.")
+    done();
+})
+
+it('there are two modules in Computer Science', async done => {
     const response = await request
         .post('/getcourse')
         .send({
@@ -72,7 +94,52 @@ it('get modules', async done => {
     expect(response.status).toBe(200);
     expect(response.body.fulfillmentText).toBe("You will study the following modules: 'Internet Applications and Database Design', and 'Professional and Social Aspects of Computing'.")
     done()
+})
 
+it('there is one module in Law', async done => {
+    const response = await request
+        .post('/getcourse')
+        .send({
+            "queryResult": {
+                "parameters": {
+                    "Course": "Law"
+                },
+                "intent": {
+                    "name": "projects/clearing-bot-voltbp/agent/intents/e7f0c658-6b1c-47ce-b427-f817a781cb38",
+                    "displayName": "Modules"
+                },
+                "intentDetectionConfidence": 1,
+                "languageCode": "en"
+            },
+            "session": "projects/clearing-bot-voltbp/agent/sessions/b7e18c2f-8172-f5ba-b65b-afdca867eaaf",
+        })
+    
+    expect(response.status).toBe(200);
+    expect(response.body.fulfillmentText).toBe("You still study the following module: 'Introduction to Tort Law'.");
+    done();
+})
+
+it('there are no modules in Networking', async done => {
+    const response = await request
+        .post('/getcourse')
+        .send({
+            "queryResult": {
+                "parameters": {
+                    "Course": "Networking"
+                },
+                "intent": {
+                    "name": "projects/clearing-bot-voltbp/agent/intents/e7f0c658-6b1c-47ce-b427-f817a781cb38",
+                    "displayName": "Modules"
+                },
+                "intentDetectionConfidence": 1,
+                "languageCode": "en"
+            },
+            "session": "projects/clearing-bot-voltbp/agent/sessions/b7e18c2f-8172-f5ba-b65b-afdca867eaaf",
+        })
+    
+    expect(response.status).toBe(200);
+    expect(response.body.fulfillmentText).toBe("There are no modules associated with Networking currently.");
+    done();
 })
 
 
