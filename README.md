@@ -7,11 +7,22 @@ This project concerns the development of a chatbot to aid the University clearin
 
 **Project Supervisor**: Dr Sylvia Wong
 
+## Software Requirements
+These instructions have been run on MacOS.
+These instructions presume you have the following software on your computer:
+* [Git command line tools](https://www.atlassian.com/git/tutorials/install-git)
+* [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
+* [Node.js](https://nodejs.org/en/)
+* [npm](https://www.npmjs.com/get-npm)
+* [PostgreSQL](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup)
+
+**Note: The PostgreSQL instructions from Heroku as opposed to PostgreSQL - this is because the Heroku instructions teach you how to configure the local database so the project can use it**
+
+
 ## How to install/run
 1. Clone the repository into your local machine
-2. Using the command line (or terminal), navigate to the location where you have cloned the repository and run the command `npm install` to install all the dependencies the project uses
-3. Follow the instructions provided by [Heroku](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup) to install PostgreSQL on your machine
-4. After PostgreSQL has been installed, run the following commands to create the relevant tables and enums in your PostgreSQL database
+2. Using the command line (or terminal), navigate to the location where you have cloned the repository and run the command `npm install` to install all the dependencies the project requires
+3. Before executing the program, use the following commands to create the relevant enums and tables required in your PostgreSQL database
 
 ```
 CREATE TYPE public.degree_awards AS ENUM
