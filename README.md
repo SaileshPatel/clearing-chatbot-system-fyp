@@ -7,17 +7,18 @@ This project concerns the development of a chatbot to aid the University clearin
 
 **Project Supervisor**: Dr Sylvia Wong
 
+**Note: The instructions have been written using and presuming the use of a Macbook running MacOS due to developmental constraints** 
+
 ## Software Requirements
-These instructions have been run on MacOS.
-These instructions presume you have the following software on your computer:
+Links to relevant installation instructions have been included.
+These instructions require you have the following software on your computer:
 * [Git command line tools](https://www.atlassian.com/git/tutorials/install-git)
 * [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
-* [Node.js](https://nodejs.org/en/)
-* [npm](https://www.npmjs.com/get-npm)
+* [Node.js - v12.16.3](https://nodejs.org/en/)
+* [npm - 6.14.5](https://www.npmjs.com/get-npm)
 * [PostgreSQL](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup)
 
 **Note: The PostgreSQL instructions from Heroku as opposed to PostgreSQL - this is because the Heroku instructions teach you how to configure the local database so the project can use it**
-
 
 ## How to install/run
 1. Clone the repository into your local machine
@@ -101,4 +102,6 @@ CREATE TABLE public.students
         ON DELETE CASCADE
 )
 ```
+
+4. After running this commands in your PostgreSQL database, run the command `npm start` and you should be able to access the course database management system at `localhost:3000`
 The instructions related to PostgreSQL can be found in more detail at [https://devcenter.heroku.com/articles/heroku-postgresql#local-setup](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup)
