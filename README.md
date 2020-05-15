@@ -22,14 +22,16 @@ These instructions require you have the following software on your computer:
 * [npm - 6.14.5](https://www.npmjs.com/get-npm)
 * [PostgreSQL](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup)
 
+**Note**: These instructions rely on your terminal.
+
 **Note: The PostgreSQL instructions from Heroku as opposed to PostgreSQL - this is because the Heroku instructions teach you how to configure the local database so the project can use it**
 
 The instructions related to PostgreSQL can be found in more detail at [https://devcenter.heroku.com/articles/heroku-postgresql#local-setup](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup)
 
 
 # Table of Contents
-[Local Installation](#local-installation)
-[Heroku Deployment](#heroku-deployment-instructions)
+* [Local Installation](#local-installation)
+* [Heroku Deployment](#heroku-deployment-instructions)
 
 
 ## Local Installation
