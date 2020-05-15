@@ -27,7 +27,12 @@ These instructions require you have the following software on your computer:
 The instructions related to PostgreSQL can be found in more detail at [https://devcenter.heroku.com/articles/heroku-postgresql#local-setup](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup)
 
 
-## How to install locally
+# Table of Contents
+[Local Installation](#local-installation)
+[Heroku Deployment](#heroku-deployment-instructions)
+
+
+## Local Installation
 1. Clone the repository into your local machine
 2. Using the command line (or terminal), navigate to the location where you have cloned the repository and run the command `npm install` to install all the dependencies the project requires
 3. Before executing the program, use the following commands to create the relevant enums and tables required in your PostgreSQL database. Open the PostgreSQL program and click the database with your username to open the command line interface
@@ -112,38 +117,39 @@ CREATE TABLE public.students
 
 4. After running this commands in your PostgreSQL database, run the command `npm start` and you should be able to access the course database management system at `localhost:3000`
 
-## How to deploy (including Dialogflow)
+## Heroku Deployment Instructions
 Now we will deploy our webhook and database management system to Heroku
-1. Run `npm install` to ensure all the dependencies are install 
-2. Log into [Heroku](https://heroku.com/) and create a new app. Set the region to Europe and  **do not** set a pipeline.
-3. After creating the app, you will see a series of instructions in the 'Deploy' tab to deploy the app using Heroku Git. Follow these instructions to deploy the webhook. 
-4. Navigate to the web link for your new Heroku app - it should look like this  `https://[YOUR_APP_NAME].herokuapp.com/ `
-5. You should now see the Home page. Go back to your app dashboard in Heroku.
-6. Click on the Resource tab. In the Add-ons search bar, type in `Heroku Postgres`
-7. You should provision the add-on to your app
-8. In your terminal, run the following command `heroku pg:psql` to open your Heroku Postgres database using the Heroku CLI
-9. Copy and paste the SQL commands from the previous **section** in the order they are presented i.e. degree award enum first. Exit after copying and pasting the SQL command by entering `\q`
-10. Open your Heroku app in the browser - go to `https://[YOUR_APP_NAME].herokuapp.com/ ` and try and add a course to see if your database has been added
-11. We will now log into [Dialogflow](https://dialogflow.com/) to set up the chatbot.
-12. Create a new Dialogflow agent
-13. Click on the cog next to the agent name to access the settings
-14. Open the `Export and Import` tab
-15. Click  `Restore as ZIP` - this will remove all existing intents and entities
-16. Upload the file named `Clearing-Bot.zip`
-17. Once you have done this, click on  `Fulfillment` on the left hand side of the screen
-18. Change the link from `https://chatbot-fyp-webhook.herokuapp.com/getcourse` to `https://[YOUR_APP_NAME].herokuapp.com/getcourse` and and click save at the bottom of the page
-19. Click on the `Integrations` on the left hand side of the screen
-20. Scroll down and find `Dialogflow Messenger`. Click the tab on the card to turn it on. 
-21. Copy the script tag to your clipboard
-22. Open `views\index.pug` in a text editor
-23. Replace the existing script tag shown below in `index.pug` with the script tag you copied from Dialogflow
+1. Open your terminal and navigate to the directory
+2. Run `npm install` to ensure all the dependencies are install 
+3. Log into [Heroku](https://heroku.com/) and create a new app. Set the region to Europe and  **do not** set a pipeline.
+4. After creating the app, you will see a series of instructions in the 'Deploy' tab to deploy the app using Heroku Git. Follow these instructions to deploy the webhook. 
+5. Navigate to the web link for your new Heroku app - it should look like this  `https://[YOUR_APP_NAME].herokuapp.com/ `
+6. You should now see the Home page. Go back to your app dashboard in Heroku.
+7. Click on the Resource tab. In the Add-ons search bar, type in `Heroku Postgres`
+8. You should provision the add-on to your app
+9. In your terminal, run the following command `heroku pg:psql` to open your Heroku Postgres database using the Heroku CLI
+10. Copy and paste the SQL commands from the previous **section** in the order they are presented i.e. degree award enum first. Exit after copying and pasting the SQL commands by entering `\q`
+11. Open your Heroku app in the browser - go to `https://[YOUR_APP_NAME].herokuapp.com/ ` and try and add a course to see if your database has been added
+12. We will now log into [Dialogflow](https://dialogflow.com/) to set up the chatbot.
+13. Create a new Dialogflow agent
+14. Click on the cog next to the agent name to access the settings
+15. Open the `Export and Import` tab
+16. Click  `Restore as ZIP` - this will remove all existing intents and entities
+17. Upload the file named `Clearing-Bot.zip`
+18. Once you have done this, click on  `Fulfillment` on the left hand side of the screen
+19. Change the link from `https://chatbot-fyp-webhook.herokuapp.com/getcourse` to `https://[YOUR_APP_NAME].herokuapp.com/getcourse` and and click save at the bottom of the page
+20. Click on the `Integrations` on the left hand side of the screen
+21. Scroll down and find `Dialogflow Messenger`. Click the tab on the card to turn it on. 
+22. Copy the script tag to your clipboard
+23. Open `views\index.pug` in a text editor
+24. Replace the existing script tag shown below in `index.pug` with the script tag you copied from Dialogflow
 ```
     <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
     <df-messenger intent="WELCOME" chat-title="Clearing-Bot" agent-id="3246b9f6-7370-45fc-90f3-05fcf7895761" language-code="en"></df-messenger>
 ```
-24. Make sure that the `<df-messenger>` opening tag is all on one line as in the example above 
-25. In your terminal, type `git add -p` and add the change you have made
-26. In your terminal, type `git commit -m "add my dialogflow messenger"`
-27. In your terminal, type `git push heroku master`
-28. You have now completed your deployment. 
+25. Make sure that the `<df-messenger>` opening tag is all on one line as in the example above 
+26. In your terminal, type `git add -p` and add the change you have made
+27. In your terminal, type `git commit -m "add my dialogflow messenger"`
+28. In your terminal, type `git push heroku master`
+29. You have now completed your deployment. 
 29. You may wish to add some courses to your chatbot. Go to the 'Add Course Programme' page to add a course
