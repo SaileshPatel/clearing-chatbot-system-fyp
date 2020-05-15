@@ -118,7 +118,7 @@ function fulfillmentText(course, columnToQuery, response){
             if(response.rows.length == 0){
                 fulfillmentText =  "";
             } else if (response.rows.length == 1){
-                fulfillmentText =  "We can provide information about the following course: '" + response.rows[0]['module_title'] + "'.";
+                fulfillmentText =  "We can provide information about the following course: '" + response.rows[0]['course_name'] + "'.";
             } else {
                 let course_titles = response.rows.map(course => "'" + course['course_name'] + "'");
                 let course_list = course_titles.slice(0, course_titles.length - 1).join(", ") + ", and " + course_titles.slice(-1);
