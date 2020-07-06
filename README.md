@@ -1,7 +1,7 @@
 # Clearing Chatbot Dialogflow Webhook & Database Management System
 
 ## Project Details
-This project was created as the deliverable of my final project at Aston University.
+This project was created as the deliverable of my final project at Aston University, and as such, please do not contribute to this project.
 
 This project concerns the development of a chatbot to aid the University clearing admissions process. This repository provides the webhook used by the chatbot to obtain data from the PostgreSQL database and the course information management system which allows administrators to upload and delete courses, as well as remove available spaces from courses. 
 
