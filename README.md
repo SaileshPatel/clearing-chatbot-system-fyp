@@ -1,5 +1,8 @@
 # Clearing Chatbot Dialogflow Webhook & Database Management System
 
+**This repository has now been archived as of 16/12/2021. This repository has not been maintained since May 2020**
+
+
 ## Project Details
 This project was created as the deliverable of my final project at Aston University, and as such, please do not contribute to this project.
 
